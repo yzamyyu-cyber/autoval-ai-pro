@@ -90,12 +90,13 @@ if (res is not None and res.get("ticker") == ticker
         st.markdown("#### Scenario table (cash-only bridge)")
         rows = []
         for case, v in cases.items():
+            growth_disp = f"{v['growth']:+.1%}" if v.get('growth') is not None else "Driver-based"
             rows.append({
                 "Case": case.title(),
                 "Intrinsic/share (cash-only)": round(v["intrinsic_per_share_usd"], 2),
                 "Upside vs close": f"{v['upside_vs_price_pct']:+.1f}%",
                 "WACC": f"{v['wacc']:.1%}",
-                "FCFF growth": f"{v['growth']:+.1%}",
+                "FCFF growth": growth_disp,
                 "Terminal g": f"{v['terminal_growth']:.1%}",
                 "Terminal weight %": round(v["terminal_weight_of_ev"] * 100, 1),
             })
@@ -410,7 +411,8 @@ if (res is not None and res.get("ticker") == ticker
     with tab_s:
         st.markdown("#### DCF assumptions")
         ap = analysis["assumption_provenance"]
-        st.markdown(f"- **Growth:** {ap['growth']}\n- **WACC:** {ap['wacc']}\n- **Terminal growth:** {ap['terminal_growth']}")
+        growth_disp = ap.get('growth') or ap.get('method') or '—'
+        st.markdown(f"- **Growth:** {growth_disp}\n- **WACC:** {ap['wacc']}\n- **Terminal growth:** {ap['terminal_growth']}")
 
         st.markdown("#### Source dates & providers")
         prov = result["provenance"]

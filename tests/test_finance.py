@@ -123,4 +123,29 @@ class BridgeTests(unittest.TestCase):
         self.assertNotIn("intrinsic_per_share_usd_conservative", base)
 
 
+    def test_driver_scenario_has_no_growth_field(self):
+        from autoval.finance import analyze_driver_valuation
+        stock = {
+            "ticker": "X", "market_price": 100.0, "shares": 10, "net_debt": 20,
+            "diluted_shares": 11, "total_debt": 50, "cash_and_equivalents": 30,
+        }
+        history = {
+            "revenue": [100, 120, 144, 168, 200, 240],
+            "operating_income": [20, 26, 32, 40, 50, 60],
+            "da": [5, 6, 7, 8, 9, 10],
+            "capex": [10, 12, 15, 18, 22, 26],
+            "nwc": [10, 12, 14, 16, 18, 20],
+            "effective_tax_rate": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
+        }
+        a = analyze_driver_valuation(stock, history, wacc=0.08)
+        for case in ("bear", "base", "bull"):
+            s = a["scenarios"][case]
+            self.assertNotIn("growth", s)          # UI must use .get('growth')
+            self.assertIn("forecast_fcff_usd", s)
+            self.assertIn("wacc", s)
+            self.assertIn("terminal_growth", s)
+        self.assertNotIn("growth", a["assumption_provenance"])
+        self.assertIn("method", a["assumption_provenance"])
+
+
 if __name__=="__main__": unittest.main()
