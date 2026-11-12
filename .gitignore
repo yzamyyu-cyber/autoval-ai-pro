@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.streamlit/secrets.toml
+outputs/
+.DS_Store
+.agents/
+.claude/
+
+# Original course scaffolds — kept locally, excluded from the public repo
+START_HERE.md
+WORKSWARM_PROMPTS.md
+REPORT_TEMPLATE.md
+PRESENTATION_OUTLINE.md
+SUBMISSION_CHECKLIST.md

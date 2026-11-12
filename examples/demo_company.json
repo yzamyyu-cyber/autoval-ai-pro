@@ -1,0 +1,23 @@
+{
+  "ticker": "DEMO",
+  "company": "Fictional Example Holdings (synthetic data, NOT a real stock)",
+  "market_price": 145.00,
+  "price_date": "2026-10-30",
+  "financial_asof": "2025-12-31",
+  "net_debt": 12000000000,
+  "shares": 1000000000,
+  "ebit": 15000000000,
+  "depreciation": 2500000000,
+  "net_income": 10500000000,
+  "fcff_history": [
+    {"year_end": "2023-12-31", "fcff_usd": 9000000000},
+    {"year_end": "2024-12-31", "fcff_usd": 9600000000},
+    {"year_end": "2025-12-31", "fcff_usd": 10100000000}
+  ],
+  "source": {
+    "provider": "Synthetic classroom example, manually constructed",
+    "url": null,
+    "method_note": "This example demonstrates calculations but is NOT a real valuation.",
+    "disclosure_warnings": ["All figures are hypothetical and should never be represented as public market data."]
+  }
+}
