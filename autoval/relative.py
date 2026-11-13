@@ -69,7 +69,9 @@ def ev_ebitda(market_cap: float, total_debt: float, finance_leases: float,
     Returns None when EBITDA is non-positive or EV is invalid."""
     if ebitda is None or float(ebitda) <= 0:
         return None
-    ev = (float(market_cap or 0) + float(total_debt or 0) + float(finance_leases or 0)
+    if market_cap is None:
+        return None  # cannot compute EV without a market cap; do not treat it as zero
+    ev = (float(market_cap) + float(total_debt or 0) + float(finance_leases or 0)
           + float(preferred or 0) + float(minority or 0) - float(cash or 0))
     if ev <= 0:
         return None

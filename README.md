@@ -39,7 +39,7 @@ autoval/
   peers.py / relative.py / relative_data.py   P/E + EV/EBITDA relative valuation
   market.py / technical.py   prices + SMA/backtest
   pipeline.py            orchestration
-tests/                   97 automated tests
+tests/                   automated test suite
 skills/autoval-equity-research/   reusable WorkSwarm Skill
 ```
 
@@ -100,7 +100,7 @@ Forecast, Relative valuation, WACC, Technical, and Sources tabs.
 
 ```bash
 python verify_output.py --analysis outputs/<ticker>_live/analysis.json
-python -m unittest discover -s tests -v   # 97 tests
+python -m unittest discover -s tests -v   # full automated suite
 ```
 
 `verify_output.py` recomputes the DCF independently with `Decimal` arithmetic to within

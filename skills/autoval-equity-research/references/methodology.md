@@ -47,5 +47,5 @@ tags vary by issuer.
 
 SMA20 > SMA50 traded next bar (10 bps/trade) vs buy-and-hold, in-sample only.
 `verify_output.py` recomputes the DCF (constant-growth and driver-based) with `Decimal`
-arithmetic to within $0.01/share. 91 automated tests cover finance, SEC, forecast, WACC and
+arithmetic to within $0.01/share. Automated tests cover finance, SEC, forecast, WACC and
 relative-valuation logic.

@@ -361,7 +361,7 @@ def analyze_driver_valuation(stock: dict, history: dict, wacc: float | None = No
     limitations = [
         "Driver-based FCFF forecast; drivers are derived from historical ratios/trends, not forward guidance.",
         "Normalized operating tax rate is a documented baseline, separate from the WACC marginal tax rate.",
-        "Operating NWC uses a single latest-balance-sheet observation (multi-year balance-sheet history not extracted).",
+        "Operating NWC ratio uses the latest fiscal-year-end balance sheet (a single point rather than a multi-year average).",
         "The model assumes driver ratios are stable over five years; scenario spreads are rule-based.",
         "No automatic buy/sell instruction or live trading is provided.",
     ]

@@ -42,6 +42,10 @@ class EvEbitdaTests(unittest.TestCase):
         self.assertAlmostEqual(ev, 1000 + 200 + 50 - 100)
         self.assertAlmostEqual(mult, ev / 100)
 
+    def test_ev_ebitda_missing_market_cap_returns_none(self):
+        # a missing market cap must not be treated as zero (invalid multiple)
+        self.assertIsNone(ev_ebitda(None, 200, 0, 0, 0, 100, 50))
+
     def test_negative_ebitda_returns_none(self):
         self.assertIsNone(ev_ebitda(1000, 200, 0, 0, 0, 100, -10))
 

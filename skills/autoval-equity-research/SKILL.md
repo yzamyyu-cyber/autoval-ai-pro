@@ -84,7 +84,8 @@ ERP parsing) and a market-data connection for prices/beta. Python 3.11+.
 ## Verification
 
 - `verify_output.py` recomputes DCF independently (Decimal) to within $0.01/share.
-- Regression suite: **91 tests** (`unittest discover -s tests`).
+- Regression suite: `unittest discover -s tests` (covers finance, SEC, forecast, WACC,
+  relative-valuation and report logic).
 - Open the actual files; a bare "done" message does not count as evidence.
 
 ## Limitations
