@@ -1,0 +1,23 @@
+{
+  "ticker": "DEMO2",
+  "company": "Atlas Robotics Corp (synthetic data, NOT a real stock)",
+  "market_price": 82.50,
+  "price_date": "2026-10-30",
+  "financial_asof": "2025-12-31",
+  "net_debt": 4000000000,
+  "shares": 3600000000,
+  "ebit": 18000000000,
+  "depreciation": 3200000000,
+  "net_income": 12600000000,
+  "fcff_history": [
+    {"year_end": "2023-12-31", "fcff_usd": 15000000000},
+    {"year_end": "2024-12-31", "fcff_usd": 17100000000},
+    {"year_end": "2025-12-31", "fcff_usd": 19494000000}
+  ],
+  "source": {
+    "provider": "Synthetic classroom example, manually constructed",
+    "url": null,
+    "method_note": "This example demonstrates calculations but is NOT a real valuation.",
+    "disclosure_warnings": ["All figures are hypothetical and should never be represented as public market data."]
+  }
+}

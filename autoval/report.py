@@ -31,23 +31,30 @@ def build_report_markdown(result: dict) -> str:
     wacc_block = result.get("wacc")
     relative = result.get("relative")
     ap = a["assumption_provenance"]
+    demo = result["mode"] == "demo"
+    price_label = "Fictional reference price" if demo else "Market close"
     L = []
 
     L.append(f"# {result['company']} ({result['ticker']}) — Equity Research Report")
     L.append("")
-    L.append("> **Educational prototype — not investment advice.** Prices are delayed (never "
-             "real-time). Intrinsic value is a model estimate, not a buy/sell signal.")
+    if demo:
+        L.append("> **Synthetic offline example.** The issuer and all figures are fictional. "
+                 "This educational report is not investment advice.")
+    else:
+        L.append("> **Educational prototype — not investment advice.** Prices are delayed. "
+                 "Intrinsic value is a model estimate.")
     L.append("")
 
     L.append("## Company & data dates")
-    L.append(f"- Market close: **{_usd(a['market_price'])}** as of **{a['price_date']}**")
+    L.append(f"- {price_label}: **{_usd(a['market_price'])}** as of **{a['price_date']}**")
     L.append(f"- Financial FY: **{a['financial_asof']}**")
     L.append(f"- Run (UTC): {result['run_utc']}")
     L.append(f"- Shares: common {_num(a.get('shares_outstanding'))} · diluted {_num(a.get('diluted_shares'))}")
     L.append("")
 
     L.append("## Valuation summary")
-    L.append("| Scenario | Intrinsic/share | vs market | WACC | FCFF growth | Terminal g |")
+    benchmark = "reference" if demo else "market"
+    L.append(f"| Scenario | Intrinsic/share | vs {benchmark} | WACC | FCFF growth | Terminal g |")
     L.append("|---|---:|---:|---:|---:|---:|")
     for case in ("bear", "base", "bull"):
         v = cases[case]
@@ -145,7 +152,7 @@ def build_report_markdown(result: dict) -> str:
                          f"{_usd(ev['implied_price_median'])}")
     else:
         L.append("## Relative valuation")
-        L.append("- Not available (no peer group configured for this ticker).")
+        L.append("- Peer estimates are unavailable for this run.")
     L.append("")
 
     L.append("## Sources & limitations")

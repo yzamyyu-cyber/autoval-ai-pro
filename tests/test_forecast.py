@@ -2,7 +2,7 @@ import unittest
 from decimal import Decimal
 from unittest.mock import patch
 from autoval.forecast import project_fcff, derive_scenario_drivers, build_forecast
-from autoval.finance import dcf_from_fcff
+from autoval.finance import analyze_driver_valuation, dcf_from_fcff
 
 
 class ForecastFormulaTests(unittest.TestCase):
@@ -79,6 +79,13 @@ class ScenarioDriverTests(unittest.TestCase):
         for case, obj in f.items():
             self.assertEqual(len(obj["rows"]), 5)
             self.assertIn("fcff", obj["rows"][0])
+
+    def test_driver_valuation_uses_labeled_fallback_when_company_wacc_is_missing(self):
+        stock = {"ticker": "FICT", "market_price": 20, "shares": 10, "net_debt": 10}
+        valuation = analyze_driver_valuation(stock, self._history())
+        self.assertEqual(valuation["wacc_basis"], "illustrative")
+        self.assertEqual({case["wacc"] for case in valuation["scenarios"].values()}, {.10})
+        self.assertIsNotNone(valuation["capex_sensitivity"])
 
 
 class DcfFromFcffTests(unittest.TestCase):
