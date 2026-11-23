@@ -1,6 +1,6 @@
 ---
 name: autoval-equity-research
-description: Run and independently verify a ticker-only U.S. equity valuation — automatic SEC retrieval, driver-based five-year FCFF DCF, company-specific WACC, investment-adjusted equity bridge, P/E and EV/EBITDA relative valuation, technical indicators, and Decimal-based independent verification. No trading or investment advice.
+description: Run and independently verify a ticker-only U.S. equity valuation — automatic SEC retrieval, driver-based five-year FCFF DCF, company-specific WACC, investment-adjusted equity bridge, P/E and EV/EBITDA relative valuation, technical indicators, reverse DCF, and Decimal-based independent verification. No trading or investment advice.
 ---
 
 # AutoVal Equity Research — Regular WorkSwarm Skill
@@ -29,6 +29,8 @@ is deterministic Python; the model must not invent figures.
 6. **Technical indicators** — SMA 20/50/200 and a next-bar SMA-cross backtest vs buy-and-hold.
 7. **Independent verification** — `verify_output.py` recomputes the DCF with `Decimal`
    arithmetic; `pytest`/`unittest` regression suite.
+8. **Reverse DCF** — `reverse_dcf.py` uses a saved `analysis.json` to solve for the constant
+   FCFF growth from year 2 onward that matches a share price under the original base assumptions.
 
 ## Inputs
 
@@ -57,13 +59,16 @@ export SEC_USER_AGENT="AutoValStudentResearch you@example.edu"
 # verify + tests
 .venv/bin/python verify_output.py --analysis outputs/<ticker>_live/analysis.json
 .venv/bin/python -m unittest discover -s tests -v
+
+# reverse DCF on the offline case above (optional --price overrides the saved reference)
+.venv/bin/python reverse_dcf.py --analysis outputs/demo_run/analysis.json --output outputs/demo_run/reverse_dcf.json
 ```
 
 ## Outputs (per run)
 
 `analysis.json`, `summary.md`, `technical.csv`, `forecast.csv` (driver runs),
 `peer_comparison.csv` + `relative_valuation.json` (when peers configured),
-`verification.json`, `DATA_AUDIT.md` / `RECORD.md` (when written).
+`verification.json`, `reverse_dcf.json` (if requested), `DATA_AUDIT.md` / `RECORD.md` (when written).
 
 ## Dependencies
 
@@ -84,6 +89,10 @@ ERP parsing) and a market-data connection for prices/beta. Python 3.11+.
 ## Verification
 
 - `verify_output.py` recomputes DCF independently (Decimal) to within $0.01/share.
+- For reverse DCF, report the target, solved growth, fixed inputs, and repriced value.
+  For the synthetic $145 case, expect about 6.98% annual FCFF growth and less than
+  $0.01 per share of repricing error. If the tool rejects a target, record the reported
+  limitation with the input that produced it.
 - Regression suite: `unittest discover -s tests` (covers finance, SEC, forecast, WACC,
   relative-valuation and report logic).
 - Open the actual files; a bare "done" message does not count as evidence.

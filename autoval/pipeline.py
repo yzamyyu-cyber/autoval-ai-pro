@@ -11,14 +11,15 @@ from .sec import get_sec_financials
 from .market import fetch_market
 
 ROOT = Path(__file__).resolve().parent.parent
+DEMO_FILES = {"DEMO": "demo_company.json", "DEMO2": "demo_company_2.json"}
 
 
-def demo_market_closes() -> pd.Series:
+def demo_market_closes(price: float = 145.0, price_date: str = "2026-10-30") -> pd.Series:
     # Deterministic, explicitly synthetic series. Does not imply real trading behavior.
-    ix = pd.bdate_range(end="2026-10-30", periods=320)
+    ix = pd.bdate_range(end=price_date, periods=320)
     dates = np.arange(len(ix))
     raw = (1.0012 ** dates) * (1 + .045 * np.sin(dates/13.0))
-    close = 145.0 * raw / raw[-1]
+    close = price * raw / raw[-1]
     return pd.Series(close, index=ix, name="close")
 
 
@@ -27,13 +28,13 @@ def build_analysis(ticker: str = "DEMO", mode: str = "demo", user_agent: str = "
     if not ticker.isalnum() or len(ticker) > 10:
         raise ValueError("Ticker must be 1-10 letters/numbers; avoid arbitrary URLs or command input")
     if mode == "demo":
-        with (ROOT / "examples" / "demo_company.json").open(encoding="utf-8") as f:
+        if ticker not in DEMO_FILES:
+            raise ValueError("Offline examples are available for DEMO and DEMO2.")
+        with (ROOT / "examples" / DEMO_FILES[ticker]).open(encoding="utf-8") as f:
             stock = json.load(f)
-        if ticker != "DEMO":
-            raise ValueError("Offline example is only available for ticker DEMO; choose Live for other tickers")
-        closes = demo_market_closes()
+        closes = demo_market_closes(stock["market_price"], stock["price_date"])
         market_source = {"provider": "Synthetic deterministic series", "realtime": False,
-                         "price_basis": "Separate illustrative market price in demo_company.json",
+                         "price_basis": f"Illustrative reference price in {DEMO_FILES[ticker]}",
                          "backtest_basis": "Synthetic generated prices"}
     elif mode == "live":
         from .sec import get_sec_financials

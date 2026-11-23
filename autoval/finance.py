@@ -2,6 +2,8 @@
 from __future__ import annotations
 from math import isfinite
 
+ILLUSTRATIVE_WACC = {"bear": 0.11, "base": 0.10, "bull": 0.09}
+
 
 def fcff_from_us_gaap_cashflows(cfo: float, capex: float, interest_expense: float, tax_rate: float) -> float:
     """Approximate unlevered FCF: US-GAAP CFO - capex + after-tax interest.
@@ -108,9 +110,10 @@ def derive_scenarios(fcff_history: list[float], wacc: float | None = None) -> di
         scenario_wacc = None
         discount_origin = "Illustrative fixed policy WACC (11%/10%/9%); NOT market-calibrated company WACC"
 
-    bear_wacc = scenario_wacc if scenario_wacc is not None else 0.11
-    base_wacc = scenario_wacc if scenario_wacc is not None else 0.10
-    bull_wacc = scenario_wacc if scenario_wacc is not None else 0.09
+    bear_wacc, base_wacc, bull_wacc = (
+        scenario_wacc if scenario_wacc is not None else ILLUSTRATIVE_WACC[case]
+        for case in ("bear", "base", "bull")
+    )
     for w, tg in ((bear_wacc, 0.015), (base_wacc, 0.020), (bull_wacc, 0.025)):
         if w <= tg:
             raise ValueError(f"WACC ({w:.4f}) must exceed terminal growth ({tg:.4f})")
@@ -301,11 +304,12 @@ def analyze_driver_valuation(stock: dict, history: dict, wacc: float | None = No
     if price <= 0 or not isfinite(price):
         raise ValueError("Market price must be positive")
     terminal = {"bear": 0.015, "base": 0.020, "bull": 0.025}
+    discount_rate = wacc if wacc is not None else ILLUSTRATIVE_WACC["base"]
 
     results = {}
     for case in ("bear", "base", "bull"):
         stream = [r["fcff"] for r in forecasts[case]["rows"]]
-        d = dcf_from_fcff(stream, shares, net_debt, wacc, terminal[case])
+        d = dcf_from_fcff(stream, shares, net_debt, discount_rate, terminal[case])
         d["upside_vs_price_pct"] = (d["intrinsic_per_share_usd"] / price - 1) * 100
         results[case] = d
     if any(results[k]["intrinsic_per_share_usd"] > results[k2]["intrinsic_per_share_usd"]
@@ -355,7 +359,7 @@ def analyze_driver_valuation(stock: dict, history: dict, wacc: float | None = No
         }
         for case in ("bear", "base", "bull"):
             stream = [r["fcff"] for r in alt[case]]
-            d = dcf_from_fcff(stream, shares, net_debt, wacc, terminal[case])
+            d = dcf_from_fcff(stream, shares, net_debt, discount_rate, terminal[case])
             capex_sensitivity["intrinsic_per_share_usd"][case] = d["intrinsic_per_share_usd"]
 
     limitations = [
@@ -373,7 +377,7 @@ def analyze_driver_valuation(stock: dict, history: dict, wacc: float | None = No
         "assumption_provenance": {
             "method": "Driver-based five-year forecast (Revenue -> EBIT -> NOPAT -> FCFF)",
             "wacc": "Company-specific WACC (single rate across scenarios)" if wacc is not None
-                    else "Illustrative fixed policy WACC",
+                    else "Illustrative fixed policy WACC (10% across scenarios)",
             "terminal_growth": "1.5% / 2.0% / 2.5% (Bear/Base/Bull), separate from operating growth",
         },
         "bridge": bridge,
