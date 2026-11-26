@@ -1,0 +1,27 @@
+{
+  "company": "JOHNSON & JOHNSON",
+  "ticker": "JNJ",
+  "detected_problem": "Reconstruct current borrowings, long-term debt, cash and marketable securities.",
+  "original_production_value": 44651000000.0,
+  "proposed_financial_value": null,
+  "financial_definition": null,
+  "xbrl_tags": [],
+  "reporting_period": null,
+  "filing_date": null,
+  "sec_accession": null,
+  "filing_url": null,
+  "statement_or_note_reference": null,
+  "derivation_formula": null,
+  "accounting_explanation": null,
+  "deterministic_validation": {
+    "status": "unresolved",
+    "checks": [],
+    "hard_failures": [],
+    "soft_warnings": [],
+    "error": "LLM investigation failed: HTTPSConnectionPool(host='tokendance.space', port=443): Read timed out. (read timeout=300)"
+  },
+  "remaining_uncertainty": null,
+  "approval_status": "unresolved",
+  "category": "debt_unavailable",
+  "record_utc": "2026-11-25T08:22:00.542445+00:00"
+}

@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "independent_method": "Decimal arithmetic recomputation of forecast stream and perpetuity, not engine call",
+  "scenario_order_pass": true,
+  "checks": [
+    {
+      "case": "bear",
+      "independent_intrinsic_usd": 76.776061,
+      "engine_intrinsic_usd": 76.776061,
+      "abs_difference_usd": 4.263256414560601e-14,
+      "tolerance_usd": 0.01,
+      "pass": true
+    },
+    {
+      "case": "base",
+      "independent_intrinsic_usd": 163.80727,
+      "engine_intrinsic_usd": 163.80727,
+      "abs_difference_usd": 2.842170943040401e-14,
+      "tolerance_usd": 0.01,
+      "pass": true
+    },
+    {
+      "case": "bull",
+      "independent_intrinsic_usd": 260.555851,
+      "engine_intrinsic_usd": 260.555851,
+      "abs_difference_usd": 1.1368683772161603e-13,
+      "tolerance_usd": 0.01,
+      "pass": true
+    }
+  ]
+}

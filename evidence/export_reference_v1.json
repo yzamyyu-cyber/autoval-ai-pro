@@ -1,0 +1,38 @@
+{
+  "MSFT_annual": {
+    "base_revenue": 331839000000.0,
+    "base_intrinsic": 163.80726984313313,
+    "ms_intrinsic": 317.6961599593058,
+    "wacc": 0.09807221570554085,
+    "terminal_growth": 0.02,
+    "net_debt": 86173000000.0,
+    "shares": 7453000000.0
+  },
+  "MSFT_ttm": {
+    "base_revenue": 346445000000.0,
+    "base_intrinsic": 171.70427629761124,
+    "ms_intrinsic": 332.3666352617399,
+    "wacc": 0.09807221570554085,
+    "terminal_growth": 0.02,
+    "net_debt": 86173000000.0,
+    "shares": 7453000000.0
+  },
+  "NVDA_annual": {
+    "base_revenue": 215938000000.0,
+    "base_intrinsic": 74.6041585649409,
+    "ms_intrinsic": 91.35235765838709,
+    "wacc": 0.14280262193255397,
+    "terminal_growth": 0.02,
+    "net_debt": 10923000000.0,
+    "shares": 24514000000.0
+  },
+  "NVDA_ttm": {
+    "base_revenue": 302970000000.0,
+    "base_intrinsic": 104.4591932202372,
+    "ms_intrinsic": 127.95761350449187,
+    "wacc": 0.14280262193255397,
+    "terminal_growth": 0.02,
+    "net_debt": 10923000000.0,
+    "shares": 24514000000.0
+  }
+}

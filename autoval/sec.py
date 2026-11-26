@@ -13,6 +13,31 @@ from .finance import fcff_from_us_gaap_cashflows
 INDEX_URL = "https://www.sec.gov/files/company_tickers.json"
 FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik:010d}.json"
 
+# Source-backed confirmations that a debt component is ZERO at a specific balance-sheet
+# date (from the original filing's balance sheet / debt note). This is accounting
+# evidence with date and scope restrictions — NOT an age-based heuristic and NOT a
+# hardcoded valuation amount. Keyed by (ticker, component label).
+DEBT_ZERO_EVIDENCE = {
+    "COST": {"Short-term borrowings": {
+        "asof": "2026-08-30", "note": "Note 4 (short-term borrowings $0)",
+        "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"}},
+    "UPS": {"Short-term borrowings": {
+        "asof": "2026-09-30", "note": "commercial paper outstanding $0",
+        "url": "https://www.sec.gov/Archives/edgar/data/1090727/000162828026070246/ups-20260930.htm"}},
+}
+
+# Source-backed confirmations that a debt component is NOT reported separately because it is
+# INCLUDED in the issuer's current-period short-term borrowings ("loans and notes payable")
+# balance-sheet line. This prevents both double-counting and an unjustified hard block. Keyed
+# by (ticker, component label); date + note + URL scoped like DEBT_ZERO_EVIDENCE.
+DEBT_INCLUDED_IN_SHORT_TERM_EVIDENCE = {
+    "JNJ": {"Current portion of long-term debt": {
+        "asof": "2026-09-27",
+        "note": "10-Q note: current portion of corporate bonds is included in 'Loans and notes payable' "
+                "($8,852M), not a separate balance-sheet line; net debt position disclosed as ~$27.4B.",
+        "url": "https://www.sec.gov/Archives/edgar/data/200406/000020040626000197/jnj-20260927.htm"}},
+}
+
 
 def fetch_json(url: str, user_agent: str) -> dict:
     if not user_agent or "@" not in user_agent:
@@ -117,6 +142,26 @@ def instant_at_date_multi(facts: dict, taxonomy: str, tags: tuple, asof: str,
     return None
 
 
+def finance_lease_liability(facts: dict, asof: str) -> dict | None:
+    """Total finance-lease (capital-lease) liability reported at `asof`.
+
+    Prefers the combined `FinanceLeaseLiability` total; otherwise sums the
+    noncurrent and current components. Returns None when no finance-lease
+    liability is reported at that date (the caller treats it as zero and
+    discloses it — never guessed from a stale date).
+    """
+    total = instant_at_date(facts, "us-gaap", "FinanceLeaseLiability", asof)
+    if total is not None:
+        return total
+    nc = instant_at_date(facts, "us-gaap", "FinanceLeaseLiabilityNoncurrent", asof)
+    cur = instant_at_date(facts, "us-gaap", "FinanceLeaseLiabilityCurrent", asof)
+    if nc is not None or cur is not None:
+        return {"value": (nc["value"] if nc else 0.0) + (cur["value"] if cur else 0.0),
+                "end": asof, "filed": (nc or cur)["filed"], "form": (nc or cur)["form"],
+                "tag": "FinanceLeaseLiabilityNoncurrent+Current"}
+    return None
+
+
 def quarterly_values(facts: dict, tags: tuple[str, ...], today: str | None = None,
                      unit: str = "USD") -> dict:
     """~3-month 10-Q duration facts keyed by quarter-end date (freshest filing per quarter).
@@ -156,89 +201,200 @@ def get_sec_financials(ticker: str, user_agent: str) -> dict:
     facts = fetch_json(url, user_agent)
     cfo = annual_values(facts, ("NetCashProvidedByUsedInOperatingActivities",))
     capex = annual_values(facts, ("PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsToAcquireProductiveAssets"))
-    interest = annual_values(facts, ("InterestExpenseNonoperating", "InterestExpense"))
+    interest = annual_values(facts, ("InterestExpenseNonoperating", "InterestExpense",
+                                    "InterestIncomeExpenseNonoperatingNet"))
     cash_interest = annual_values(facts, ("InterestPaidNet", "InterestPaid"))
+    # Some issuers (e.g. CAT, with a captive finance arm) do not tag a standalone
+    # interest-expense fact; cash interest paid is then the available proxy for the
+    # historical cross-check (disclosed, not treated as interchangeable with expense).
+    interest_series = interest if interest else cash_interest
     taxes = annual_values(facts, ("IncomeTaxExpenseBenefit",))
     pretax = annual_values(facts, (
         "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
         "IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments",
     ))
-    common = sorted(set(cfo) & set(capex) & set(interest))
-    if len(common) < 2:
-        missing = [k for k,v in (("operating cash flow",cfo),("capital expenditure",capex),
-                                  ("interest expense",interest)) if not v]
+    common = sorted(set(cfo) & set(capex) & set(interest_series))
+    hist = []
+    records = []
+    fcff_warning = None
+    missing = [k for k, v in (("operating cash flow", cfo), ("capital expenditure", capex),
+                              ("interest expense", interest_series)) if not v]
+    if missing:
+        # Essential financial-statement facts are genuinely absent under every supported
+        # tag — cannot proceed (a partial report would lack the cash-flow cross-check).
         raise ValueError(
             f"Insufficient matched annual SEC facts for reliable FCFF (matched years={len(common)}; "
             f"missing categories={missing}). Stop; inspect financial statements manually or use another ticker."
         )
-    common = common[-4:]
-    hist = []
-    records = []
-    for end in common:
-        tr = 0.21
-        tax_note = "21% explicit policy fallback; effective tax data missing/out of range"
-        if end in taxes and end in pretax and pretax[end]["value"] > 0:
-            observed = taxes[end]["value"] / pretax[end]["value"]
-            if 0 <= observed <= 0.5:
-                tr = observed
-                tax_note = f"SEC observed tax expense / pretax income ({tr:.1%})"
-        int_addback = cash_interest[end]["value"] if end in cash_interest else interest[end]["value"]
-        int_addback_note = ("cash interest paid" if end in cash_interest
-                            else "interest expense (proxy; cash interest paid unavailable)")
-        cf = fcff_from_us_gaap_cashflows(cfo[end]["value"], capex[end]["value"], int_addback, tr)
-        hist.append({"year_end": end, "fcff_usd": cf})
-        records.append({"year_end": end, "cfo": cfo[end], "capex": capex[end],
-                        "interest": interest[end], "cash_interest": cash_interest.get(end),
-                        "interest_addback": int_addback, "interest_addback_note": int_addback_note,
-                        "tax": taxes.get(end),
-                        "pretax": pretax.get(end), "tax_rate": tr, "tax_rate_note": tax_note,
-                        "derived_fcff_usd": cf})
+    if len(common) < 2:
+        # Facts exist but do not share matched fiscal years (tag-migration / calendar
+        # mismatch). The historical cross-check is a reference figure, NOT the driver
+        # forecast input (retrieve_history() supplies that), so record the limitation and
+        # continue with the balance-sheet extraction (debt/cash/shares).
+        fcff_warning = (f"Historical FCFF cross-check unavailable: matched years={len(common)}.")
+    else:
+        common = common[-4:]
+        for end in common:
+            tr = 0.21
+            tax_note = "21% explicit policy fallback; effective tax data missing/out of range"
+            if end in taxes and end in pretax and pretax[end]["value"] > 0:
+                observed = taxes[end]["value"] / pretax[end]["value"]
+                if 0 <= observed <= 0.5:
+                    tr = observed
+                    tax_note = f"SEC observed tax expense / pretax income ({tr:.1%})"
+            int_addback = cash_interest[end]["value"] if end in cash_interest else interest_series[end]["value"]
+            int_addback_note = ("cash interest paid" if end in cash_interest
+                                else "interest expense (proxy; cash interest paid unavailable)")
+            cf = fcff_from_us_gaap_cashflows(cfo[end]["value"], capex[end]["value"], int_addback, tr)
+            hist.append({"year_end": end, "fcff_usd": cf})
+            records.append({"year_end": end, "cfo": cfo[end], "capex": capex[end],
+                            "interest": interest[end], "cash_interest": cash_interest.get(end),
+                            "interest_addback": int_addback, "interest_addback_note": int_addback_note,
+                            "tax": taxes.get(end),
+                            "pretax": pretax.get(end), "tax_rate": tr, "tax_rate_note": tax_note,
+                            "derived_fcff_usd": cf})
     shares = latest_instant(facts, "dei", ("EntityCommonStockSharesOutstanding",), "shares")
+    if shares is None:
+        # Some issuers (e.g. Alphabet) report point-in-time common shares under the
+        # us-gaap CommonStockSharesOutstanding tag rather than the dei cover-page tag.
+        shares = latest_instant(facts, "us-gaap", ("CommonStockSharesOutstanding",), "shares")
     if shares is None:
         # Weighted-average annual diluted shares are not interchangeable with point-in-time shares.
         raise ValueError("Latest point-in-time outstanding shares unavailable; do not silently substitute weighted-average diluted shares")
-    cash = latest_instant(facts, "us-gaap", ("CashAndCashEquivalentsAtCarryingValue",))
+    # Cash: prefer the freshest balance-sheet cash fact. Some issuers (e.g. PG) migrate
+    # from CashAndCashEquivalentsAtCarryingValue to the combined
+    # CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents tag; using the freshest
+    # fact avoids selecting a stale (e.g. 2019) cash balance.
+    cash = None
+    for cash_tag in ("CashAndCashEquivalentsAtCarryingValue",
+                     "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents"):
+        c = latest_instant(facts, "us-gaap", (cash_tag,))
+        if c is not None and (cash is None or c["end"] > cash["end"]):
+            cash = c
     if cash is None:
         raise ValueError("Missing cash SEC facts; cannot calculate net debt safely")
     asof = cash["end"]
 
-    long_debt = instant_at_date_multi(facts, "us-gaap",
-        ("LongTermDebtNoncurrent", "LongTermDebtAndCapitalLeaseObligations", "LongTermDebt"), asof)
-    if long_debt is None:
-        raise ValueError(
-            f"Noncurrent long-term debt not reported at cash reporting date {asof}; manual reconciliation required")
+    # A complete, current-period consolidated borrowing total supersedes historical or
+    # overlapping components. `DebtLongtermAndShorttermCombinedAmount` is the whole
+    # interest-bearing debt (excluding finance leases); when present at `asof`, use it
+    # directly and skip the component sum.
+    consolidated = instant_at_date(facts, "us-gaap", "DebtLongtermAndShorttermCombinedAmount", asof)
+    if consolidated is not None:
+        long_debt = consolidated
+        total_debt_tag = True
+        short_val = 0.0
+        current_val = 0.0
+        short_debt = None
+        current_debt = None
+        assumptions = []
+        excluded = [{"tag": "DebtLongtermAndShorttermCombinedAmount", "status": "consolidated",
+                     "value_used": consolidated["value"]}]
+        debt_blocked = False
+    else:
+        long_debt = instant_at_date_multi(facts, "us-gaap",
+            ("LongTermDebtNoncurrent", "LongTermDebtAndCapitalLeaseObligations", "LongTermDebt",
+             "LongTermNotesAndLoans", "ConvertibleLongTermNotesPayable", "LongTermNotesPayable"), asof)
+        if long_debt is None:
+            raise ValueError(
+                f"Noncurrent long-term debt not reported at cash reporting date {asof}; manual reconciliation required")
+        total_debt_tag = long_debt["tag"] == "LongTermDebt"
+        assumptions = []
+        excluded = []
+        debt_blocked = False
 
-    # Current-period debt components must be reported at the same date as cash.
-    # Stale facts (other dates) are excluded and disclosed, never guessed as a current zero.
-    assumptions = []
-    excluded = []
-
-    def debt_component(label: str, tags: tuple):
-        for tag in tags:
-            at_date = instant_at_date(facts, "us-gaap", tag, asof)
-            if at_date is not None:
-                return at_date, at_date["value"]
-        latest = latest_instant(facts, "us-gaap", tags)
-        if latest is None:
-            assumptions.append(f"{label} ({', '.join(tags)}) not reported with supported tags; counted as zero (possible understatement)")
-            excluded.append({"tag": tags[0], "status": "absent", "value_used": 0.0})
-            return None, 0.0
-        if abs(latest["value"]) < 0.5:
+        def debt_component(label, tags, included_in_total=False):
+            nonlocal debt_blocked
+            ev = (DEBT_ZERO_EVIDENCE.get(ticker, {}) or {}).get(label)
+            if ev and ev.get("asof") == asof:
+                assumptions.append(f"{label} explicitly zero per {ev['note']} ({ev['url']})")
+                excluded.append({"tag": tags[0], "status": "zero_confirmed", "asof": asof,
+                                 "note": ev["note"], "value_used": 0.0})
+                return None, 0.0
+            # Source-backed: the component is included in the current-period short-term
+            # borrowings line (not separately reported); counted once, never double-counted.
+            inc = (DEBT_INCLUDED_IN_SHORT_TERM_EVIDENCE.get(ticker, {}) or {}).get(label)
+            if inc and inc.get("asof") == asof:
+                assumptions.append(f"{label} included in current-period short-term borrowings per {inc['note']} ({inc['url']})")
+                excluded.append({"tag": tags[0], "status": "included_in_short_term_borrowings",
+                                 "asof": asof, "note": inc["note"], "value_used": 0.0})
+                return None, 0.0
+            for tag in tags:
+                at_date = instant_at_date(facts, "us-gaap", tag, asof)
+                if at_date is not None:
+                    return at_date, at_date["value"]
+            latest = latest_instant(facts, "us-gaap", tags)
+            if included_in_total:
+                note = (f"{label} ({', '.join(tags)}) not separately reported; assumed included in "
+                        f"the consolidated {long_debt['tag']} figure and counted as zero to avoid double-counting")
+                assumptions.append(note)
+                excluded.append({"tag": tags[0], "status": "included_in_total",
+                                 "last_end": latest["end"] if latest else None,
+                                 "last_value": latest["value"] if latest else None, "value_used": 0.0})
+                return None, 0.0
+            if latest is None:
+                assumptions.append(f"{label} ({', '.join(tags)}) not reported with supported tags; counted as zero (possible understatement)")
+                excluded.append({"tag": tags[0], "status": "absent", "value_used": 0.0})
+                return None, 0.0
+            if abs(latest["value"]) < 0.5:
+                assumptions.append(
+                    f"{label} ({latest['tag']}) stale: last reported {latest['end']} = 0; excluded from current period {asof} "
+                    f"and counted as zero (not verified current; possible understatement)")
+                excluded.append({"tag": latest["tag"], "status": "stale_zero", "last_end": latest["end"],
+                                 "last_value": latest["value"], "value_used": 0.0})
+                return None, 0.0
             assumptions.append(
-                f"{label} ({latest['tag']}) stale: last reported {latest['end']} = 0; excluded from current period {asof} "
-                f"and counted as zero (not verified current; possible understatement)")
-            excluded.append({"tag": latest["tag"], "status": "stale_zero", "last_end": latest["end"],
-                             "last_value": latest["value"], "value_used": 0.0})
+                f"{label} ({latest['tag']}) last reported {latest['end']} with nonzero value "
+                f"{latest['value']:,.0f} but not at cash date {asof}; debt reconciliation unavailable")
+            excluded.append({"tag": latest["tag"], "status": "stale_nonzero", "last_end": latest["end"],
+                             "last_value": latest["value"], "value_used": None})
+            debt_blocked = True
             return None, 0.0
-        raise ValueError(
-            f"{label} ({latest['tag']}) last reported {latest['end']} with nonzero value {latest['value']:,.0f} "
-            f"but not at current reporting date {asof}; cannot reconcile safely — manual review required")
 
-    short_debt, short_val = debt_component("Short-term borrowings", ("ShortTermBorrowings", "CommercialPaper"))
-    current_debt, current_val = debt_component("Current portion of long-term debt", ("LongTermDebtCurrent", "LongTermDebtAndCapitalLeaseObligationsCurrent"))
+        short_debt, short_val = debt_component("Short-term borrowings", ("ShortTermBorrowings", "CommercialPaper", "NotesAndLoansPayable"))
+        current_debt, current_val = debt_component("Current portion of long-term debt", ("LongTermDebtCurrent", "LongTermDebtAndCapitalLeaseObligationsCurrent", "NotesPayableCurrent", "DebtCurrent", "ConvertibleDebtCurrent"), included_in_total=total_debt_tag)
 
-    net_debt = long_debt["value"] + short_val + current_val - cash["value"]
-    total_debt = long_debt["value"] + short_val + current_val
+    # Finance (capital) leases are a debt-like claim and must be included exactly once.
+    # The `LongTermDebtAndCapitalLeaseObligations` tag already contains them; the
+    # notes/bonds-only tags (`LongTermDebtNoncurrent`, `LongTermDebt`) do not. Operating
+    # leases are intentionally NOT treated as finance leases.
+    leases_in_debt = long_debt["tag"] == "LongTermDebtAndCapitalLeaseObligations"
+    finance_lease = finance_lease_liability(facts, asof)
+    lease_assumptions = []
+    lease_excluded = []
+    if finance_lease is None:
+        stale = latest_instant(facts, "us-gaap",
+                               ("FinanceLeaseLiability", "FinanceLeaseLiabilityNoncurrent",
+                                "FinanceLeaseLiabilityCurrent"))
+        if stale is not None and abs(stale["value"]) >= 0.5:
+            lease_assumptions.append(
+                f"Finance-lease liability last reported {stale['end']} = {stale['value']:,.0f} "
+                f"(not at cash date {asof}); treated as zero — unresolved material lease definition")
+            lease_excluded.append({"tag": stale["tag"], "status": "stale",
+                                   "last_end": stale["end"], "last_value": stale["value"],
+                                   "value_used": 0.0})
+        else:
+            lease_assumptions.append(
+                "No finance-lease liability reported at the cash reporting date; treated as zero (disclosed)")
+            lease_excluded.append({"tag": "FinanceLeaseLiability", "status": "absent", "value_used": 0.0})
+        lease_val = 0.0
+    elif leases_in_debt:
+        lease_assumptions.append(
+            f"Finance-lease liability already included in {long_debt['tag']}; not added again (no double-counting)")
+        lease_excluded.append({"tag": finance_lease["tag"], "status": "included_in_total", "value_used": 0.0})
+        lease_val = 0.0
+    else:
+        lease_val = finance_lease["value"]
+        lease_assumptions.append(
+            f"Finance-lease liability {lease_val:,.0f} ({finance_lease['tag']}) added to debt "
+            f"(not included in {long_debt['tag']})")
+
+    if debt_blocked:
+        net_debt = None
+        total_debt = None
+    else:
+        net_debt = long_debt["value"] + short_val + current_val + lease_val - cash["value"]
+        total_debt = long_debt["value"] + short_val + current_val + lease_val
 
     # Nonoperating investments for the enterprise-to-equity bridge. Eligible securities
     # are reported as a range because the restricted portion within short-term
@@ -268,7 +424,9 @@ def get_sec_financials(ticker: str, user_agent: str) -> dict:
     restricted_investments = rest_inv["value"] if rest_inv else None
     long_term_investments = lt_inv["value"] if lt_inv else None
 
-    latest_end = common[-1]
+    # Latest fiscal-year end for income-statement reference figures. Prefer the matched
+    # FCFF years; fall back to the latest capex/CFO year when the cross-check was partial.
+    latest_end = common[-1] if common else max(list(capex) + list(cfo), default=shares["end"][:10])
     income = annual_values(facts, ("NetIncomeLoss", "ProfitLoss")).get(latest_end)
     operating = annual_values(facts, ("OperatingIncomeLoss",)).get(latest_end)
     depreciation = annual_values(facts, (
@@ -277,9 +435,21 @@ def get_sec_financials(ticker: str, user_agent: str) -> dict:
     )).get(latest_end)
     diluted = annual_values(facts, ("WeightedAverageNumberOfDilutedSharesOutstanding",), unit="shares")
     diluted_shares = diluted[latest_end]["value"] if latest_end in diluted else None
+    # Unit-consistency guard for weighted-average shares. The authoritative reference is the
+    # point-in-time common-share count (`EntityCommonStockSharesOutstanding`), which is tagged
+    # in actual units on the balance sheet/cover page. Some filers tag the weighted-average
+    # (diluted/basic) shares in MILLIONS (e.g. McDonald's 711.0) while the point-in-time count
+    # is actual units (705,784,744). A diluted/common RATIO below 1e-3 signals a unit mismatch.
+    # Relative (ratio) check rather than an absolute threshold, and idempotent: an
+    # already-normalized count (ratio ~1.0) is never rescaled twice.
+    if (diluted_shares is not None and shares and shares["value"] > 0 and diluted_shares > 0):
+        ratio = diluted_shares / shares["value"]
+        if ratio < 1e-3:
+            diluted_shares = diluted_shares * 1_000_000
     return {
         "ticker": ticker.upper(), "company": name,
         "shares": shares["value"], "net_debt": net_debt,
+        "debt_available": not debt_blocked,
         "diluted_shares": diluted_shares,
         "total_debt": total_debt,
         "cash_and_equivalents": cash["value"],
@@ -296,13 +466,17 @@ def get_sec_financials(ticker: str, user_agent: str) -> dict:
                    "units": "USD (except shares)", "annual_records": records,
                    "shares": shares, "cash": cash, "long_debt": long_debt,
                    "short_debt": short_debt, "current_debt": current_debt,
-                   "excluded_debt_tags": excluded,
+                   "excluded_debt_tags": excluded + [e for e in lease_excluded if e["status"] == "stale"],
+                   "finance_lease": finance_lease,
+                   "lease_excluded": lease_excluded,
+                   "lease_assumptions": lease_assumptions,
                    "debt_reconciliation": {
                        "reference_date": asof,
                        "long_term_debt": long_debt["value"],
                        "current_portion_long_term_debt": current_val,
                        "short_term_borrowings": short_val,
-                       "total_debt": long_debt["value"] + current_val + short_val,
+                       "finance_lease": lease_val,
+                       "total_debt": long_debt["value"] + current_val + short_val + lease_val,
                        "cash_and_equivalents": cash["value"],
                        "net_debt": net_debt,
                    },
@@ -313,6 +487,6 @@ def get_sec_financials(ticker: str, user_agent: str) -> dict:
                    },
                    "excluded_investment_tags": inv_excluded,
                    "investment_assumptions": inv_assumptions,
-                   "disclosure_warnings": assumptions,
+                   "disclosure_warnings": assumptions + lease_assumptions,
                    "method_note": "US-GAAP approximate FCFF = operating cash flow - capex + after-tax interest expense; needs filing-level review"},
     }

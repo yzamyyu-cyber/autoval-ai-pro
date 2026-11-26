@@ -1,0 +1,137 @@
+{
+  "company": "PROCTER & GAMBLE Co",
+  "ticker": "PG",
+  "detected_problem": "CommercialPaper is reported only at 2026-06-30 (4,837,000,000) and not directly at 2026-09-30; the original extraction set short-term borrowings to zero and marked the debt reconciliation unavailable.",
+  "original_production_value": 4837000000.0,
+  "proposed_financial_value": 38925000000,
+  "financial_definition": "Total debt, long-term and short-term combined, excluding finance leases, as captured by LongTermDebtNoncurrent plus DebtCurrent at 2026-09-30.",
+  "xbrl_tags": [
+    {
+      "tag": "LongTermDebtNoncurrent",
+      "value": 21897000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-10-22",
+      "form": "10-Q"
+    },
+    {
+      "tag": "DebtCurrent",
+      "value": 17028000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-10-22",
+      "form": "10-Q"
+    },
+    {
+      "tag": "CommercialPaper",
+      "value": 4837000000,
+      "period_end": "2026-06-30",
+      "filed": "2026-08-04",
+      "form": "10-K"
+    },
+    {
+      "tag": "LongTermDebtCurrent",
+      "value": 6457000000,
+      "period_end": "2026-06-30",
+      "filed": "2026-08-04",
+      "form": "10-K"
+    },
+    {
+      "tag": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+      "value": 15365000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-10-22",
+      "form": "10-Q"
+    }
+  ],
+  "reporting_period": "2026-09-30",
+  "filing_date": "2026-10-22",
+  "sec_accession": "0000080424-26-000256",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/80424/000008042426000256/pg-20260930.htm",
+  "statement_or_note_reference": "10-Q balance sheet and debt footnote (specific note reference not provided in evidence)",
+  "derivation_formula": "LongTermDebtNoncurrent + DebtCurrent",
+  "accounting_explanation": "The current-period DebtCurrent tag is broad current debt and is the appropriate current-period carrier for total current borrowings, including any commercial paper. The original total debt of 38,925,000,000 is already supported by current-period tags: LongTermDebtNoncurrent 21,897,000,000 + DebtCurrent 17,028,000,000. Adding the stale 2026-06-30 CommercialPaper amount of 4,837,000,000 on top of DebtCurrent would likely double count commercial paper. Therefore no correction to total debt is warranted, though the original component labeling of DebtCurrent as current portion of long-term debt is imprecise.",
+  "deterministic_validation": {
+    "status": "validated",
+    "checks": [
+      {
+        "rule": "company_identity",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal ticker/company must match the extraction"
+      },
+      {
+        "rule": "reporting_period",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal period '2026-09-30' must equal balance-sheet date '2026-09-30'"
+      },
+      {
+        "rule": "filing_lookahead",
+        "level": "hard",
+        "ok": true,
+        "reason": "filing date '2026-10-22' must not precede the reporting period '2026-09-30'"
+      },
+      {
+        "rule": "value_finite",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposed value must be a finite number"
+      },
+      {
+        "rule": "units_scaling",
+        "level": "soft",
+        "ok": true,
+        "reason": "proposed value is within a 1e3/1e6/1e9 multiple of the original — verify units and scaling"
+      },
+      {
+        "rule": "xbrl_tag_exists",
+        "level": "hard",
+        "ok": true,
+        "reason": "all cited tags exist"
+      },
+      {
+        "rule": "component_arithmetic",
+        "level": "hard",
+        "ok": true,
+        "reason": "formula recomputes to 38,925,000,000.00 vs proposed 38,925,000,000.00"
+      },
+      {
+        "rule": "debt_lease_double_count",
+        "level": "hard",
+        "ok": true,
+        "reason": "no debt/lease double-count detected"
+      },
+      {
+        "rule": "restricted_cash",
+        "level": "soft",
+        "ok": true,
+        "reason": "restricted/unrestricted cash scope is consistent"
+      },
+      {
+        "rule": "source_evidence",
+        "level": "hard",
+        "ok": true,
+        "reason": "source evidence present"
+      }
+    ],
+    "hard_failures": [],
+    "soft_warnings": []
+  },
+  "remaining_uncertainty": "The standalone current-period CommercialPaper/ShortTermBorrowings value is unresolved, and the split of DebtCurrent between current portion of long-term debt and commercial paper cannot be determined from the provided tags. If DebtCurrent did not include commercial paper, total debt would need adjustment, but the broad definition and current reporting do not support that adjustment.",
+  "approval_status": "pending",
+  "category": "debt_component_stale_nonzero",
+  "detected_issues": [
+    "debt_component_stale_nonzero",
+    "debt_unavailable",
+    "cash_restricted_scope"
+  ],
+  "before_after_impact": {
+    "metric": "total_debt",
+    "original_net_debt": null,
+    "corrected_net_debt": 23560000000.0,
+    "original_total_debt": 38925000000.0,
+    "corrected_total_debt": 38925000000.0,
+    "net_debt_delta": null,
+    "per_share_impact_usd": null
+  },
+  "record_utc": "2026-11-25T06:19:00.637642+00:00"
+}

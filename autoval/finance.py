@@ -228,11 +228,12 @@ def analyze_valuation(stock: dict, wacc: float | None = None) -> dict:
     shares_for_intrinsic = stock.get("diluted_shares") or stock["shares"]
     results = {case: dcf_fcff(hist[-1], shares_for_intrinsic, stock["net_debt"], **policy[case])
                for case in ("bear", "base", "bull")}
-    price = float(stock["market_price"])
-    if price <= 0 or not isfinite(price):
-        raise ValueError("Market price must be positive")
+    price = stock.get("market_price")
+    price_valid = price is not None and isfinite(float(price)) and float(price) > 0
     for case in results:
-        results[case]["upside_vs_price_pct"] = (results[case]["intrinsic_per_share_usd"] / price - 1) * 100
+        results[case]["upside_vs_price_pct"] = (
+            (results[case]["intrinsic_per_share_usd"] / float(price) - 1) * 100
+            if price_valid else None)
     if any(results[k]["intrinsic_per_share_usd"] > results[k2]["intrinsic_per_share_usd"]
            for k,k2 in (("bear","base"),("base","bull"))):
         raise ValueError("Scenario ordering is inconsistent; review assumptions")
@@ -277,7 +278,7 @@ def analyze_valuation(stock: dict, wacc: float | None = None) -> dict:
         sensitivity = sensitivity_table(hist[-1], shares_for_intrinsic, stock["net_debt"],
                                         base_growth, wacc_values, terminal_values)
 
-    return {"ticker": stock["ticker"], "market_price": price,
+    return {"ticker": stock["ticker"], "market_price": (float(price) if price_valid else None),
             "price_date": stock.get("price_date"), "financial_asof": stock.get("financial_asof"),
             "scenarios": results, "assumption_provenance": {
                 "growth": policy["growth_origin"], "wacc": policy["discount_origin"],
@@ -300,9 +301,8 @@ def analyze_driver_valuation(stock: dict, history: dict, wacc: float | None = No
     forecasts = build_forecast(history)
     shares = stock.get("diluted_shares") or stock["shares"]
     net_debt = stock["net_debt"]
-    price = float(stock["market_price"])
-    if price <= 0 or not isfinite(price):
-        raise ValueError("Market price must be positive")
+    price = stock.get("market_price")
+    price_valid = price is not None and isfinite(float(price)) and float(price) > 0
     terminal = {"bear": 0.015, "base": 0.020, "bull": 0.025}
     discount_rate = wacc if wacc is not None else ILLUSTRATIVE_WACC["base"]
 
@@ -310,11 +310,48 @@ def analyze_driver_valuation(stock: dict, history: dict, wacc: float | None = No
     for case in ("bear", "base", "bull"):
         stream = [r["fcff"] for r in forecasts[case]["rows"]]
         d = dcf_from_fcff(stream, shares, net_debt, discount_rate, terminal[case])
-        d["upside_vs_price_pct"] = (d["intrinsic_per_share_usd"] / price - 1) * 100
+        d["upside_vs_price_pct"] = (d["intrinsic_per_share_usd"] / float(price) - 1) * 100 if price_valid else None
         results[case] = d
     if any(results[k]["intrinsic_per_share_usd"] > results[k2]["intrinsic_per_share_usd"]
            for k, k2 in (("bear", "base"), ("base", "bull"))):
         raise ValueError("Driver scenario ordering inconsistent; review driver assumptions")
+
+    # Optional multi-stage DCF (explicit 1-5, transition 6-10, ROIC terminal 11+).
+    # Additive only — the five-year DCF above is unchanged.
+    from .multistage import multistage_valuation as _ms_val, multistage_roic_sensitivity
+    multistage = {}
+    for case in ("bear", "base", "bull"):
+        multistage[case] = _ms_val(forecasts, discount_rate, terminal[case],
+                                   net_debt, shares, case=case)
+    multistage["roic_sensitivity"] = multistage_roic_sensitivity(
+        forecasts, discount_rate, terminal["base"], net_debt, shares, case="base")
+    multistage["assumptions"] = {
+        "mature_incremental_roic": 0.12,
+        "transition_years": 5,
+        "label": "Mature incremental ROIC is an assumed parameter (not market-calibrated).",
+    }
+
+    # TTM-based DCF (latest complete TTM period as the forecast starting point).
+    # The annual-based DCF above is retained as the comparison benchmark.
+    from .forecast import build_forecast_ttm
+    ttm = None
+    ttm_forecasts = build_forecast_ttm(history)
+    if ttm_forecasts is not None:
+        ttm = {"asof": (history.get("ttm") or {}).get("asof"),
+               "forecast": ttm_forecasts}
+        for case in ("bear", "base", "bull"):
+            stream = [r["fcff"] for r in ttm_forecasts[case]["rows"]]
+            d = dcf_from_fcff(stream, shares, net_debt, discount_rate, terminal[case])
+            d["upside_vs_price_pct"] = (
+                (d["intrinsic_per_share_usd"] / float(price) - 1) * 100 if price_valid else None)
+            ttm[case] = d
+        ttm["multistage"] = {}
+        for case in ("bear", "base", "bull"):
+            ttm["multistage"][case] = _ms_val(ttm_forecasts, discount_rate, terminal[case],
+                                              net_debt, shares, case=case)
+        ttm["multistage"]["roic_sensitivity"] = multistage_roic_sensitivity(
+            ttm_forecasts, discount_rate, terminal["base"], net_debt, shares, case="base")
+        ttm["multistage"]["assumptions"] = dict(multistage["assumptions"])
 
     bridge = None
     total_debt = stock.get("total_debt")
@@ -367,10 +404,14 @@ def analyze_driver_valuation(stock: dict, history: dict, wacc: float | None = No
         "Normalized operating tax rate is a documented baseline, separate from the WACC marginal tax rate.",
         "Operating NWC ratio uses the latest fiscal-year-end balance sheet (a single point rather than a multi-year average).",
         "The model assumes driver ratios are stable over five years; scenario spreads are rule-based.",
+        "Forecast cash flows are discounted using full-year periods from the valuation date "
+        "(a rolling-forward simplification; a fractional fiscal-stub adjustment is not applied). "
+        "The intrinsic value and the market price are therefore non-contemporaneous and are "
+        "compared as approximations.",
         "No automatic buy/sell instruction or live trading is provided.",
     ]
     return {
-        "ticker": stock["ticker"], "market_price": price,
+        "ticker": stock["ticker"], "market_price": (float(price) if price_valid else None),
         "price_date": stock.get("price_date"), "financial_asof": history.get("asof"),
         "scenarios": results,
         "forecast": forecasts,
@@ -383,6 +424,8 @@ def analyze_driver_valuation(stock: dict, history: dict, wacc: float | None = No
         "bridge": bridge,
         "sensitivity": sensitivity,
         "capex_sensitivity": capex_sensitivity,
+        "multistage": multistage,
+        "ttm": ttm,
         "wacc_basis": "company-specific" if wacc is not None else "illustrative",
         "shares_outstanding": stock["shares"],
         "diluted_shares": stock.get("diluted_shares"),
@@ -392,7 +435,14 @@ def analyze_driver_valuation(stock: dict, history: dict, wacc: float | None = No
 
 def observed_multiples(stock: dict) -> dict:
     """Observed multiples only; not a standalone peer-relative valuation."""
-    price, shares = stock["market_price"], stock["shares"]
+    price, shares = stock.get("market_price"), stock["shares"]
+    if price is None or not isfinite(float(price)) or float(price) <= 0:
+        # No genuine market price -> no market cap and no observed multiples. Never
+        # substitute zero or a placeholder; the caller surfaces "unavailable".
+        return {"market_enterprise_value_usd": None,
+                "ev_to_ebitda": None,
+                "price_to_earnings": None,
+                "note": "Observed ratios unavailable: no genuine market price."}
     ev = price * shares + stock["net_debt"]
     ebit, da, income = stock.get("ebit"), stock.get("depreciation"), stock.get("net_income")
     ebitda = None if ebit is None or da is None else ebit + da

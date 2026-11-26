@@ -1,0 +1,27 @@
+{
+  "company": "MCDONALDS CORP",
+  "ticker": "MCD",
+  "detected_problem": "Debt component 'ShortTermBorrowings' is only reported at a stale date 2025-09-30 with nonzero value 1800000000.0; the current-period (2026-09-30) value is unresolved.",
+  "original_production_value": 1800000000.0,
+  "proposed_financial_value": null,
+  "financial_definition": null,
+  "xbrl_tags": [],
+  "reporting_period": null,
+  "filing_date": null,
+  "sec_accession": null,
+  "filing_url": null,
+  "statement_or_note_reference": null,
+  "derivation_formula": null,
+  "accounting_explanation": null,
+  "deterministic_validation": {
+    "status": "unresolved",
+    "checks": [],
+    "hard_failures": [],
+    "soft_warnings": [],
+    "error": "LLM investigation failed: 403 Client Error: Forbidden for url: https://tokendance.space/gateway/v1/chat/completions"
+  },
+  "remaining_uncertainty": null,
+  "approval_status": "unresolved",
+  "category": "debt_component_stale_nonzero",
+  "record_utc": "2026-11-25T07:31:24.078574+00:00"
+}

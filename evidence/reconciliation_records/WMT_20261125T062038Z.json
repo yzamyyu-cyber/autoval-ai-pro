@@ -1,0 +1,147 @@
+{
+  "company": "Walmart Inc.",
+  "ticker": "WMT",
+  "detected_problem": "The current extraction captured DebtLongtermAndShorttermCombinedAmount (39,932,000,000) and correctly added finance-lease liabilities (6,832,000,000), but it omitted the separate ShortTermBorrowings tag of 10,479,000,000. This understated total debt and net debt by 10,479,000,000, producing net debt of 35,235,000,000 instead of 45,714,000,000. Finance-lease treatment and use of unrestricted cash were not the source of the discrepancy.",
+  "original_production_value": 35235000000.0,
+  "proposed_financial_value": 45714000000.0,
+  "financial_definition": "Net debt: total debt including long-term debt and current portion, short-term borrowings, and finance-lease liabilities, less cash and cash equivalents.",
+  "xbrl_tags": [
+    {
+      "tag": "DebtLongtermAndShorttermCombinedAmount",
+      "value": 39932000000,
+      "period_end": "2026-07-31",
+      "filed": "2026-08-28",
+      "form": "10-Q"
+    },
+    {
+      "tag": "LongTermDebtNoncurrent",
+      "value": 36462000000,
+      "period_end": "2026-07-31",
+      "filed": "2026-08-28",
+      "form": "10-Q"
+    },
+    {
+      "tag": "LongTermDebtCurrent",
+      "value": 3470000000,
+      "period_end": "2026-07-31",
+      "filed": "2026-08-28",
+      "form": "10-Q"
+    },
+    {
+      "tag": "ShortTermBorrowings",
+      "value": 10479000000,
+      "period_end": "2026-07-31",
+      "filed": "2026-08-28",
+      "form": "10-Q"
+    },
+    {
+      "tag": "FinanceLeaseLiabilityNoncurrent",
+      "value": 5952000000,
+      "period_end": "2026-07-31",
+      "filed": "2026-08-28",
+      "form": "10-Q"
+    },
+    {
+      "tag": "FinanceLeaseLiabilityCurrent",
+      "value": 880000000,
+      "period_end": "2026-07-31",
+      "filed": "2026-08-28",
+      "form": "10-Q"
+    },
+    {
+      "tag": "CashAndCashEquivalentsAtCarryingValue",
+      "value": 11529000000,
+      "period_end": "2026-07-31",
+      "filed": "2026-08-28",
+      "form": "10-Q"
+    }
+  ],
+  "reporting_period": "2026-07-31",
+  "filing_date": "2026-08-28",
+  "sec_accession": "0000104169-26-000154",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/104169/000010416926000154/wmt-20260731.htm",
+  "statement_or_note_reference": "10-Q balance sheet and debt/borrowings line items; short-term borrowings are reported separately from long-term debt and finance-lease liabilities.",
+  "derivation_formula": "DebtLongtermAndShorttermCombinedAmount + ShortTermBorrowings + FinanceLeaseLiabilityNoncurrent + FinanceLeaseLiabilityCurrent - CashAndCashEquivalentsAtCarryingValue",
+  "accounting_explanation": "DebtLongtermAndShorttermCombinedAmount equals LongTermDebtNoncurrent + LongTermDebtCurrent, so the current portion of long-term debt was already captured. However, the separate ShortTermBorrowings tag of 10,479,000,000 was omitted. Correct total debt is 39,932,000,000 + 10,479,000,000 + 6,832,000,000 = 57,243,000,000, and net debt is 57,243,000,000 - 11,529,000,000 = 45,714,000,000, matching the prior ~45.7B figure. Finance-lease addition and use of CashAndCashEquivalentsAtCarryingValue were appropriate.",
+  "deterministic_validation": {
+    "status": "validated",
+    "checks": [
+      {
+        "rule": "company_identity",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal ticker/company must match the extraction"
+      },
+      {
+        "rule": "reporting_period",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal period '2026-07-31' must equal balance-sheet date '2026-07-31'"
+      },
+      {
+        "rule": "filing_lookahead",
+        "level": "hard",
+        "ok": true,
+        "reason": "filing date '2026-08-28' must not precede the reporting period '2026-07-31'"
+      },
+      {
+        "rule": "value_finite",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposed value must be a finite number"
+      },
+      {
+        "rule": "units_scaling",
+        "level": "soft",
+        "ok": true,
+        "reason": "proposed value is within a 1e3/1e6/1e9 multiple of the original — verify units and scaling"
+      },
+      {
+        "rule": "xbrl_tag_exists",
+        "level": "hard",
+        "ok": true,
+        "reason": "all cited tags exist"
+      },
+      {
+        "rule": "component_arithmetic",
+        "level": "hard",
+        "ok": true,
+        "reason": "formula recomputes to 45,714,000,000.00 vs proposed 45,714,000,000.00"
+      },
+      {
+        "rule": "debt_lease_double_count",
+        "level": "hard",
+        "ok": true,
+        "reason": "no debt/lease double-count detected"
+      },
+      {
+        "rule": "restricted_cash",
+        "level": "soft",
+        "ok": true,
+        "reason": "restricted/unrestricted cash scope is consistent"
+      },
+      {
+        "rule": "source_evidence",
+        "level": "hard",
+        "ok": true,
+        "reason": "source evidence present"
+      }
+    ],
+    "hard_failures": [],
+    "soft_warnings": []
+  },
+  "remaining_uncertainty": "None material based on the provided XBRL tags; the corrected value relies on ShortTermBorrowings being a separately reported debt component.",
+  "approval_status": "pending",
+  "category": "net_debt_historical_discrepancy",
+  "detected_issues": [],
+  "before_after_impact": {
+    "metric": "net_debt",
+    "original_net_debt": 35235000000.0,
+    "corrected_net_debt": 45714000000.0,
+    "original_total_debt": 46764000000.0,
+    "corrected_total_debt": 57243000000.0,
+    "net_debt_delta": 10479000000.0,
+    "per_share_impact_usd": -1.3208136083111206
+  },
+  "record_utc": "2026-11-25T06:20:38.396480+00:00"
+}

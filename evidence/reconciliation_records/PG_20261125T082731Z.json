@@ -1,0 +1,200 @@
+{
+  "company": "PROCTER & GAMBLE Co",
+  "ticker": "PG",
+  "detected_problem": "Resolve current debt, long-term debt, cash and finance leases",
+  "original_production_value": null,
+  "proposed_financial_value": 23560000000.0,
+  "financial_definition": "Net debt: total debt (LongTermDebtNoncurrent + DebtCurrent) less combined cash, cash equivalents and restricted cash; finance leases are not reported and are treated as zero.",
+  "xbrl_tags": [
+    {
+      "tag": "LongTermDebtNoncurrent",
+      "value": 21897000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-10-22",
+      "form": "10-Q"
+    },
+    {
+      "tag": "DebtCurrent",
+      "value": 17028000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-10-22",
+      "form": "10-Q"
+    },
+    {
+      "tag": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+      "value": 15365000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-10-22",
+      "form": "10-Q"
+    }
+  ],
+  "reporting_period": "2026-09-30",
+  "filing_date": "2026-10-22",
+  "sec_accession": "0000080424-26-000256",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/80424/000008042426000256/pg-20260930.htm",
+  "statement_or_note_reference": "2026-09-30 10-Q XBRL balance-sheet debt facts and Consolidated Statements of Cash Flows for cash, cash equivalents and restricted cash",
+  "derivation_formula": "LongTermDebtNoncurrent + DebtCurrent - CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+  "accounting_explanation": "The original extraction mislabeled DebtCurrent (17,028M) as the current portion of long-term debt; the debt fair-value note indicates the current portion of long-term debt was approximately $6.6B at 2026-09-30, with the remainder of DebtCurrent being short-term borrowings/commercial paper. Total debt is still supportable as LongTermDebtNoncurrent + DebtCurrent = 38,925M. No finance-lease liability is reported, so finance leases are treated as zero. The cash value used is the combined cash, cash equivalents and restricted cash amount of 15,365M. Net debt is therefore total debt less that combined cash balance.",
+  "deterministic_validation": {
+    "status": "validated",
+    "checks": [
+      {
+        "rule": "company_identity",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal ticker/company must match the extraction"
+      },
+      {
+        "rule": "reporting_period",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal period '2026-09-30' must equal balance-sheet date '2026-09-30'"
+      },
+      {
+        "rule": "filing_lookahead",
+        "level": "hard",
+        "ok": true,
+        "reason": "filing date '2026-10-22' must not precede the reporting period '2026-09-30'"
+      },
+      {
+        "rule": "value_finite",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposed value must be a finite number"
+      },
+      {
+        "rule": "units_scaling",
+        "level": "soft",
+        "ok": true,
+        "reason": "proposed value is within a 1e3/1e6/1e9 multiple of the original — verify units and scaling"
+      },
+      {
+        "rule": "xbrl_tag_exists",
+        "level": "hard",
+        "ok": true,
+        "reason": "all cited tags exist in Companyfacts or the original filing"
+      },
+      {
+        "rule": "source_fact_value",
+        "level": "hard",
+        "ok": true,
+        "reason": "cited values match source facts"
+      },
+      {
+        "rule": "component_arithmetic",
+        "level": "hard",
+        "ok": true,
+        "reason": "formula recomputes to 23,560,000,000.00 vs proposed 23,560,000,000.00"
+      },
+      {
+        "rule": "debt_lease_double_count",
+        "level": "hard",
+        "ok": true,
+        "reason": "no debt/lease double-count detected"
+      },
+      {
+        "rule": "restricted_cash",
+        "level": "soft",
+        "ok": true,
+        "reason": "restricted/unrestricted cash scope is consistent"
+      },
+      {
+        "rule": "source_evidence",
+        "level": "hard",
+        "ok": true,
+        "reason": "source evidence present"
+      }
+    ],
+    "hard_failures": [],
+    "soft_warnings": []
+  },
+  "remaining_uncertainty": "The exact split of DebtCurrent between current portion of long-term debt and short-term borrowings/commercial paper at 2026-09-30 cannot be fully resolved because LongTermDebtCurrent and CommercialPaper XBRL facts are available only as of 2026-06-30; the note provides only a rounded $6.6B current-portion amount. Finance-lease zero is inferred from the absence of reported finance-lease tags. Net debt would differ if restricted cash were excluded or if finance leases existed.",
+  "approval_status": "pending",
+  "category": "debt_component_stale_nonzero",
+  "filing": {
+    "accession": "0000080424-26-000256",
+    "form": "10-Q",
+    "filing_date": "2026-10-22",
+    "report_date": "2026-09-30",
+    "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042426000256/pg-20260930.htm"
+  },
+  "filing_evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042426000256/pg-20260930.htm",
+    "facts": {
+      "LongTermDebtNoncurrent": {
+        "tag": "LongTermDebtNoncurrent",
+        "name": "us-gaap:LongTermDebtNoncurrent",
+        "value": 21897000000.0,
+        "raw_value": "21,897",
+        "unit": "USD",
+        "period_end": "2026-09-30",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "DebtCurrent": {
+        "tag": "DebtCurrent",
+        "name": "us-gaap:DebtCurrent",
+        "value": 17028000000.0,
+        "raw_value": "17,028",
+        "unit": "USD",
+        "period_end": "2026-09-30",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents": {
+        "tag": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+        "name": "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+        "value": 15365000000.0,
+        "raw_value": "15,365",
+        "unit": "USD",
+        "period_end": "2026-09-30",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      }
+    },
+    "missing_tags": [
+      "LongTermDebt",
+      "LongTermNotesAndLoans",
+      "NotesPayableCurrent",
+      "NotesPayable",
+      "LoansPayable",
+      "LongTermNotesPayable",
+      "ConvertibleLongTermNotesPayable",
+      "LongTermDebtAndCapitalLeaseObligations",
+      "LongTermDebtCurrent",
+      "LongTermDebtAndCapitalLeaseObligationsCurrent",
+      "ShortTermBorrowings",
+      "CommercialPaper",
+      "DebtLongtermAndShorttermCombinedAmount",
+      "FinanceLeaseLiability",
+      "FinanceLeaseLiabilityNoncurrent",
+      "FinanceLeaseLiabilityCurrent",
+      "CashAndCashEquivalentsAtCarryingValue",
+      "RestrictedCashAndCashEquivalentsAtCarryingValue"
+    ],
+    "statement_rows": [],
+    "note_excerpts": [
+      "ng needs largely through cash generated from operations. We have strong short- and long-term debt ratings that have enabled and should continue to enable us to refinance our debt as it becomes due in commercial paper and bond markets. In addition, we have agreements with a diverse group of financial institutions that, if needed, should provide sufficient funding to meet short-term financing requirements. MEASURES",
+      "Gamble Company 5 THE PROCTER #160; amp; GAMBLE COMPANY AND SUBSIDIARIES CONSOLIDATED STATEMENTS OF CASH FLOWS Three Months Ended September 30 Amounts in millions 2026 2025 CASH, CASH EQUIVALENTS AND RESTRICTED CASH, BEGINNING OF PERIOD $ 9,942 #160; $ 9,556 #160; OPERATING ACTIVITIES Net earnings 4,757 #160; 4,781 #160; Depreciation and amortization 810 #160; 761 #160; Share-based compensation expense 98 #160;",
+      "tock purchases ( 1,250 ) ( 1,250 ) Impact of stock options and other 143 #160; 134 #160; TOTAL FINANCING ACTIVITIES 1,144 #160; ( 2,239 ) EFFECT OF EXCHANGE RATE CHANGES ON CASH, CASH EQUIVALENTS AND RESTRICTED CASH ( 29 ) ( 20 ) CHANGE IN CASH, CASH EQUIVALENTS AND RESTRICTED CASH 5,423 #160; 1,615 #160; CASH, CASH EQUIVALENTS AND RESTRICTED CASH, END OF PERIOD $ 15,365 #160; $ 11,171 #160; See accompanying Not",
+      "r 143 #160; 134 #160; TOTAL FINANCING ACTIVITIES 1,144 #160; ( 2,239 ) EFFECT OF EXCHANGE RATE CHANGES ON CASH, CASH EQUIVALENTS AND RESTRICTED CASH ( 29 ) ( 20 ) CHANGE IN CASH, CASH EQUIVALENTS AND RESTRICTED CASH 5,423 #160; 1,615 #160; CASH, CASH EQUIVALENTS AND RESTRICTED CASH, END OF PERIOD $ 15,365 #160; $ 11,171 #160; See accompanying Notes to Consolidated Financial Statements. 6 The Procter amp; Gamble",
+      "9 ) EFFECT OF EXCHANGE RATE CHANGES ON CASH, CASH EQUIVALENTS AND RESTRICTED CASH ( 29 ) ( 20 ) CHANGE IN CASH, CASH EQUIVALENTS AND RESTRICTED CASH 5,423 #160; 1,615 #160; CASH, CASH EQUIVALENTS AND RESTRICTED CASH, END OF PERIOD $ 15,365 #160; $ 11,171 #160; See accompanying Notes to Consolidated Financial Statements. 6 The Procter amp; Gamble Company THE PROCTER #160; amp; GAMBLE COMPANY AND SUBSIDIARIES NOTE",
+      "y securities during the periods presented. The fair value of long-term debt was $ 26.7 billion and $ 28.3 billion as of September #160;30, 2026 and June #160;30, 2026, respectively. This includes the current portion of long-term debt instruments ($ 6.6 billion and $ 6.5 billion as of September #160;30, 2026 and June #160;30, 2026, respectively). All long-term debt is recorded at amortized cost but is measured at",
+      "ts payable $ 17,056 #160; $ 16,306 #160; Accrued and other liabilities 10,911 #160; 11,091 #160; Debt due within one year 17,028 #160; 11,296 #160; TOTAL CURRENT LIABILITIES 44,996 #160; 38,694 #160; LONG-TERM DEBT 21,897 #160; 22,842 #160; DEFERRED INCOME TAXES 5,949 #160; 5,760 #160; OTHER NONCURRENT LIABILITIES 4,954 #160; 4,914 #160; TOTAL LIABILITIES 77,795 #160; 72,210 #160; SHAREHOLDERS #8217; EQUITY Pre",
+      ",123 #160; Reductions in short-term debt with original maturities of more than three months ( 157 ) ( 1,800 ) Net additions/(reductions) to other short-term debt 5,758 #160; 2,108 #160; Reductions in long-term debt ( 747 ) ( 3 ) Treasury stock purchases ( 1,250 ) ( 1,250 ) Impact of stock options and other 143 #160; 134 #160; TOTAL FINANCING ACTIVITIES 1,144 #160; ( 2,239 ) EFFECT OF EXCHANGE RATE CHANGES ON CA",
+      "respectively, and are classified as Level 1 within the fair value hierarchy. The Company had no other material investments in debt or equity securities during the periods presented. The fair value of long-term debt was $ 26.7 billion and $ 28.3 billion as of September #160;30, 2026 and June #160;30, 2026, respectively. This includes the current portion of long-term debt instruments ($ 6.6 billion and $ 6.5 bill",
+      "the periods presented. The fair value of long-term debt was $ 26.7 billion and $ 28.3 billion as of September #160;30, 2026 and June #160;30, 2026, respectively. This includes the current portion of long-term debt instruments ($ 6.6 billion and $ 6.5 billion as of September #160;30, 2026 and June #160;30, 2026, respectively). All long-term debt is recorded at amortized cost but is measured at fair value for di",
+      "#160;30, 2026, respectively. This includes the current portion of long-term debt instruments ($ 6.6 billion and $ 6.5 billion as of September #160;30, 2026 and June #160;30, 2026, respectively). All long-term debt is recorded at amortized cost but is measured at fair value for disclosure purposes. Long-term debt designated in a fair value hedging relationship is adjusted for the change in fair value attributab",
+      "billion and $ 6.5 billion as of September #160;30, 2026 and June #160;30, 2026, respectively). All long-term debt is recorded at amortized cost but is measured at fair value for disclosure purposes. Long-term debt designated in a fair value hedging relationship is adjusted for the change in fair value attributable to the designated hedged risk. We consider our debt to be Level 2 in the fair value hierarchy. Fa",
+      "es exceeded current assets by $12.5 billion. We anticipate being able to support our short-term liquidity and operating needs largely through cash generated from operations. We have strong short- and long-term debt ratings that have enabled and should continue to enable us to refinance our debt as it becomes due in commercial paper and bond markets. In addition, we have agreements with a diverse group of financ"
+    ],
+    "html_len": 1066734
+  },
+  "record_utc": "2026-11-25T08:27:31.966628+00:00"
+}

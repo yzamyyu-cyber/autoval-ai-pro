@@ -1,0 +1,441 @@
+{
+  "ticker": "GOOGL",
+  "stock": {
+    "ticker": "GOOGL",
+    "company": "Alphabet Inc.",
+    "shares": 12294000000.0,
+    "net_debt": 73489000000.0,
+    "diluted_shares": 12230000000.0,
+    "total_debt": 129823000000.0,
+    "cash_and_equivalents": 56334000000.0,
+    "short_term_investments": null,
+    "restricted_investments": null,
+    "long_term_investments": null,
+    "restricted_in_short_term": null,
+    "fcff_history": [
+      {
+        "year_end": "2022-12-31",
+        "fcff_usd": 60310162685.06056
+      },
+      {
+        "year_end": "2023-12-31",
+        "fcff_usd": 69760161636.54817
+      },
+      {
+        "year_end": "2024-12-31",
+        "fcff_usd": 72987942110.75407
+      },
+      {
+        "year_end": "2025-12-31",
+        "fcff_usd": 73878476042.96526
+      }
+    ],
+    "financial_asof": "2025-12-31",
+    "balance_sheet_asof": "2026-09-30",
+    "share_count_asof": "2026-09-30",
+    "ebit": 129039000000.0,
+    "depreciation": null,
+    "net_income": 132170000000.0,
+    "source": {
+      "provider": "SEC EDGAR XBRL companyfacts",
+      "cik": 1652044,
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+      "units": "USD (except shares)",
+      "annual_records": [
+        {
+          "year_end": "2022-12-31",
+          "cfo": {
+            "value": 91495000000.0,
+            "end": "2022-12-31",
+            "start": "2022-01-01",
+            "filed": "2025-02-05",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 31485000000.0,
+            "end": "2022-12-31",
+            "start": "2022-01-01",
+            "filed": "2025-02-05",
+            "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 357000000.0,
+            "end": "2022-12-31",
+            "start": "2022-01-01",
+            "filed": "2025-02-05",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": null,
+          "interest_addback": 357000000.0,
+          "interest_addback_note": "interest expense (proxy; cash interest paid unavailable)",
+          "tax": {
+            "value": 11356000000.0,
+            "end": "2022-12-31",
+            "start": "2022-01-01",
+            "filed": "2025-02-05",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 71328000000.0,
+            "end": "2022-12-31",
+            "start": "2022-01-01",
+            "filed": "2025-02-05",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.1592081650964558,
+          "tax_rate_note": "SEC observed tax expense / pretax income (15.9%)",
+          "derived_fcff_usd": 60310162685.06056
+        },
+        {
+          "year_end": "2023-12-31",
+          "cfo": {
+            "value": 101746000000.0,
+            "end": "2023-12-31",
+            "start": "2023-01-01",
+            "filed": "2026-02-05",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 32251000000.0,
+            "end": "2023-12-31",
+            "start": "2023-01-01",
+            "filed": "2026-02-05",
+            "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 308000000.0,
+            "end": "2023-12-31",
+            "start": "2023-01-01",
+            "filed": "2026-02-05",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": null,
+          "interest_addback": 308000000.0,
+          "interest_addback_note": "interest expense (proxy; cash interest paid unavailable)",
+          "tax": {
+            "value": 11922000000.0,
+            "end": "2023-12-31",
+            "start": "2023-01-01",
+            "filed": "2026-02-05",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 85717000000.0,
+            "end": "2023-12-31",
+            "start": "2023-01-01",
+            "filed": "2026-02-05",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.13908559562280529,
+          "tax_rate_note": "SEC observed tax expense / pretax income (13.9%)",
+          "derived_fcff_usd": 69760161636.54817
+        },
+        {
+          "year_end": "2024-12-31",
+          "cfo": {
+            "value": 125299000000.0,
+            "end": "2024-12-31",
+            "start": "2024-01-01",
+            "filed": "2026-02-05",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 52535000000.0,
+            "end": "2024-12-31",
+            "start": "2024-01-01",
+            "filed": "2026-02-05",
+            "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 268000000.0,
+            "end": "2024-12-31",
+            "start": "2024-01-01",
+            "filed": "2026-02-05",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": null,
+          "interest_addback": 268000000.0,
+          "interest_addback_note": "interest expense (proxy; cash interest paid unavailable)",
+          "tax": {
+            "value": 19697000000.0,
+            "end": "2024-12-31",
+            "start": "2024-01-01",
+            "filed": "2026-02-05",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 119815000000.0,
+            "end": "2024-12-31",
+            "start": "2024-01-01",
+            "filed": "2026-02-05",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.16439510912657013,
+          "tax_rate_note": "SEC observed tax expense / pretax income (16.4%)",
+          "derived_fcff_usd": 72987942110.75407
+        },
+        {
+          "year_end": "2025-12-31",
+          "cfo": {
+            "value": 164713000000.0,
+            "end": "2025-12-31",
+            "start": "2025-01-01",
+            "filed": "2026-02-05",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 91447000000.0,
+            "end": "2025-12-31",
+            "start": "2025-01-01",
+            "filed": "2026-02-05",
+            "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 736000000.0,
+            "end": "2025-12-31",
+            "start": "2025-01-01",
+            "filed": "2026-02-05",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": null,
+          "interest_addback": 736000000.0,
+          "interest_addback_note": "interest expense (proxy; cash interest paid unavailable)",
+          "tax": {
+            "value": 26656000000.0,
+            "end": "2025-12-31",
+            "start": "2025-01-01",
+            "filed": "2026-02-05",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 158826000000.0,
+            "end": "2025-12-31",
+            "start": "2025-01-01",
+            "filed": "2026-02-05",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.16783146336242177,
+          "tax_rate_note": "SEC observed tax expense / pretax income (16.8%)",
+          "derived_fcff_usd": 73878476042.96526
+        }
+      ],
+      "shares": {
+        "value": 12294000000.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "form": "10-Q",
+        "tag": "CommonStockSharesOutstanding"
+      },
+      "cash": {
+        "value": 56334000000.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "form": "10-Q",
+        "tag": "CashAndCashEquivalentsAtCarryingValue"
+      },
+      "long_debt": {
+        "value": 125102000000.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "form": "10-Q",
+        "tag": "LongTermDebtNoncurrent"
+      },
+      "short_debt": {
+        "value": 0.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "form": "10-Q",
+        "tag": "CommercialPaper"
+      },
+      "current_debt": {
+        "value": 1016000000.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "form": "10-Q",
+        "tag": "LongTermDebtCurrent"
+      },
+      "excluded_debt_tags": [],
+      "finance_lease": {
+        "value": 3705000000.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "form": "10-Q",
+        "tag": "FinanceLeaseLiability"
+      },
+      "lease_excluded": [],
+      "lease_assumptions": [
+        "Finance-lease liability 3,705,000,000 (FinanceLeaseLiability) added to debt (not included in LongTermDebtNoncurrent)"
+      ],
+      "debt_reconciliation": {
+        "reference_date": "2026-09-30",
+        "long_term_debt": 125102000000.0,
+        "current_portion_long_term_debt": 1016000000.0,
+        "short_term_borrowings": 0.0,
+        "finance_lease": 3705000000.0,
+        "total_debt": 129823000000.0,
+        "cash_and_equivalents": 56334000000.0,
+        "net_debt": 73489000000.0
+      },
+      "investment_facts": {
+        "short_term_investments": null,
+        "restricted_investments": null,
+        "long_term_investments": null
+      },
+      "excluded_investment_tags": [
+        {
+          "tag": "ShortTermInvestments",
+          "status": "absent",
+          "value_used": 0.0
+        },
+        {
+          "tag": "RestrictedInvestments",
+          "status": "absent",
+          "value_used": 0.0
+        },
+        {
+          "tag": "LongTermInvestments",
+          "status": "absent",
+          "value_used": 0.0
+        }
+      ],
+      "investment_assumptions": [
+        "Short-term investments (ShortTermInvestments) not reported with supported tags; treated as zero",
+        "Restricted investments (RestrictedInvestments) not reported with supported tags; treated as zero",
+        "Long-term investments (LongTermInvestments) not reported with supported tags; treated as zero"
+      ],
+      "disclosure_warnings": [
+        "Finance-lease liability 3,705,000,000 (FinanceLeaseLiability) added to debt (not included in LongTermDebtNoncurrent)"
+      ],
+      "method_note": "US-GAAP approximate FCFF = operating cash flow - capex + after-tax interest expense; needs filing-level review"
+    },
+    "market_price": 265.2900085449219,
+    "price_date": "2026-11-20"
+  },
+  "history": {
+    "ticker": "GOOGL",
+    "company": "Alphabet Inc.",
+    "cik": 1652044,
+    "fiscal_years": [
+      "2020-12-31",
+      "2021-12-31",
+      "2022-12-31",
+      "2023-12-31",
+      "2024-12-31",
+      "2025-12-31"
+    ],
+    "revenue": [
+      182527000000.0,
+      257637000000.0,
+      282836000000.0,
+      307394000000.0,
+      350018000000.0,
+      402836000000.0
+    ],
+    "operating_income": [
+      41224000000.0,
+      78714000000.0,
+      74842000000.0,
+      84293000000.0,
+      112390000000.0,
+      129039000000.0
+    ],
+    "capex": [
+      22281000000.0,
+      24640000000.0,
+      32062000000.0,
+      32815000000.0,
+      52848000000.0,
+      93053000000.0
+    ],
+    "da": [
+      0.0,
+      10273000000.0,
+      13949000000.0,
+      12415000000.0,
+      15724000000.0,
+      21689000000.0
+    ],
+    "da_detail": [
+      {
+        "tag": "Depreciation",
+        "years_present": [
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31",
+          "2024-12-31",
+          "2025-12-31"
+        ]
+      },
+      {
+        "tag": "FinanceLeaseRightOfUseAssetAmortization",
+        "years_present": [
+          "2022-12-31",
+          "2023-12-31",
+          "2024-12-31",
+          "2025-12-31"
+        ]
+      }
+    ],
+    "finance_lease_amortization_present": true,
+    "finance_lease_additions_available": true,
+    "effective_tax_rate": [
+      0.16249324071378063,
+      0.1620230564066392,
+      0.1592081650964558,
+      0.13908559562280529,
+      0.16439510912657013,
+      0.16783146336242177
+    ],
+    "nwc": [
+      -5105000000.0,
+      -895000000.0,
+      -3974000000.0,
+      -9834000000.0,
+      -11911000000.0,
+      -9010000000.0
+    ],
+    "nwc_latest": -9010000000.0,
+    "asof": "2025-12-31",
+    "ttm": {
+      "revenue": 471098000000.0,
+      "operating_income": 156976000000.0,
+      "operating_cash_flow": 179551000000.0,
+      "capex": 159804000000.0,
+      "asof": "2026-09-30",
+      "basis": "ttm"
+    },
+    "units": "USD",
+    "limitations": [],
+    "warnings": []
+  },
+  "wacc": 0.09958815119086979,
+  "wacc_inputs": {
+    "rf": 0.049120001792907715,
+    "beta": 1.2164569459102157,
+    "erp": 0.0446,
+    "equity_value": 3261475365051.2695,
+    "debt": 129823000000.0,
+    "interest": 736000000.0,
+    "tax": 0.21
+  }
+}

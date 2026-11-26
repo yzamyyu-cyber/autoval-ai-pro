@@ -1,0 +1,61 @@
+[
+  {
+    "ticker": "MCD",
+    "kind": "agent",
+    "original_extraction": "debt_blocked",
+    "issues": [
+      "debt_component_stale_nonzero",
+      "debt_component_stale_nonzero",
+      "debt_unavailable",
+      "finance_lease_stale"
+    ],
+    "proposal": 0.0,
+    "validation": "rejected",
+    "approval": "rejected",
+    "corrected_extraction": null,
+    "valuation_available": false
+  },
+  {
+    "ticker": "JNJ",
+    "kind": "agent",
+    "original_extraction": "debt_blocked",
+    "issues": [
+      "debt_component_stale_nonzero",
+      "debt_unavailable"
+    ],
+    "proposal": 0.0,
+    "validation": "rejected",
+    "approval": "rejected",
+    "corrected_extraction": null,
+    "valuation_available": false
+  },
+  {
+    "ticker": "ORCL",
+    "kind": "agent",
+    "original_extraction": "failed: ValueError",
+    "issues": [],
+    "proposal": null,
+    "validation": null,
+    "approval": null,
+    "corrected_extraction": null,
+    "valuation_available": null
+  },
+  {
+    "ticker": "CAT",
+    "kind": "specialized_captive_finance",
+    "note": "captive-finance arm; debt/interest tags not standalone",
+    "original_extraction": "specialized",
+    "issues": [],
+    "validation": "deferred",
+    "approval": "deferred"
+  },
+  {
+    "ticker": "XOM",
+    "kind": "specialized_predecessor_successor",
+    "note": "predecessor-successor registrant identity",
+    "original_extraction": "specialized",
+    "issues": [],
+    "validation": "deferred",
+    "approval": "deferred"
+  }
+]

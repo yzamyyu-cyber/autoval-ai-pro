@@ -1,0 +1,468 @@
+{
+  "ticker": "NVDA",
+  "stock": {
+    "ticker": "NVDA",
+    "company": "NVIDIA CORP",
+    "shares": 24100000000.0,
+    "net_debt": 10923000000.0,
+    "diluted_shares": 24514000000.0,
+    "total_debt": 33366000000.0,
+    "cash_and_equivalents": 22443000000.0,
+    "short_term_investments": null,
+    "restricted_investments": null,
+    "long_term_investments": null,
+    "restricted_in_short_term": null,
+    "fcff_history": [
+      {
+        "year_end": "2023-01-29",
+        "fcff_usd": 4008660000.0
+      },
+      {
+        "year_end": "2024-01-28",
+        "fcff_usd": 27242761192.264473
+      },
+      {
+        "year_end": "2025-01-26",
+        "fcff_usd": 61066368243.162834
+      },
+      {
+        "year_end": "2026-01-25",
+        "fcff_usd": 96895846963.59137
+      }
+    ],
+    "financial_asof": "2026-01-25",
+    "balance_sheet_asof": "2026-07-26",
+    "share_count_asof": "2026-08-21",
+    "ebit": 130387000000.0,
+    "depreciation": 2843000000.0,
+    "net_income": 120067000000.0,
+    "source": {
+      "provider": "SEC EDGAR XBRL companyfacts",
+      "cik": 1045810,
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json",
+      "units": "USD (except shares)",
+      "annual_records": [
+        {
+          "year_end": "2023-01-29",
+          "cfo": {
+            "value": 5641000000.0,
+            "end": "2023-01-29",
+            "start": "2022-01-31",
+            "filed": "2025-02-26",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 1833000000.0,
+            "end": "2023-01-29",
+            "start": "2022-01-31",
+            "filed": "2025-02-26",
+            "tag": "PaymentsToAcquireProductiveAssets",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 262000000.0,
+            "end": "2023-01-29",
+            "start": "2022-01-31",
+            "filed": "2025-02-26",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": {
+            "value": 254000000.0,
+            "end": "2023-01-29",
+            "start": "2022-01-31",
+            "filed": "2025-02-26",
+            "tag": "InterestPaidNet",
+            "form": "10-K"
+          },
+          "interest_addback": 254000000.0,
+          "interest_addback_note": "cash interest paid",
+          "tax": {
+            "value": -187000000.0,
+            "end": "2023-01-29",
+            "start": "2022-01-31",
+            "filed": "2025-02-26",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 4181000000.0,
+            "end": "2023-01-29",
+            "start": "2022-01-31",
+            "filed": "2025-02-26",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.21,
+          "tax_rate_note": "21% explicit policy fallback; effective tax data missing/out of range",
+          "derived_fcff_usd": 4008660000.0
+        },
+        {
+          "year_end": "2024-01-28",
+          "cfo": {
+            "value": 28090000000.0,
+            "end": "2024-01-28",
+            "start": "2023-01-30",
+            "filed": "2026-02-25",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 1069000000.0,
+            "end": "2024-01-28",
+            "start": "2023-01-30",
+            "filed": "2026-02-25",
+            "tag": "PaymentsToAcquireProductiveAssets",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 257000000.0,
+            "end": "2024-01-28",
+            "start": "2023-01-30",
+            "filed": "2026-02-25",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": {
+            "value": 252000000.0,
+            "end": "2024-01-28",
+            "start": "2023-01-30",
+            "filed": "2025-02-26",
+            "tag": "InterestPaidNet",
+            "form": "10-K"
+          },
+          "interest_addback": 252000000.0,
+          "interest_addback_note": "cash interest paid",
+          "tax": {
+            "value": 4058000000.0,
+            "end": "2024-01-28",
+            "start": "2023-01-30",
+            "filed": "2026-02-25",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 33818000000.0,
+            "end": "2024-01-28",
+            "start": "2023-01-30",
+            "filed": "2026-02-25",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.1199952687917677,
+          "tax_rate_note": "SEC observed tax expense / pretax income (12.0%)",
+          "derived_fcff_usd": 27242761192.264473
+        },
+        {
+          "year_end": "2025-01-26",
+          "cfo": {
+            "value": 64089000000.0,
+            "end": "2025-01-26",
+            "start": "2024-01-29",
+            "filed": "2026-02-25",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 3236000000.0,
+            "end": "2025-01-26",
+            "start": "2024-01-29",
+            "filed": "2026-02-25",
+            "tag": "PaymentsToAcquireProductiveAssets",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 247000000.0,
+            "end": "2025-01-26",
+            "start": "2024-01-29",
+            "filed": "2026-02-25",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": {
+            "value": 246000000.0,
+            "end": "2025-01-26",
+            "start": "2024-01-29",
+            "filed": "2025-02-26",
+            "tag": "InterestPaidNet",
+            "form": "10-K"
+          },
+          "interest_addback": 246000000.0,
+          "interest_addback_note": "cash interest paid",
+          "tax": {
+            "value": 11146000000.0,
+            "end": "2025-01-26",
+            "start": "2024-01-29",
+            "filed": "2026-02-25",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 84026000000.0,
+            "end": "2025-01-26",
+            "start": "2024-01-29",
+            "filed": "2026-02-25",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.13264941803727417,
+          "tax_rate_note": "SEC observed tax expense / pretax income (13.3%)",
+          "derived_fcff_usd": 61066368243.162834
+        },
+        {
+          "year_end": "2026-01-25",
+          "cfo": {
+            "value": 102718000000.0,
+            "end": "2026-01-25",
+            "start": "2025-01-27",
+            "filed": "2026-02-25",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 6042000000.0,
+            "end": "2026-01-25",
+            "start": "2025-01-27",
+            "filed": "2026-02-25",
+            "tag": "PaymentsToAcquireProductiveAssets",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 259000000.0,
+            "end": "2026-01-25",
+            "start": "2025-01-27",
+            "filed": "2026-02-25",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": null,
+          "interest_addback": 259000000.0,
+          "interest_addback_note": "interest expense (proxy; cash interest paid unavailable)",
+          "tax": {
+            "value": 21383000000.0,
+            "end": "2026-01-25",
+            "start": "2025-01-27",
+            "filed": "2026-02-25",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 141450000000.0,
+            "end": "2026-01-25",
+            "start": "2025-01-27",
+            "filed": "2026-02-25",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.1511700247437257,
+          "tax_rate_note": "SEC observed tax expense / pretax income (15.1%)",
+          "derived_fcff_usd": 96895846963.59137
+        }
+      ],
+      "shares": {
+        "value": 24100000000.0,
+        "end": "2026-08-21",
+        "filed": "2026-08-26",
+        "form": "10-Q",
+        "tag": "EntityCommonStockSharesOutstanding"
+      },
+      "cash": {
+        "value": 22443000000.0,
+        "end": "2026-07-26",
+        "filed": "2026-08-26",
+        "form": "10-Q",
+        "tag": "CashAndCashEquivalentsAtCarryingValue"
+      },
+      "long_debt": {
+        "value": 32366000000.0,
+        "end": "2026-07-26",
+        "filed": "2026-08-26",
+        "form": "10-Q",
+        "tag": "LongTermDebtNoncurrent"
+      },
+      "short_debt": null,
+      "current_debt": {
+        "value": 1000000000.0,
+        "end": "2026-07-26",
+        "filed": "2026-08-26",
+        "form": "10-Q",
+        "tag": "LongTermDebtCurrent"
+      },
+      "excluded_debt_tags": [
+        {
+          "tag": "CommercialPaper",
+          "status": "stale_zero",
+          "last_end": "2025-01-26",
+          "last_value": 0.0,
+          "value_used": 0.0
+        }
+      ],
+      "finance_lease": null,
+      "lease_excluded": [
+        {
+          "tag": "FinanceLeaseLiability",
+          "status": "absent",
+          "value_used": 0.0
+        }
+      ],
+      "lease_assumptions": [
+        "No finance-lease liability reported at the cash reporting date; treated as zero (disclosed)"
+      ],
+      "debt_reconciliation": {
+        "reference_date": "2026-07-26",
+        "long_term_debt": 32366000000.0,
+        "current_portion_long_term_debt": 1000000000.0,
+        "short_term_borrowings": 0.0,
+        "finance_lease": 0.0,
+        "total_debt": 33366000000.0,
+        "cash_and_equivalents": 22443000000.0,
+        "net_debt": 10923000000.0
+      },
+      "investment_facts": {
+        "short_term_investments": null,
+        "restricted_investments": null,
+        "long_term_investments": null
+      },
+      "excluded_investment_tags": [
+        {
+          "tag": "ShortTermInvestments",
+          "status": "absent",
+          "value_used": 0.0
+        },
+        {
+          "tag": "RestrictedInvestments",
+          "status": "absent",
+          "value_used": 0.0
+        },
+        {
+          "tag": "LongTermInvestments",
+          "status": "absent",
+          "value_used": 0.0
+        }
+      ],
+      "investment_assumptions": [
+        "Short-term investments (ShortTermInvestments) not reported with supported tags; treated as zero",
+        "Restricted investments (RestrictedInvestments) not reported with supported tags; treated as zero",
+        "Long-term investments (LongTermInvestments) not reported with supported tags; treated as zero"
+      ],
+      "disclosure_warnings": [
+        "Short-term borrowings (CommercialPaper) stale: last reported 2025-01-26 = 0; excluded from current period 2026-07-26 and counted as zero (not verified current; possible understatement)",
+        "No finance-lease liability reported at the cash reporting date; treated as zero (disclosed)"
+      ],
+      "method_note": "US-GAAP approximate FCFF = operating cash flow - capex + after-tax interest expense; needs filing-level review"
+    },
+    "market_price": 165.0500030517578,
+    "price_date": "2026-11-23"
+  },
+  "history": {
+    "ticker": "NVDA",
+    "company": "NVIDIA CORP",
+    "cik": 1045810,
+    "fiscal_years": [
+      "2012-01-29",
+      "2022-01-30",
+      "2023-01-29",
+      "2024-01-28",
+      "2025-01-26",
+      "2026-01-25"
+    ],
+    "revenue": [
+      3997930000.0,
+      26914000000.0,
+      26974000000.0,
+      60922000000.0,
+      130497000000.0,
+      215938000000.0
+    ],
+    "operating_income": [
+      648299000.0,
+      10041000000.0,
+      4224000000.0,
+      32972000000.0,
+      81453000000.0,
+      130387000000.0
+    ],
+    "capex": [
+      138735000.0,
+      976000000.0,
+      1833000000.0,
+      1069000000.0,
+      3236000000.0,
+      6042000000.0
+    ],
+    "da": [
+      204200000.0,
+      1174000000.0,
+      1543000000.0,
+      1508000000.0,
+      1893000000.0,
+      2888000000.0
+    ],
+    "da_detail": [
+      {
+        "tag": "Depreciation",
+        "years_present": [
+          "2012-01-29",
+          "2022-01-30",
+          "2023-01-29",
+          "2024-01-28",
+          "2025-01-26",
+          "2026-01-25"
+        ]
+      },
+      {
+        "tag": "AmortizationOfIntangibleAssets",
+        "years_present": [
+          "2012-01-29",
+          "2022-01-30",
+          "2023-01-29",
+          "2024-01-28",
+          "2025-01-26",
+          "2026-01-25"
+        ]
+      }
+    ],
+    "finance_lease_amortization_present": false,
+    "finance_lease_additions_available": false,
+    "effective_tax_rate": [
+      0.12406767601854699,
+      0.019012171813700834,
+      null,
+      0.1199952687917677,
+      0.13264941803727417,
+      0.1511700247437257
+    ],
+    "nwc": [
+      -253518000.0,
+      2620000000.0,
+      3319000000.0,
+      5136000000.0,
+      14261000000.0,
+      27326000000.0
+    ],
+    "nwc_latest": 27326000000.0,
+    "asof": "2026-01-25",
+    "ttm": {
+      "revenue": 302970000000.0,
+      "operating_income": 197579000000.0,
+      "operating_cash_flow": 134360000000.0,
+      "capex": 7354000000.0,
+      "asof": "2026-07-26",
+      "basis": "ttm"
+    },
+    "units": "USD",
+    "limitations": [],
+    "warnings": []
+  },
+  "wacc": 0.14280262193255397,
+  "wacc_inputs": {
+    "rf": 0.049180002212524415,
+    "beta": 2.124866483376435,
+    "erp": 0.0446,
+    "equity_value": 3977705073547.3633,
+    "debt": 33366000000.0,
+    "interest": 259000000.0,
+    "tax": 0.21
+  }
+}

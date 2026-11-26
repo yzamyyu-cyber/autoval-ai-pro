@@ -1,0 +1,247 @@
+{
+  "company": "ORACLE CORP",
+  "ticker": "ORCL",
+  "detected_problem": "Reconstruct complete debt (noncurrent + current borrowings, finance leases, cash).",
+  "original_production_value": null,
+  "proposed_financial_value": 134522000000,
+  "financial_definition": "Total gross debt including noncurrent notes/loans, current notes payable, and finance-lease liabilities; cash and cash equivalents are not netted against this gross debt amount.",
+  "xbrl_tags": [
+    {
+      "tag": "LongTermNotesAndLoans",
+      "value": 117712000000,
+      "period_end": "2026-08-31",
+      "filed": "2026-09-11",
+      "form": "10-Q"
+    },
+    {
+      "tag": "NotesPayableCurrent",
+      "value": 7625000000,
+      "period_end": "2026-08-31",
+      "filed": "2026-09-11",
+      "form": "10-Q"
+    },
+    {
+      "tag": "FinanceLeaseLiability",
+      "value": 9185000000,
+      "period_end": "2026-08-31",
+      "filed": "2026-09-11",
+      "form": "10-Q"
+    },
+    {
+      "tag": "CashAndCashEquivalentsAtCarryingValue",
+      "value": 36369000000,
+      "period_end": "2026-08-31",
+      "filed": "2026-09-11",
+      "form": "10-Q"
+    }
+  ],
+  "reporting_period": "2026-08-31",
+  "filing_date": "2026-09-11",
+  "sec_accession": "0001193125-26-389274",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+  "statement_or_note_reference": "Condensed Consolidated Balance Sheets and Notes to Condensed Consolidated Financial Statements (Form 10-Q, filed 2026-09-11)",
+  "derivation_formula": "LongTermNotesAndLoans + NotesPayableCurrent + FinanceLeaseLiability",
+  "accounting_explanation": "The production extraction returned empty debt fields. Using the 2026-08-31 10-Q inline XBRL facts, noncurrent borrowings are LongTermNotesAndLoans ($117,712M), current borrowings are NotesPayableCurrent ($7,625M), and total finance-lease liability is $9,185M. Summing these gives total gross debt including finance leases of $134,522M. Cash and cash equivalents of $36,369M is a separate asset and is not included in gross debt.",
+  "deterministic_validation": {
+    "status": "validated",
+    "checks": [
+      {
+        "rule": "company_identity",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal ticker/company must match the extraction"
+      },
+      {
+        "rule": "reporting_period",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal period '2026-08-31' must be present for a blocked extraction"
+      },
+      {
+        "rule": "filing_lookahead",
+        "level": "hard",
+        "ok": true,
+        "reason": "filing date '2026-09-11' must not precede the reporting period '2026-08-31'"
+      },
+      {
+        "rule": "value_finite",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposed value must be a finite number"
+      },
+      {
+        "rule": "units_scaling",
+        "level": "soft",
+        "ok": true,
+        "reason": "proposed value is within a 1e3/1e6/1e9 multiple of the original — verify units and scaling"
+      },
+      {
+        "rule": "xbrl_tag_exists",
+        "level": "hard",
+        "ok": true,
+        "reason": "all cited tags exist in Companyfacts or the original filing"
+      },
+      {
+        "rule": "source_fact_value",
+        "level": "hard",
+        "ok": true,
+        "reason": "cited values match source facts"
+      },
+      {
+        "rule": "component_arithmetic",
+        "level": "hard",
+        "ok": true,
+        "reason": "formula recomputes to 134,522,000,000.00 vs proposed 134,522,000,000.00"
+      },
+      {
+        "rule": "debt_lease_double_count",
+        "level": "hard",
+        "ok": true,
+        "reason": "no debt/lease double-count detected"
+      },
+      {
+        "rule": "restricted_cash",
+        "level": "soft",
+        "ok": true,
+        "reason": "restricted/unrestricted cash scope is consistent"
+      },
+      {
+        "rule": "source_evidence",
+        "level": "hard",
+        "ok": true,
+        "reason": "source evidence present"
+      }
+    ],
+    "hard_failures": [],
+    "soft_warnings": []
+  },
+  "remaining_uncertainty": "Interpreted as gross total debt including finance leases. If the requested metric was net debt, cash and cash equivalents ($36,369M) would be subtracted, resulting in $98,153M; the provided evidence does not state 'net debt' explicitly.",
+  "approval_status": "pending",
+  "category": "debt_unavailable",
+  "filing": {
+    "accession": "0001193125-26-389274",
+    "form": "10-Q",
+    "filing_date": "2026-09-11",
+    "report_date": "2026-08-31",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm"
+  },
+  "filing_evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+    "facts": {
+      "LongTermNotesAndLoans": {
+        "tag": "LongTermNotesAndLoans",
+        "name": "us-gaap:LongTermNotesAndLoans",
+        "value": 117712000000.0,
+        "raw_value": "117,712",
+        "unit": "USD",
+        "period_end": "2026-08-31",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "NotesPayableCurrent": {
+        "tag": "NotesPayableCurrent",
+        "name": "us-gaap:NotesPayableCurrent",
+        "value": 7625000000.0,
+        "raw_value": "7,625",
+        "unit": "USD",
+        "period_end": "2026-08-31",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "FinanceLeaseLiability": {
+        "tag": "FinanceLeaseLiability",
+        "name": "us-gaap:FinanceLeaseLiability",
+        "value": 9185000000.0,
+        "raw_value": "9,185",
+        "unit": "USD",
+        "period_end": "2026-08-31",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "FinanceLeaseLiabilityNoncurrent": {
+        "tag": "FinanceLeaseLiabilityNoncurrent",
+        "name": "us-gaap:FinanceLeaseLiabilityNoncurrent",
+        "value": 8436000000.0,
+        "raw_value": "8,436",
+        "unit": "USD",
+        "period_end": "2026-08-31",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "FinanceLeaseLiabilityCurrent": {
+        "tag": "FinanceLeaseLiabilityCurrent",
+        "name": "us-gaap:FinanceLeaseLiabilityCurrent",
+        "value": 749000000.0,
+        "raw_value": "749",
+        "unit": "USD",
+        "period_end": "2026-08-31",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "CashAndCashEquivalentsAtCarryingValue": {
+        "tag": "CashAndCashEquivalentsAtCarryingValue",
+        "name": "us-gaap:CashAndCashEquivalentsAtCarryingValue",
+        "value": 36369000000.0,
+        "raw_value": "36,369",
+        "unit": "USD",
+        "period_end": "2026-08-31",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      }
+    },
+    "missing_tags": [
+      "LongTermDebtNoncurrent",
+      "LongTermDebt",
+      "NotesPayable",
+      "LoansPayable",
+      "LongTermNotesPayable",
+      "ConvertibleLongTermNotesPayable",
+      "LongTermDebtAndCapitalLeaseObligations",
+      "LongTermDebtCurrent",
+      "LongTermDebtAndCapitalLeaseObligationsCurrent",
+      "ShortTermBorrowings",
+      "CommercialPaper",
+      "DebtCurrent",
+      "DebtLongtermAndShorttermCombinedAmount",
+      "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+      "RestrictedCashAndCashEquivalentsAtCarryingValue"
+    ],
+    "statement_rows": [],
+    "note_excerpts": [
+      "60; #8212; #160; Net proceeds from employee stock programs #160; #160; 41 #160; #160; #160; 1,153 #160; Payments of dividends to stockholders #160; #160; ( 1,565 ) #160; #160; ( 1,413 ) Repayments of commercial paper, net #160; #160; #8212; #160; #160; #160; ( 238 ) (Repayments of) proceeds from short-term financing related to capital expenditures, net #160; #160; ( 830 ) #160; #160; 1,958 #160; Repayments of sen",
+      "d cash that was reclassed to prepaid expenses and other current assets; $1.6 billion of cash used to pay dividends to our common and preferred stockholders; $1.1 billion of cash used for repayment of commercial paper; $830 million of cash outflows for short-term financing related to capital expenditures, net; and $242 million of cash outflows for other financing activities, net, in each case during the first quar",
+      "ies, net #160; #160; ( 242 ) #160; #160; ( 198 ) Net cash provided by financing activities #160; #160; 13,111 #160; #160; #160; 210 #160; Effect of exchange rate changes on cash, cash equivalents and restricted cash #160; #160; 11 #160; #160; #160; 27 #160; Net increase (decrease) in cash, cash equivalents and restricted cash #160; #160; 7,645 #160; #160; #160; ( 341 ) Cash, cash equivalents and restricted cash",
+      "60; #160; #160; 210 #160; Effect of exchange rate changes on cash, cash equivalents and restricted cash #160; #160; 11 #160; #160; #160; 27 #160; Net increase (decrease) in cash, cash equivalents and restricted cash #160; #160; 7,645 #160; #160; #160; ( 341 ) Cash, cash equivalents and restricted cash at beginning of period #160; #160; 31,289 #160; #160; #160; 10,786 #160; Cash, cash equivalents and restricted c",
+      "restricted cash #160; #160; 11 #160; #160; #160; 27 #160; Net increase (decrease) in cash, cash equivalents and restricted cash #160; #160; 7,645 #160; #160; #160; ( 341 ) Cash, cash equivalents and restricted cash at beginning of period #160; #160; 31,289 #160; #160; #160; 10,786 #160; Cash, cash equivalents and restricted cash at end of period #160; $ 38,934 #160; #160; $ 10,445 #160; Non-cash investing activ",
+      "tricted cash #160; #160; 7,645 #160; #160; #160; ( 341 ) Cash, cash equivalents and restricted cash at beginning of period #160; #160; 31,289 #160; #160; #160; 10,786 #160; Cash, cash equivalents and restricted cash at end of period #160; $ 38,934 #160; #160; $ 10,445 #160; Non-cash investing activities: #160; #160; #160; #160; #160; #160; Unpaid capital expenditures #160; $ 6,247 #160; #160; $ 4,010 #160; #160;",
+      "ended May 31, 2026 that had a significant impact on our condensed consolidated financial statements or notes thereto as of and for the three months ended August 31, 2026 . Cash, Cash Equivalents and Restricted Cash Restricted cash as of August 31, 2026 was $ 2.6 billion and was included within prepaid expenses and other current assets as presented within our condensed consolidated balance sheets. Restricted cas",
+      "026 that had a significant impact on our condensed consolidated financial statements or notes thereto as of and for the three months ended August 31, 2026 . Cash, Cash Equivalents and Restricted Cash Restricted cash as of August 31, 2026 was $ 2.6 billion and was included within prepaid expenses and other current assets as presented within our condensed consolidated balance sheets. Restricted cash as of May 31,",
+      "estricted Cash Restricted cash as of August 31, 2026 was $ 2.6 billion and was included within prepaid expenses and other current assets as presented within our condensed consolidated balance sheets. Restricted cash as of May 31, 2026 was immaterial. Remaining Performance Obligations from Contracts with Customers Trade receivables, net of allowances for credit losses, and deferred revenues are reported net of re",
+      "stock via the ATM Program, net of issuance costs, partially offset by $28.5 billion of cash used for capital expenditures; $3.1 billion of cash used for scheduled repayments of debt; $2.6 billion of restricted cash that was reclassed to prepaid expenses and other current assets; $1.6 billion of cash used to pay dividends to our common and preferred stockholders; $1.1 billion of cash used for repayment of commer",
+      "2025 were $ 3.2 billion and $ 1.4 billion, respectively. Property, plant and equipment, net includes right-of-use (ROU) assets recorded in connection with lease arrangements that are accounted for as finance leases, totaling $ 8.9 billion and $ 7.5 billion as of August 31, 2026 and May 31, 2026 , respectively. 4. RESTRUCTURING AND OTHER EXPENSES The restructuring and other expenses line item on our condensed c",
+      "ts #160; #160; ORACLE CORPORATION NOTES TO CONDENSED CONSOLIDATED FINANCIAL STATEMENTS #8212;(Continued) August 31, 2026 (Unaudited) #160; 6. LEASES AND OTHER COMMITMENTS Leases We have operating and finance leases that primarily relate to our data centers and real estate facilities. The components of lease expense were as follows: #160; #160; #160; Three Months Ended August 31, #160; (in millions) #160; 2026",
+      "s of lease expense were as follows: #160; #160; #160; Three Months Ended August 31, #160; (in millions) #160; 2026 #160; #160; 2025 #160; Operating lease expense #160; $ 1,101 #160; #160; $ 575 #160; Finance lease expense: #160; #160; #160; #160; #160; #160; Amortization of ROU assets #160; $ 149 #160; #160; $ 59 #160; Interest on lease liabilities #160; #160; 126 #160; #160; #160; 48 #160; Total finance lease",
+      "Finance lease expense: #160; #160; #160; #160; #160; #160; Amortization of ROU assets #160; $ 149 #160; #160; $ 59 #160; Interest on lease liabilities #160; #160; 126 #160; #160; #160; 48 #160; Total finance lease expense #160; $ 275 #160; #160; $ 107 #160; Supplemental balance sheet information related to leases was as follows: #160; (in millions) #160; August 31, 2026 #160; #160; May 31, 2026 #160; Operating",
+      "4,027 #160; #160; $ 3,542 #160; Operating lease liabilities, non-current #160; #160; 30,594 #160; #160; #160; 26,648 #160; Total operating lease liabilities #160; $ 34,621 #160; #160; $ 30,190 #160; Finance leases: #160; #160; #160; #160; #160; #160; Finance lease ROU assets #160; $ 8,856 #160; #160; $ 7,464 #160; Finance lease liabilities: #160; #160; #160; #160; #160; #160; Finance lease liabilities, curren",
+      "bilities, non-current #160; #160; 30,594 #160; #160; #160; 26,648 #160; Total operating lease liabilities #160; $ 34,621 #160; #160; $ 30,190 #160; Finance leases: #160; #160; #160; #160; #160; #160; Finance lease ROU assets #160; $ 8,856 #160; #160; $ 7,464 #160; Finance lease liabilities: #160; #160; #160; #160; #160; #160; Finance lease liabilities, current #160; $ 749 #160; #160; $ 620 #160; Finance lease",
+      "#160; Total operating lease liabilities #160; $ 34,621 #160; #160; $ 30,190 #160; Finance leases: #160; #160; #160; #160; #160; #160; Finance lease ROU assets #160; $ 8,856 #160; #160; $ 7,464 #160; Finance lease liabilities: #160; #160; #160; #160; #160; #160; Finance lease liabilities, current #160; $ 749 #160; #160; $ 620 #160; Finance lease liabilities, non-current #160; #160; 8,436 #160; #160; #160; 7,08",
+      "160; $ 30,190 #160; Finance leases: #160; #160; #160; #160; #160; #160; Finance lease ROU assets #160; $ 8,856 #160; #160; $ 7,464 #160; Finance lease liabilities: #160; #160; #160; #160; #160; #160; Finance lease liabilities, current #160; $ 749 #160; #160; $ 620 #160; Finance lease liabilities, non-current #160; #160; 8,436 #160; #160; #160; 7,081 #160; Total finance lease liabilities #160; $ 9,185 #160; #16",
+      "Finance lease ROU assets #160; $ 8,856 #160; #160; $ 7,464 #160; Finance lease liabilities: #160; #160; #160; #160; #160; #160; Finance lease liabilities, current #160; $ 749 #160; #160; $ 620 #160; Finance lease liabilities, non-current #160; #160; 8,436 #160; #160; #160; 7,081 #160; Total finance lease liabilities #160; $ 9,185 #160; #160; $ 7,701 #160; Supplemental cash flow information related to leases w",
+      "#160; #160; #160; #160; #160; #160; Finance lease liabilities, current #160; $ 749 #160; #160; $ 620 #160; Finance lease liabilities, non-current #160; #160; 8,436 #160; #160; #160; 7,081 #160; Total finance lease liabilities #160; $ 9,185 #160; #160; $ 7,701 #160; Supplemental cash flow information related to leases was as follows: #160; #160; #160; Three Months Ended August 31, #160; (in millions) #160; 2026"
+    ],
+    "html_len": 2709056
+  },
+  "record_utc": "2026-11-25T08:16:57.623413+00:00"
+}

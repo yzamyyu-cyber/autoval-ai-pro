@@ -1,0 +1,108 @@
+[
+  {
+    "ticker": "PG",
+    "original_extraction": "debt_blocked",
+    "issues": [
+      "debt_component_stale_nonzero",
+      "debt_unavailable",
+      "cash_restricted_scope"
+    ],
+    "proposal": 38925000000.0,
+    "validation": "validated",
+    "approval": "pending",
+    "filing_accession": "0000080424-26-000256",
+    "filing_url": "https://www.sec.gov/Archives/edgar/data/80424/000008042426000256/pg-20260930.htm",
+    "inline_facts": {
+      "LongTermDebtNoncurrent": 21897000000.0,
+      "DebtCurrent": 17028000000.0,
+      "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents": 15365000000.0
+    },
+    "missing_tags": [
+      "LongTermDebt",
+      "LongTermDebtAndCapitalLeaseObligations",
+      "LongTermDebtCurrent",
+      "LongTermDebtAndCapitalLeaseObligationsCurrent",
+      "ShortTermBorrowings",
+      "CommercialPaper",
+      "DebtLongtermAndShorttermCombinedAmount",
+      "FinanceLeaseLiability",
+      "FinanceLeaseLiabilityNoncurrent",
+      "FinanceLeaseLiabilityCurrent",
+      "CashAndCashEquivalentsAtCarryingValue",
+      "RestrictedCashAndCashEquivalentsAtCarryingValue"
+    ],
+    "note_excerpts": [
+      "ng needs largely through cash generated from operations. We have strong short- and long-term debt ratings that have enabled and should continue to enable us to refinance our debt as it becomes due in commercial paper and bond markets. In addition, we have agreements with a diverse group of financial institutions that, if needed, should provide sufficient funding to meet short-term financing requirements. MEASURES",
+      "Gamble Company 5 THE PROCTER #160; amp; GAMBLE COMPANY AND SUBSIDIARIES CONSOLIDATED STATEMENTS OF CASH FLOWS Three Months Ended September 30 Amounts in millions 2026 2025 CASH, CASH EQUIVALENTS AND RESTRICTED CASH, BEGINNING OF PERIOD $ 9,942 #160; $ 9,556 #160; OPERATING ACTIVITIES Net earnings 4,757 #160; 4,781 #160; Depreciation and amortization 810 #160; 761 #160; Share-based compensation expense 98 #160;",
+      "tock purchases ( 1,250 ) ( 1,250 ) Impact of stock options and other 143 #160; 134 #160; TOTAL FINANCING ACTIVITIES 1,144 #160; ( 2,239 ) EFFECT OF EXCHANGE RATE CHANGES ON CASH, CASH EQUIVALENTS AND RESTRICTED CASH ( 29 ) ( 20 ) CHANGE IN CASH, CASH EQUIVALENTS AND RESTRICTED CASH 5,423 #160; 1,615 #160; CASH, CASH EQUIVALENTS AND RESTRICTED CASH, END OF PERIOD $ 15,365 #160; $ 11,171 #160; See accompanying Not"
+    ]
+  },
+  {
+    "ticker": "ORCL",
+    "original_extraction": "failed: ValueError",
+    "issues": [],
+    "proposal": null,
+    "validation": "rejected",
+    "approval": "rejected",
+    "filing_accession": "0001193125-26-389274",
+    "filing_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+    "inline_facts": {
+      "FinanceLeaseLiability": 9185000000.0,
+      "FinanceLeaseLiabilityNoncurrent": 8436000000.0,
+      "FinanceLeaseLiabilityCurrent": 749000000.0,
+      "CashAndCashEquivalentsAtCarryingValue": 36369000000.0
+    },
+    "missing_tags": [
+      "LongTermDebtNoncurrent",
+      "LongTermDebt",
+      "LongTermDebtAndCapitalLeaseObligations",
+      "LongTermDebtCurrent",
+      "LongTermDebtAndCapitalLeaseObligationsCurrent",
+      "ShortTermBorrowings",
+      "CommercialPaper",
+      "DebtCurrent",
+      "DebtLongtermAndShorttermCombinedAmount",
+      "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+      "RestrictedCashAndCashEquivalentsAtCarryingValue"
+    ],
+    "note_excerpts": [
+      "60; #8212; #160; Net proceeds from employee stock programs #160; #160; 41 #160; #160; #160; 1,153 #160; Payments of dividends to stockholders #160; #160; ( 1,565 ) #160; #160; ( 1,413 ) Repayments of commercial paper, net #160; #160; #8212; #160; #160; #160; ( 238 ) (Repayments of) proceeds from short-term financing related to capital expenditures, net #160; #160; ( 830 ) #160; #160; 1,958 #160; Repayments of sen",
+      "d cash that was reclassed to prepaid expenses and other current assets; $1.6 billion of cash used to pay dividends to our common and preferred stockholders; $1.1 billion of cash used for repayment of commercial paper; $830 million of cash outflows for short-term financing related to capital expenditures, net; and $242 million of cash outflows for other financing activities, net, in each case during the first quar",
+      "ies, net #160; #160; ( 242 ) #160; #160; ( 198 ) Net cash provided by financing activities #160; #160; 13,111 #160; #160; #160; 210 #160; Effect of exchange rate changes on cash, cash equivalents and restricted cash #160; #160; 11 #160; #160; #160; 27 #160; Net increase (decrease) in cash, cash equivalents and restricted cash #160; #160; 7,645 #160; #160; #160; ( 341 ) Cash, cash equivalents and restricted cash"
+    ]
+  },
+  {
+    "ticker": "MCD",
+    "original_extraction": "debt_blocked",
+    "issues": [
+      "debt_component_stale_nonzero",
+      "debt_component_stale_nonzero",
+      "debt_unavailable",
+      "finance_lease_stale"
+    ],
+    "proposal": null,
+    "validation": "unresolved",
+    "approval": "unresolved",
+    "filing_accession": null,
+    "filing_url": null,
+    "inline_facts": {},
+    "missing_tags": null,
+    "note_excerpts": []
+  },
+  {
+    "ticker": "JNJ",
+    "original_extraction": "debt_blocked",
+    "issues": [
+      "debt_component_stale_nonzero",
+      "debt_unavailable"
+    ],
+    "proposal": null,
+    "validation": "unresolved",
+    "approval": "unresolved",
+    "filing_accession": null,
+    "filing_url": null,
+    "inline_facts": {},
+    "missing_tags": null,
+    "note_excerpts": []
+  }
+]

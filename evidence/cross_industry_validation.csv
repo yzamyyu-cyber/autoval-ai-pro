@@ -1,0 +1,14 @@
+ticker,sec_extraction,ttm_basis,fin_lease,fiscal_years,revenue_ttm_m,status
+WMT,FAIL,,,,,Insufficient matched annual SEC facts for reliable FCFF (matched years=0; missin
+COST,FAIL,,,,,Short-term borrowings (ShortTermBorrowings) last reported 2013-09-01 with nonzer
+KO,FAIL,,,,,Short-term borrowings (ShortTermBorrowings) last reported 2022-12-31 with nonzer
+PG,FAIL,,,,,Short-term borrowings (CommercialPaper) last reported 2026-06-30 with nonzero va
+MCD,FAIL,,,,,Short-term borrowings (ShortTermBorrowings) last reported 2025-09-30 with nonzer
+NKE,FAIL,,,,,Insufficient matched annual SEC facts for reliable FCFF (matched years=0; missin
+XOM,FAIL,,,,,Insufficient matched annual SEC facts for reliable FCFF (matched years=0; missin
+CAT,FAIL,,,,,Insufficient matched annual SEC facts for reliable FCFF (matched years=0; missin
+UPS,FAIL,,,,,Short-term borrowings (ShortTermBorrowings) last reported 2020-09-30 with nonzer
+JNJ,FAIL,,,,,Current portion of long-term debt (LongTermDebtCurrent) last reported 2025-12-28
+DIS,OK,annual,187M,6,"102,344",PASS
+ORCL,FAIL,,,,,Noncurrent long-term debt not reported at cash reporting date 2026-08-31; manual
+AMD,FAIL,,,,,Short-term borrowings (ShortTermBorrowings) last reported 2025-12-27 with nonzer

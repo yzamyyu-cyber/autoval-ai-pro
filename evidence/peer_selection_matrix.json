@@ -1,0 +1,155 @@
+[
+  {
+    "ticker": "MSFT",
+    "method": "curated",
+    "industry": "software",
+    "sic": 7372,
+    "sic_description": "Services-Prepackaged Software",
+    "groups": {
+      "core_software": {
+        "tickers": [
+          "ORCL",
+          "CRM",
+          "ADBE"
+        ],
+        "rationale": "curated industry peer group"
+      },
+      "supplemental_software": {
+        "tickers": [
+          "NOW",
+          "SAP"
+        ],
+        "rationale": "Reported separately; NOW differs on size/growth."
+      },
+      "cloud_platform": {
+        "tickers": [
+          "AMZN",
+          "GOOGL"
+        ],
+        "rationale": "Different business mix; reported separately, not blended."
+      }
+    },
+    "excluded": []
+  },
+  {
+    "ticker": "AMZN",
+    "method": "curated",
+    "industry": "ecommerce_cloud",
+    "sic": 5961,
+    "sic_description": "Retail-Catalog & Mail-Order Houses",
+    "groups": {
+      "retail": {
+        "tickers": [
+          "WMT",
+          "TGT",
+          "COST",
+          "HD",
+          "LOW"
+        ],
+        "rationale": "Omnichannel/brick-and-mortar retail; AWS margin profile differs."
+      },
+      "ecommerce": {
+        "tickers": [
+          "EBAY",
+          "ETSY",
+          "MELI"
+        ],
+        "rationale": "Online marketplaces; different revenue/margin mix."
+      },
+      "cloud_platform": {
+        "tickers": [
+          "MSFT",
+          "GOOGL",
+          "ORCL"
+        ],
+        "rationale": "AWS vs Azure/GCP/OCI; different business mix, reported separately."
+      },
+      "advertising": {
+        "tickers": [
+          "META",
+          "GOOGL",
+          "PINS",
+          "SNAP"
+        ],
+        "rationale": "AMZN ads vs search/social; reported separately."
+      }
+    },
+    "excluded": []
+  },
+  {
+    "ticker": "AAPL",
+    "method": "curated",
+    "industry": "consumer_technology",
+    "sic": 3571,
+    "sic_description": "Electronic Computers",
+    "groups": {
+      "core": {
+        "tickers": [
+          "MSFT",
+          "GOOGL",
+          "META"
+        ],
+        "rationale": "curated industry peer group"
+      },
+      "secondary": {
+        "tickers": [
+          "AMZN",
+          "NVDA"
+        ],
+        "rationale": "curated industry peer group"
+      }
+    },
+    "excluded": []
+  },
+  {
+    "ticker": "WMT",
+    "method": "sic",
+    "industry": null,
+    "sic": 5331,
+    "sic_description": "Retail-Variety Stores",
+    "groups": {
+      "sic_5331": {
+        "tickers": [
+          "TGT",
+          "COST"
+        ],
+        "rationale": "same SIC industry classification"
+      }
+    },
+    "excluded": []
+  },
+  {
+    "ticker": "NKE",
+    "method": "sic",
+    "industry": null,
+    "sic": 3021,
+    "sic_description": "Rubber & Plastics Footwear",
+    "groups": {},
+    "excluded": []
+  },
+  {
+    "ticker": "ORCL",
+    "method": "sic",
+    "industry": null,
+    "sic": 7372,
+    "sic_description": "Services-Prepackaged Software",
+    "groups": {
+      "sic_7372": {
+        "tickers": [
+          "SAP",
+          "NOW",
+          "CRM",
+          "ADBE",
+          "MSFT"
+        ],
+        "rationale": "same SIC industry classification"
+      }
+    },
+    "excluded": []
+  },
+  {
+    "ticker": "UNMAPPED_FIXTURE",
+    "method": "sic (fixture)",
+    "note": "discover_peers falls back to SIC discovery for unmapped tickers; covered by tests/test_peer_selection.py::test_unmapped_sic_discovery"
+  }
+]

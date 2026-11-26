@@ -1,0 +1,60 @@
+{
+  "MSFT": {
+    "quality": "available",
+    "base_intrinsic": 163.80726984313313,
+    "base_equity": 1220855582140.871,
+    "validation": "validated",
+    "n_claims": 6,
+    "checks": [
+      [
+        "evidence_ids_exist",
+        true
+      ],
+      [
+        "identity",
+        true
+      ],
+      [
+        "snapshot_identity",
+        true
+      ],
+      [
+        "no_unsupported_headline",
+        true
+      ],
+      [
+        "structured_claims",
+        true
+      ]
+    ]
+  },
+  "WMT": {
+    "quality": "unsuitable",
+    "base_intrinsic": 17.50935333444572,
+    "base_equity": 140460032448.92355,
+    "validation": "validated",
+    "n_claims": 5,
+    "checks": [
+      [
+        "evidence_ids_exist",
+        true
+      ],
+      [
+        "identity",
+        true
+      ],
+      [
+        "snapshot_identity",
+        true
+      ],
+      [
+        "no_unsupported_headline",
+        true
+      ],
+      [
+        "structured_claims",
+        true
+      ]
+    ]
+  }
+}

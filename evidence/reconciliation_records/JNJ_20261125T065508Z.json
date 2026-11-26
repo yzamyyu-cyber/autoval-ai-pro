@@ -1,0 +1,138 @@
+{
+  "company": "JOHNSON & JOHNSON",
+  "ticker": "JNJ",
+  "detected_problem": "LongTermDebtCurrent has a stale nonzero value of 2,000,000,000 at 2025-12-28, but no 2026-09-27 value is available; the current-period current portion of long-term debt is unresolved.",
+  "original_production_value": 2000000000.0,
+  "proposed_financial_value": 0.0,
+  "financial_definition": "Current portion of long-term debt (LongTermDebtCurrent) as of 2026-09-27; no current-period value is available, so the original 0.0 is retained.",
+  "xbrl_tags": [
+    {
+      "tag": "LongTermDebtCurrent",
+      "value": 2000000000,
+      "period_end": "2025-12-28",
+      "filed": "2026-02-11",
+      "form": "10-K"
+    },
+    {
+      "tag": "LongTermDebtNoncurrent",
+      "value": 35799000000,
+      "period_end": "2026-09-27",
+      "filed": "2026-10-21",
+      "form": "10-Q"
+    },
+    {
+      "tag": "LongTermDebt",
+      "value": 41438000000,
+      "period_end": "2025-12-28",
+      "filed": "2026-02-11",
+      "form": "10-K"
+    },
+    {
+      "tag": "ShortTermBorrowings",
+      "value": 8852000000,
+      "period_end": "2026-09-27",
+      "filed": "2026-10-21",
+      "form": "10-Q"
+    },
+    {
+      "tag": "DebtCurrent",
+      "value": 8500000000,
+      "period_end": "2025-12-28",
+      "filed": "2026-02-11",
+      "form": "10-K"
+    },
+    {
+      "tag": "CashAndCashEquivalentsAtCarryingValue",
+      "value": 16910000000,
+      "period_end": "2026-09-27",
+      "filed": "2026-10-21",
+      "form": "10-Q"
+    }
+  ],
+  "reporting_period": "2026-09-27",
+  "filing_date": "2026-10-21",
+  "sec_accession": "0000200406-26-000197",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/200406/000020040626000197/jnj-20260927.htm",
+  "statement_or_note_reference": "Consolidated Balance Sheet / debt footnote in the 2026-09-27 10-Q filing",
+  "derivation_formula": "LongTermDebtCurrent",
+  "accounting_explanation": "The provided evidence contains no 2026-09-27 value for LongTermDebtCurrent. The only available LongTermDebtCurrent value is from 2025-12-28 and cannot be used as the current-period current portion of long-term debt. Because no current-period tag or reliable current-period derivation is available, no correction can be supported; the original 0.0 is retained rather than substituting a stale or fabricated value.",
+  "deterministic_validation": {
+    "status": "rejected",
+    "checks": [
+      {
+        "rule": "company_identity",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal ticker/company must match the extraction"
+      },
+      {
+        "rule": "reporting_period",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal period '2026-09-27' must equal balance-sheet date '2026-09-27'"
+      },
+      {
+        "rule": "filing_lookahead",
+        "level": "hard",
+        "ok": true,
+        "reason": "filing date '2026-10-21' must not precede the reporting period '2026-09-27'"
+      },
+      {
+        "rule": "value_finite",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposed value must be a finite number"
+      },
+      {
+        "rule": "units_scaling",
+        "level": "soft",
+        "ok": true,
+        "reason": "proposed value is within a 1e3/1e6/1e9 multiple of the original — verify units and scaling"
+      },
+      {
+        "rule": "xbrl_tag_exists",
+        "level": "hard",
+        "ok": true,
+        "reason": "all cited tags exist"
+      },
+      {
+        "rule": "source_fact_value",
+        "level": "hard",
+        "ok": true,
+        "reason": "cited values match companyfacts"
+      },
+      {
+        "rule": "component_arithmetic",
+        "level": "hard",
+        "ok": false,
+        "reason": "formula recomputes to 2,000,000,000.00 but proposal is 0.00"
+      },
+      {
+        "rule": "debt_lease_double_count",
+        "level": "hard",
+        "ok": true,
+        "reason": "no debt/lease double-count detected"
+      },
+      {
+        "rule": "restricted_cash",
+        "level": "soft",
+        "ok": true,
+        "reason": "restricted/unrestricted cash scope is consistent"
+      },
+      {
+        "rule": "source_evidence",
+        "level": "hard",
+        "ok": true,
+        "reason": "source evidence present"
+      }
+    ],
+    "hard_failures": [
+      "component_arithmetic"
+    ],
+    "soft_warnings": []
+  },
+  "remaining_uncertainty": "The actual 2026-09-27 current portion of long-term debt is unresolved and may be non-zero; total debt and net debt would need adjustment if a current-period LongTermDebtCurrent value is later reported.",
+  "approval_status": "rejected",
+  "category": "debt_component_stale_nonzero",
+  "record_utc": "2026-11-25T06:55:08.470071+00:00"
+}

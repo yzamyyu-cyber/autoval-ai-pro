@@ -31,6 +31,20 @@ is deterministic Python; the model must not invent figures.
    arithmetic; `pytest`/`unittest` regression suite.
 8. **Reverse DCF** — `reverse_dcf.py` uses a saved `analysis.json` to solve for the constant
    FCFF growth from year 2 onward that matches a share price under the original base assumptions.
+9. **Valuation quality** — `autoval/quality.py` classifies each result as
+   `available` / `low_confidence` / `unavailable`, separates data-quality concerns (which
+   lower confidence) from model-risk warnings (negative first-year FCFF, non-positive
+   growth, terminal value > 80% of EV), and stamps `result["quality"]` into every export.
+   Raw mechanical estimates are always preserved for audit; unavailable values are never
+   replaced with zero; the market-price gap is never used as a signal.
+10. **Multi-stage DCF** — `autoval/multistage.py` is an optional, additive model that keeps
+    the five-year DCF unchanged: years 1–5 explicit, years 6–10 linear transition of
+    growth/margin/reinvestment, year 11+ ROIC-consistent terminal
+    (reinvestment rate = g ÷ mature incremental ROIC; terminal FCFF = NOPAT × (1 − g/ROIC)).
+    The 12% mature ROIC is an assumed parameter (not market-calibrated); a separate
+    `assess_multistage_quality` inherits source-data limitations. Finance-lease liabilities
+    are included exactly once across DCF, WACC and relative valuation, and economic CapEx
+    includes finance-lease-funded additions.
 
 ## Inputs
 
@@ -94,7 +108,7 @@ ERP parsing) and a market-data connection for prices/beta. Python 3.11+.
   $0.01 per share of repricing error. If the tool rejects a target, record the reported
   limitation with the input that produced it.
 - Regression suite: `unittest discover -s tests` (covers finance, SEC, forecast, WACC,
-  relative-valuation and report logic).
+  relative-valuation, multi-stage DCF and report logic). 196 tests at the time of writing.
 - Open the actual files; a bare "done" message does not count as evidence.
 
 ## Limitations
@@ -105,6 +119,9 @@ ERP parsing) and a market-data connection for prices/beta. Python 3.11+.
 - Small peer samples make quartiles coarse; P/E is more reliable than EV/EBITDA (debt and
   D&A XBRL tags vary by issuer).
 - Market prices are delayed closes, never real-time. No trading or investment advice.
+- The valuation-quality thresholds (terminal value > 80% of EV, minimum fiscal years,
+  non-positive growth) are configurable review heuristics, not financial formulas; they
+  surface model risk without suppressing the mechanical estimate.
 
 ## Cross-company tag handling
 

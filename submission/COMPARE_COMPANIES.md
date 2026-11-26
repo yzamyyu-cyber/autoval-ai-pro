@@ -6,9 +6,11 @@ exports. Both workflows run locally without fetching market prices or SEC filing
 
 The table and CSV include the base DCF per share, price and reporting dates, valuation
 gap, WACC, forecast growth and its measure, price-implied FCFF growth, and peer medians
-when available. Figures in the table are rounded. The CSV keeps numerical precision
-and represents unavailable fields as blank. The table flags mismatched data modes,
-currencies, dates, and growth or WACC bases.
+when available. A **Valuation quality** column reports each analysis's state
+(`Available`, `Low confidence`, `Unavailable`, or `Not assessed` for older exports that
+predate the quality policy). Figures in the table are rounded. The CSV keeps numerical
+precision and represents unavailable fields as blank. The table flags mismatched data
+modes, currencies, dates, and growth or WACC bases.
 
 ## Run on macOS
 

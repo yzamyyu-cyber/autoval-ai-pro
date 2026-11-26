@@ -1,0 +1,2559 @@
+{
+  "project": "AutoVal AI Pro | Educational prototype v0.1.0",
+  "run_utc": "2026-11-24T00:00:00+00:00",
+  "mode": "live",
+  "company": "MICROSOFT CORP",
+  "ticker": "MSFT",
+  "analysis": {
+    "ticker": "MSFT",
+    "market_price": null,
+    "price_date": null,
+    "financial_asof": "2026-06-30",
+    "scenarios": {
+      "bear": {
+        "years": 5,
+        "forecast_fcff_usd": [
+          37639633262.40537,
+          42665147453.10572,
+          48361650989.12881,
+          54818732056.7681,
+          62137940348.38161
+        ],
+        "pv_forecast_fcff_usd": [
+          34277921546.554108,
+          35384368179.06368,
+          36526529466.81944,
+          37705558232.34523,
+          38922644509.77347
+        ],
+        "pv_terminal_value_usd": 475567960260.68933,
+        "terminal_weight_of_ev": 0.7223250425230064,
+        "enterprise_value_usd": 658384982195.2452,
+        "net_debt_usd": 86173000000.0,
+        "equity_value_usd": 572211982195.2452,
+        "shares": 7453000000.0,
+        "intrinsic_per_share_usd": 76.77606094126462,
+        "wacc": 0.09807221570554085,
+        "terminal_growth": 0.015,
+        "upside_vs_price_pct": null,
+        "intrinsic_per_share_usd_cash_only": 76.77606094126462,
+        "intrinsic_per_share_usd_conservative": 81.01972121229642,
+        "intrinsic_per_share_usd_upper": 82.71031560381661
+      },
+      "base": {
+        "years": 5,
+        "forecast_fcff_usd": [
+          64936707202.90852,
+          75554933902.69757,
+          87909416459.99124,
+          102284061452.40848,
+          119009198883.27866
+        ],
+        "pv_forecast_fcff_usd": [
+          59137009637.5537,
+          62661534262.74547,
+          66396118103.13459,
+          70353280541.78168,
+          74546287108.26637
+        ],
+        "pv_terminal_value_usd": 973934352487.3892,
+        "terminal_weight_of_ev": 0.7451515336352598,
+        "enterprise_value_usd": 1307028582140.871,
+        "net_debt_usd": 86173000000.0,
+        "equity_value_usd": 1220855582140.871,
+        "shares": 7453000000.0,
+        "intrinsic_per_share_usd": 163.80726984313313,
+        "wacc": 0.09807221570554085,
+        "terminal_growth": 0.02,
+        "upside_vs_price_pct": null,
+        "intrinsic_per_share_usd_cash_only": 163.80726984313313,
+        "intrinsic_per_share_usd_conservative": 168.0509301141649,
+        "intrinsic_per_share_usd_upper": 169.7415245056851
+      },
+      "bull": {
+        "years": 5,
+        "forecast_fcff_usd": [
+          87244907387.01704,
+          104128241366.20604,
+          124278779985.64276,
+          148328781434.04816,
+          177032856327.1327
+        ],
+        "pv_forecast_fcff_usd": [
+          79452795671.51222,
+          86358825652.48317,
+          93865127149.32698,
+          102023875709.17566,
+          110891781973.10901
+        ],
+        "pv_terminal_value_usd": 1555503352744.4814,
+        "terminal_weight_of_ev": 0.7669772721126781,
+        "enterprise_value_usd": 2028095758900.0884,
+        "net_debt_usd": 86173000000.0,
+        "equity_value_usd": 1941922758900.0884,
+        "shares": 7453000000.0,
+        "intrinsic_per_share_usd": 260.55585118745313,
+        "wacc": 0.09807221570554085,
+        "terminal_growth": 0.025,
+        "upside_vs_price_pct": null,
+        "intrinsic_per_share_usd_cash_only": 260.55585118745313,
+        "intrinsic_per_share_usd_conservative": 264.799511458485,
+        "intrinsic_per_share_usd_upper": 266.49010585000514
+      }
+    },
+    "forecast": {
+      "base": {
+        "drivers": {
+          "revenue_growth": 0.16351655569183898,
+          "operating_margin": 0.45682358074353596,
+          "normalized_tax_rate": 0.21,
+          "da_ratio": 0.11140972344333651,
+          "capex_ratio": 0.31813569328463515,
+          "nwc_ratio": -0.09977127462414002
+        },
+        "rows": [
+          {
+            "year": 1,
+            "revenue": 386100170324.2242,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 176379662333.2012,
+            "normalized_tax_rate": 0.21,
+            "nopat": 139339933243.22894,
+            "da": 43015313197.24694,
+            "da_ratio": 0.11140972344333651,
+            "capex": 122832245363.41278,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -38521706125.84541,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -5413706125.845413,
+            "fcff": 64936707202.90852
+          },
+          {
+            "year": 2,
+            "revenue": 449233940327.6737,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 205220657212.01587,
+            "normalized_tax_rate": 0.21,
+            "nopat": 162124319197.49255,
+            "da": 50049029053.266464,
+            "da_ratio": 0.11140972344333651,
+            "capex": 142917351053.1329,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -44820642830.91686,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -6298936705.071449,
+            "fcff": 75554933902.69757
+          },
+          {
+            "year": 3,
+            "revenue": 522691126949.92804,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 238777632236.14026,
+            "normalized_tax_rate": 0.21,
+            "nopat": 188634329466.5508,
+            "da": 58232873899.777374,
+            "da_ratio": 0.11140972344333651,
+            "capex": 166286704045.9426,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -52149559970.52251,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -7328917139.605644,
+            "fcff": 87909416459.99124
+          },
+          {
+            "year": 4,
+            "revenue": 608159779719.4661,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 277821728235.64655,
+            "normalized_tax_rate": 0.21,
+            "nopat": 219479165306.16077,
+            "da": 67754912867.906166,
+            "da_ratio": 0.11140972344333651,
+            "capex": 193477333148.88333,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -60676876397.74735,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -8527316427.224846,
+            "fcff": 102284061452.40848
+          },
+          {
+            "year": 5,
+            "revenue": 707603972209.5006,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 323250180333.09357,
+            "normalized_tax_rate": 0.21,
+            "nopat": 255367642463.14392,
+            "da": 78833962851.26683,
+            "da_ratio": 0.11140972344333651,
+            "capex": 225114080269.83118,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -70598550236.44643,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -9921673838.699074,
+            "fcff": 119009198883.27866
+          }
+        ],
+        "base_revenue": 331839000000.0,
+        "base_nwc": -33108000000.0
+      },
+      "bear": {
+        "drivers": {
+          "revenue_growth": 0.13351655569183898,
+          "operating_margin": 0.426823580743536,
+          "normalized_tax_rate": 0.21,
+          "da_ratio": 0.11698020961550334,
+          "capex_ratio": 0.3658560472773304,
+          "nwc_ratio": -0.09977127462414002
+        },
+        "rows": [
+          {
+            "year": 1,
+            "revenue": 376145000324.2241,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 160547555917.16385,
+            "normalized_tax_rate": 0.21,
+            "nopat": 126832569174.55945,
+            "da": 44001520983.75131,
+            "da_ratio": 0.11698020961550334,
+            "capex": 137614923021.7508,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -37528466125.845406,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -4420466125.845406,
+            "fcff": 37639633262.40537
+          },
+          {
+            "year": 2,
+            "revenue": 426366585208.22015,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 181983312607.96646,
+            "normalized_tax_rate": 0.21,
+            "nopat": 143766816960.29352,
+            "da": 49876452510.703964,
+            "da_ratio": 0.11698020961550334,
+            "capex": 155988793555.4125,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -42539137663.366135,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -5010671537.520729,
+            "fcff": 42665147453.10572
+          },
+          {
+            "year": 3,
+            "revenue": 483293583127.3127,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 206281097700.77338,
+            "normalized_tax_rate": 0.21,
+            "nopat": 162962067183.61096,
+            "da": 56535784660.06073,
+            "da_ratio": 0.11698020961550334,
+            "capex": 176815879997.4565,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -48218816806.27976,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -5679679142.913628,
+            "fcff": 48361650989.12881
+          },
+          {
+            "year": 4,
+            "revenue": 547821277734.4389,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 233823039370.11234,
+            "normalized_tax_rate": 0.21,
+            "nopat": 184720201102.38876,
+            "da": 64084247901.207535,
+            "da_ratio": 0.11698020961550334,
+            "capex": 200423727286.33844,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -54656827145.789986,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -6438010339.510223,
+            "fcff": 54818732056.7681
+          },
+          {
+            "year": 5,
+            "revenue": 620964487872.2435,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 265042286228.207,
+            "normalized_tax_rate": 0.21,
+            "nopat": 209383406120.28354,
+            "da": 72640555955.07874,
+            "da_ratio": 0.11698020961550334,
+            "capex": 227183613032.5308,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -61954418451.34008,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -7297591305.550095,
+            "fcff": 62137940348.38161
+          }
+        ],
+        "base_revenue": 331839000000.0,
+        "base_nwc": -33108000000.0
+      },
+      "bull": {
+        "drivers": {
+          "revenue_growth": 0.19351655569183898,
+          "operating_margin": 0.48682358074353593,
+          "normalized_tax_rate": 0.21,
+          "da_ratio": 0.10583923727116967,
+          "capex_ratio": 0.2863221239561716,
+          "nwc_ratio": -0.09977127462414002
+        },
+        "rows": [
+          {
+            "year": 1,
+            "revenue": 396055340324.2242,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 192809078949.23856,
+            "normalized_tax_rate": 0.21,
+            "nopat": 152319172369.89847,
+            "da": 41918195137.08942,
+            "da_ratio": 0.10583923727116967,
+            "capex": 113399406245.81625,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -39514946125.84541,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -6406946125.845413,
+            "fcff": 87244907387.01704
+          },
+          {
+            "year": 2,
+            "revenue": 472698605647.12714,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 230120827813.61105,
+            "normalized_tax_rate": 0.21,
+            "nopat": 181795453972.75275,
+            "da": 50030059880.83736,
+            "da_ratio": 0.10583923727116967,
+            "capex": 135344068760.00623,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -47161742398.46759,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -7646796272.622177,
+            "fcff": 104128241366.20604
+          },
+          {
+            "year": 3,
+            "revenue": 564173611692.2941,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 274653017805.05582,
+            "normalized_tax_rate": 0.21,
+            "nopat": 216975884065.9941,
+            "da": 59711704750.033455,
+            "da_ratio": 0.10583923727116967,
+            "capex": 161535386779.76205,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -56288320347.84481,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -9126577949.37722,
+            "fcff": 124278779985.64276
+          },
+          {
+            "year": 4,
+            "revenue": 673350545839.2118,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 327802923821.0595,
+            "normalized_tax_rate": 0.21,
+            "nopat": 258964309818.63702,
+            "da": 71266908187.74796,
+            "da_ratio": 0.10583923727116967,
+            "capex": 192795158451.73062,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -67181042227.23859,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -10892721879.393776,
+            "fcff": 148328781434.04816
+          },
+          {
+            "year": 5,
+            "revenue": 803655024243.2358,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 391238216584.62524,
+            "normalized_tax_rate": 0.21,
+            "nopat": 309078191101.85394,
+            "da": 85058234795.04745,
+            "da_ratio": 0.10583923727116967,
+            "capex": 230104213469.3719,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -80181686126.8418,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -13000643899.60321,
+            "fcff": 177032856327.1327
+          }
+        ],
+        "base_revenue": 331839000000.0,
+        "base_nwc": -33108000000.0
+      }
+    },
+    "assumption_provenance": {
+      "method": "Driver-based five-year forecast (Revenue -> EBIT -> NOPAT -> FCFF)",
+      "wacc": "Company-specific WACC (single rate across scenarios)",
+      "terminal_growth": "1.5% / 2.0% / 2.5% (Bear/Base/Bull), separate from operating growth"
+    },
+    "bridge": {
+      "operating_enterprise_value_usd": 1307028582140.871,
+      "total_debt_usd": 106454000000.0,
+      "cash_and_equivalents_usd": 20281000000.0,
+      "short_term_investments_usd": 44228000000.0,
+      "restricted_investments_total_usd": 12600000000.0,
+      "long_term_investments_usd": 37808000000.0,
+      "other_claims_usd": 0.0,
+      "eligible_nonoperating_securities_usd": {
+        "conservative": 31628000000.0,
+        "upper": 44228000000.0
+      },
+      "equity_value_usd_cash_only": 1220855582140.871,
+      "equity_value_usd": {
+        "conservative": 1252483582140.871,
+        "upper": 1265083582140.871
+      },
+      "notes": [
+        "Upper bound assumes the entire short-term investments balance is nonoperating and unrestricted; it is not a verified valuation.",
+        "Conservative bound subtracts the full restricted-investments balance; some restrictions may belong to excluded long-term investments, so this bound may understate eligible securities."
+      ],
+      "restricted_in_short_term_usd": null
+    },
+    "sensitivity": [
+      {
+        "wacc": 0.083072,
+        "terminal_growth": 0.015,
+        "intrinsic_per_share_usd": 194.85327758400703
+      },
+      {
+        "wacc": 0.088072,
+        "terminal_growth": 0.015,
+        "intrinsic_per_share_usd": 179.86399310141312
+      },
+      {
+        "wacc": 0.098072,
+        "terminal_growth": 0.015,
+        "intrinsic_per_share_usd": 155.34046269091374
+      },
+      {
+        "wacc": 0.108072,
+        "terminal_growth": 0.015,
+        "intrinsic_per_share_usd": 136.13465003171044
+      },
+      {
+        "wacc": 0.113072,
+        "terminal_growth": 0.015,
+        "intrinsic_per_share_usd": 128.01688063907164
+      },
+      {
+        "wacc": 0.083072,
+        "terminal_growth": 0.02,
+        "intrinsic_per_share_usd": 208.36731098145697
+      },
+      {
+        "wacc": 0.088072,
+        "terminal_growth": 0.02,
+        "intrinsic_per_share_usd": 191.31567753554725
+      },
+      {
+        "wacc": 0.098072,
+        "terminal_growth": 0.02,
+        "intrinsic_per_share_usd": 163.80778659548847
+      },
+      {
+        "wacc": 0.108072,
+        "terminal_growth": 0.02,
+        "intrinsic_per_share_usd": 142.59551384182348
+      },
+      {
+        "wacc": 0.113072,
+        "terminal_growth": 0.02,
+        "intrinsic_per_share_usd": 133.7154036268317
+      },
+      {
+        "wacc": 0.083072,
+        "terminal_growth": 0.025,
+        "intrinsic_per_share_usd": 224.20846130228645
+      },
+      {
+        "wacc": 0.088072,
+        "terminal_growth": 0.025,
+        "intrinsic_per_share_usd": 204.58301462603185
+      },
+      {
+        "wacc": 0.098072,
+        "terminal_growth": 0.025,
+        "intrinsic_per_share_usd": 173.43387499324444
+      },
+      {
+        "wacc": 0.108072,
+        "terminal_growth": 0.025,
+        "intrinsic_per_share_usd": 149.83412031012614
+      },
+      {
+        "wacc": 0.113072,
+        "terminal_growth": 0.025,
+        "intrinsic_per_share_usd": 140.06095665680257
+      }
+    ],
+    "capex_sensitivity": {
+      "capex_ratio_cases": {
+        "three_year_mean": 0.31813569328463515,
+        "fy_latest": 0.4235668501893991,
+        "six_year_mean": 0.230981116802046,
+        "six_year_median": 0.18815021221021128
+      },
+      "high_capex_ratio": 0.4235668501893991,
+      "label": "Persistent-high-CapEx sensitivity (FY-latest capex intensity), not an established forecast.",
+      "intrinsic_per_share_usd": {
+        "bear": 25.829388716222212,
+        "base": 53.87310887041255,
+        "bull": 91.01717469456023
+      }
+    },
+    "multistage": {
+      "bear": {
+        "case": "bear",
+        "wacc": 0.09807221570554085,
+        "terminal_growth": 0.015,
+        "mature_incremental_roic": 0.12,
+        "transition_years": 5,
+        "sustainable_margin": 0.426823580743536,
+        "normalized_tax_rate": 0.21,
+        "reinvestment_rate_explicit": 0.7032336922024973,
+        "reinvestment_rate_terminal": 0.125,
+        "explicit_rows": [
+          {
+            "year": 1,
+            "revenue": 376145000324.2241,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 160547555917.16385,
+            "normalized_tax_rate": 0.21,
+            "nopat": 126832569174.55945,
+            "da": 44001520983.75131,
+            "da_ratio": 0.11698020961550334,
+            "capex": 137614923021.7508,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -37528466125.845406,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -4420466125.845406,
+            "fcff": 37639633262.40537
+          },
+          {
+            "year": 2,
+            "revenue": 426366585208.22015,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 181983312607.96646,
+            "normalized_tax_rate": 0.21,
+            "nopat": 143766816960.29352,
+            "da": 49876452510.703964,
+            "da_ratio": 0.11698020961550334,
+            "capex": 155988793555.4125,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -42539137663.366135,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -5010671537.520729,
+            "fcff": 42665147453.10572
+          },
+          {
+            "year": 3,
+            "revenue": 483293583127.3127,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 206281097700.77338,
+            "normalized_tax_rate": 0.21,
+            "nopat": 162962067183.61096,
+            "da": 56535784660.06073,
+            "da_ratio": 0.11698020961550334,
+            "capex": 176815879997.4565,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -48218816806.27976,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -5679679142.913628,
+            "fcff": 48361650989.12881
+          },
+          {
+            "year": 4,
+            "revenue": 547821277734.4389,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 233823039370.11234,
+            "normalized_tax_rate": 0.21,
+            "nopat": 184720201102.38876,
+            "da": 64084247901.207535,
+            "da_ratio": 0.11698020961550334,
+            "capex": 200423727286.33844,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -54656827145.789986,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -6438010339.510223,
+            "fcff": 54818732056.7681
+          },
+          {
+            "year": 5,
+            "revenue": 620964487872.2435,
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "ebit": 265042286228.207,
+            "normalized_tax_rate": 0.21,
+            "nopat": 209383406120.28354,
+            "da": 72640555955.07874,
+            "da_ratio": 0.11698020961550334,
+            "capex": 227183613032.5308,
+            "capex_ratio": 0.3658560472773304,
+            "nwc": -61954418451.34008,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -7297591305.550095,
+            "fcff": 62137940348.38161
+          }
+        ],
+        "transition_rows": [
+          {
+            "year": 6,
+            "revenue_growth": 0.10981324455347119,
+            "operating_margin": 0.426823580743536,
+            "reinvestment_rate": 0.5875869537619979,
+            "revenue": 689154613037.9792,
+            "nopat": 232376477302.00906,
+            "fcff": 95835090878.17752
+          },
+          {
+            "year": 7,
+            "revenue_growth": 0.0861099334151034,
+            "operating_margin": 0.426823580743536,
+            "reinvestment_rate": 0.4719402153214984,
+            "revenue": 748497670879.391,
+            "nopat": 252386400289.7213,
+            "fcff": 133275108192.77234
+          },
+          {
+            "year": 8,
+            "revenue_growth": 0.0624066222767356,
+            "operating_margin": 0.426823580743536,
+            "reinvestment_rate": 0.35629347688099894,
+            "revenue": 795208882300.9775,
+            "nopat": 268136983040.38696,
+            "fcff": 172601525072.54605
+          },
+          {
+            "year": 9,
+            "revenue_growth": 0.038703311138367794,
+            "operating_margin": 0.426823580743536,
+            "reinvestment_rate": 0.24064673844049944,
+            "revenue": 825986099092.666,
+            "nopat": 278514772122.70233,
+            "fcff": 211491100603.8751
+          },
+          {
+            "year": 10,
+            "revenue_growth": 0.015,
+            "operating_margin": 0.426823580743536,
+            "reinvestment_rate": 0.125,
+            "revenue": 838375890579.0559,
+            "nopat": 282692493704.5428,
+            "fcff": 247355931991.47495
+          }
+        ],
+        "terminal": {
+          "year": 11,
+          "revenue_usd": 850951528937.7417,
+          "nopat_usd": 286932881110.11096,
+          "fcff_usd": 251066270971.3471,
+          "reinvestment_rate": 0.125,
+          "terminal_value_usd": 3022265252455.535,
+          "pv_terminal_value_usd": 1185833048749.3496
+        },
+        "forecast_fcff_usd": [
+          37639633262.40537,
+          42665147453.10572,
+          48361650989.12881,
+          54818732056.7681,
+          62137940348.38161,
+          95835090878.17752,
+          133275108192.77234,
+          172601525072.54605,
+          211491100603.8751,
+          247355931991.47495
+        ],
+        "pv_forecast_fcff_usd": 576553665475.4542,
+        "pv_terminal_value_usd": 1185833048749.3496,
+        "terminal_weight_of_ev": 0.6728563255601625,
+        "enterprise_value_usd": 1762386714224.8037,
+        "net_debt_usd": 86173000000.0,
+        "equity_value_usd": 1676213714224.8037,
+        "shares": 7453000000.0,
+        "intrinsic_per_share_usd": 224.90456382997502
+      },
+      "base": {
+        "case": "base",
+        "wacc": 0.09807221570554085,
+        "terminal_growth": 0.02,
+        "mature_incremental_roic": 0.12,
+        "transition_years": 5,
+        "sustainable_margin": 0.45682358074353596,
+        "normalized_tax_rate": 0.21,
+        "reinvestment_rate_explicit": 0.5339691523351291,
+        "reinvestment_rate_terminal": 0.16666666666666669,
+        "explicit_rows": [
+          {
+            "year": 1,
+            "revenue": 386100170324.2242,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 176379662333.2012,
+            "normalized_tax_rate": 0.21,
+            "nopat": 139339933243.22894,
+            "da": 43015313197.24694,
+            "da_ratio": 0.11140972344333651,
+            "capex": 122832245363.41278,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -38521706125.84541,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -5413706125.845413,
+            "fcff": 64936707202.90852
+          },
+          {
+            "year": 2,
+            "revenue": 449233940327.6737,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 205220657212.01587,
+            "normalized_tax_rate": 0.21,
+            "nopat": 162124319197.49255,
+            "da": 50049029053.266464,
+            "da_ratio": 0.11140972344333651,
+            "capex": 142917351053.1329,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -44820642830.91686,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -6298936705.071449,
+            "fcff": 75554933902.69757
+          },
+          {
+            "year": 3,
+            "revenue": 522691126949.92804,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 238777632236.14026,
+            "normalized_tax_rate": 0.21,
+            "nopat": 188634329466.5508,
+            "da": 58232873899.777374,
+            "da_ratio": 0.11140972344333651,
+            "capex": 166286704045.9426,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -52149559970.52251,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -7328917139.605644,
+            "fcff": 87909416459.99124
+          },
+          {
+            "year": 4,
+            "revenue": 608159779719.4661,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 277821728235.64655,
+            "normalized_tax_rate": 0.21,
+            "nopat": 219479165306.16077,
+            "da": 67754912867.906166,
+            "da_ratio": 0.11140972344333651,
+            "capex": 193477333148.88333,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -60676876397.74735,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -8527316427.224846,
+            "fcff": 102284061452.40848
+          },
+          {
+            "year": 5,
+            "revenue": 707603972209.5006,
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "ebit": 323250180333.09357,
+            "normalized_tax_rate": 0.21,
+            "nopat": 255367642463.14392,
+            "da": 78833962851.26683,
+            "da_ratio": 0.11140972344333651,
+            "capex": 225114080269.83118,
+            "capex_ratio": 0.31813569328463515,
+            "nwc": -70598550236.44643,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -9921673838.699074,
+            "fcff": 119009198883.27866
+          }
+        ],
+        "transition_rows": [
+          {
+            "year": 6,
+            "revenue_growth": 0.13481324455347118,
+            "operating_margin": 0.45682358074353596,
+            "reinvestment_rate": 0.4605086552014366,
+            "revenue": 802998359561.9875,
+            "nopat": 289794582897.5711,
+            "fcff": 156341669242.7494
+          },
+          {
+            "year": 7,
+            "revenue_growth": 0.10610993341510339,
+            "operating_margin": 0.45682358074353596,
+            "reinvestment_rate": 0.3870481580677441,
+            "revenue": 888204462027.5474,
+            "nopat": 320544666792.8901,
+            "fcff": 196478443932.2632
+          },
+          {
+            "year": 8,
+            "revenue_growth": 0.07740662227673559,
+            "operating_margin": 0.45682358074353596,
+            "reinvestment_rate": 0.31358766093405166,
+            "revenue": 956957369324.2249,
+            "nopat": 345356946738.1494,
+            "fcff": 237057269623.20728
+          },
+          {
+            "year": 9,
+            "revenue_growth": 0.04870331113836779,
+            "operating_margin": 0.45682358074353596,
+            "reinvestment_rate": 0.24012716380035914,
+            "revenue": 1003564361828.5764,
+            "nopat": 362176973568.93414,
+            "fcff": 275208444112.0283
+          },
+          {
+            "year": 10,
+            "revenue_growth": 0.01999999999999999,
+            "operating_margin": 0.45682358074353596,
+            "reinvestment_rate": 0.16666666666666669,
+            "revenue": 1023635649065.148,
+            "nopat": 369420513040.3128,
+            "fcff": 307850427533.594
+          }
+        ],
+        "terminal": {
+          "year": 11,
+          "revenue_usd": 1044108362046.4509,
+          "nopat_usd": 376808923301.1191,
+          "fcff_usd": 314007436084.26587,
+          "reinvestment_rate": 0.16666666666666669,
+          "terminal_value_usd": 4022012610332.263,
+          "pv_terminal_value_usd": 1578099563545.4426
+        },
+        "forecast_fcff_usd": [
+          64936707202.90852,
+          75554933902.69757,
+          87909416459.99124,
+          102284061452.40848,
+          119009198883.27866,
+          156341669242.7494,
+          196478443932.2632,
+          237057269623.20728,
+          275208444112.0283,
+          307850427533.594
+        ],
+        "pv_forecast_fcff_usd": 875862916631.2632,
+        "pv_terminal_value_usd": 1578099563545.4426,
+        "terminal_weight_of_ev": 0.6430821890283368,
+        "enterprise_value_usd": 2453962480176.706,
+        "net_debt_usd": 86173000000.0,
+        "equity_value_usd": 2367789480176.706,
+        "shares": 7453000000.0,
+        "intrinsic_per_share_usd": 317.6961599593058
+      },
+      "bull": {
+        "case": "bull",
+        "wacc": 0.09807221570554085,
+        "terminal_growth": 0.025,
+        "mature_incremental_roic": 0.12,
+        "transition_years": 5,
+        "sustainable_margin": 0.48682358074353593,
+        "normalized_tax_rate": 0.21,
+        "reinvestment_rate_explicit": 0.4272230735658954,
+        "reinvestment_rate_terminal": 0.20833333333333334,
+        "explicit_rows": [
+          {
+            "year": 1,
+            "revenue": 396055340324.2242,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 192809078949.23856,
+            "normalized_tax_rate": 0.21,
+            "nopat": 152319172369.89847,
+            "da": 41918195137.08942,
+            "da_ratio": 0.10583923727116967,
+            "capex": 113399406245.81625,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -39514946125.84541,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -6406946125.845413,
+            "fcff": 87244907387.01704
+          },
+          {
+            "year": 2,
+            "revenue": 472698605647.12714,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 230120827813.61105,
+            "normalized_tax_rate": 0.21,
+            "nopat": 181795453972.75275,
+            "da": 50030059880.83736,
+            "da_ratio": 0.10583923727116967,
+            "capex": 135344068760.00623,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -47161742398.46759,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -7646796272.622177,
+            "fcff": 104128241366.20604
+          },
+          {
+            "year": 3,
+            "revenue": 564173611692.2941,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 274653017805.05582,
+            "normalized_tax_rate": 0.21,
+            "nopat": 216975884065.9941,
+            "da": 59711704750.033455,
+            "da_ratio": 0.10583923727116967,
+            "capex": 161535386779.76205,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -56288320347.84481,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -9126577949.37722,
+            "fcff": 124278779985.64276
+          },
+          {
+            "year": 4,
+            "revenue": 673350545839.2118,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 327802923821.0595,
+            "normalized_tax_rate": 0.21,
+            "nopat": 258964309818.63702,
+            "da": 71266908187.74796,
+            "da_ratio": 0.10583923727116967,
+            "capex": 192795158451.73062,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -67181042227.23859,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -10892721879.393776,
+            "fcff": 148328781434.04816
+          },
+          {
+            "year": 5,
+            "revenue": 803655024243.2358,
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "ebit": 391238216584.62524,
+            "normalized_tax_rate": 0.21,
+            "nopat": 309078191101.85394,
+            "da": 85058234795.04745,
+            "da_ratio": 0.10583923727116967,
+            "capex": 230104213469.3719,
+            "capex_ratio": 0.2863221239561716,
+            "nwc": -80181686126.8418,
+            "nwc_ratio": -0.09977127462414002,
+            "change_in_nwc": -13000643899.60321,
+            "fcff": 177032856327.1327
+          }
+        ],
+        "transition_rows": [
+          {
+            "year": 6,
+            "revenue_growth": 0.15981324455347118,
+            "operating_margin": 0.48682358074353593,
+            "reinvestment_rate": 0.383445125519383,
+            "revenue": 932089741169.246,
+            "nopat": 358472979642.5591,
+            "fcff": 221018262968.21082
+          },
+          {
+            "year": 7,
+            "revenue_growth": 0.1261099334151034,
+            "operating_margin": 0.48682358074353593,
+            "reinvestment_rate": 0.33966717747287056,
+            "revenue": 1049635516365.0006,
+            "nopat": 403679983236.39594,
+            "fcff": 266563142728.19363
+          },
+          {
+            "year": 8,
+            "revenue_growth": 0.09240662227673559,
+            "operating_margin": 0.48682358074353593,
+            "reinvestment_rate": 0.2958892294263582,
+            "revenue": 1146628789053.9875,
+            "nopat": 440982686968.00055,
+            "fcff": 310500659530.67395
+          },
+          {
+            "year": 9,
+            "revenue_growth": 0.0587033111383678,
+            "operating_margin": 0.48682358074353593,
+            "reinvestment_rate": 0.25211128137984573,
+            "revenue": 1213939695618.0337,
+            "nopat": 466869830847.71655,
+            "fcff": 349166679555.10693
+          },
+          {
+            "year": 10,
+            "revenue_growth": 0.024999999999999994,
+            "operating_margin": 0.48682358074353593,
+            "reinvestment_rate": 0.20833333333333334,
+            "revenue": 1244288188008.4844,
+            "nopat": 478541576618.90936,
+            "fcff": 378845414823.3032
+          }
+        ],
+        "terminal": {
+          "year": 11,
+          "revenue_usd": 1275395392708.6963,
+          "nopat_usd": 490505116034.3821,
+          "fcff_usd": 388316550193.8858,
+          "reinvestment_rate": 0.20833333333333334,
+          "terminal_value_usd": 5314147743359.6,
+          "pv_terminal_value_usd": 2085088995710.2808
+        },
+        "forecast_fcff_usd": [
+          87244907387.01704,
+          104128241366.20604,
+          124278779985.64276,
+          148328781434.04816,
+          177032856327.1327,
+          221018262968.21082,
+          266563142728.19363,
+          310500659530.67395,
+          349166679555.10693,
+          378845414823.3032
+        ],
+        "pv_forecast_fcff_usd": 1183131089027.5112,
+        "pv_terminal_value_usd": 2085088995710.2808,
+        "terminal_weight_of_ev": 0.6379891628006951,
+        "enterprise_value_usd": 3268220084737.792,
+        "net_debt_usd": 86173000000.0,
+        "equity_value_usd": 3182047084737.792,
+        "shares": 7453000000.0,
+        "intrinsic_per_share_usd": 426.94848849292794
+      },
+      "roic_sensitivity": [
+        {
+          "mature_incremental_roic": 0.08,
+          "valid": true,
+          "reinvestment_rate_terminal": 0.25,
+          "enterprise_value_usd": 2257195342394.386,
+          "intrinsic_per_share_usd": 291.29509491404616
+        },
+        {
+          "mature_incremental_roic": 0.1,
+          "valid": true,
+          "reinvestment_rate_terminal": 0.19999999999999998,
+          "enterprise_value_usd": 2375255625063.7783,
+          "intrinsic_per_share_usd": 307.135733941202
+        },
+        {
+          "mature_incremental_roic": 0.12,
+          "valid": true,
+          "reinvestment_rate_terminal": 0.16666666666666669,
+          "enterprise_value_usd": 2453962480176.706,
+          "intrinsic_per_share_usd": 317.6961599593058
+        },
+        {
+          "mature_incremental_roic": 0.15,
+          "valid": true,
+          "reinvestment_rate_terminal": 0.13333333333333333,
+          "enterprise_value_usd": 2532669335289.634,
+          "intrinsic_per_share_usd": 328.2565859774096
+        },
+        {
+          "mature_incremental_roic": 0.2,
+          "valid": true,
+          "reinvestment_rate_terminal": 0.09999999999999999,
+          "enterprise_value_usd": 2611376190402.562,
+          "intrinsic_per_share_usd": 338.8170119955135
+        }
+      ],
+      "assumptions": {
+        "mature_incremental_roic": 0.12,
+        "transition_years": 5,
+        "label": "Mature incremental ROIC is an assumed parameter (not market-calibrated)."
+      }
+    },
+    "ttm": {
+      "asof": "2026-09-30",
+      "forecast": {
+        "base": {
+          "drivers": {
+            "revenue_growth": 0.16351655569183898,
+            "operating_margin": 0.45682358074353596,
+            "normalized_tax_rate": 0.21,
+            "da_ratio": 0.11140972344333651,
+            "capex_ratio": 0.31813569328463515,
+            "nwc_ratio": -0.09977127462414002
+          },
+          "rows": [
+            {
+              "year": 1,
+              "revenue": 403094493136.6592,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 184143069732.68933,
+              "normalized_tax_rate": 0.21,
+              "nopat": 145473025088.8246,
+              "da": 44908646001.88711,
+              "da_ratio": 0.11140972344333651,
+              "capex": 128238746033.24966,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -40217251374.21615,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -7109251374.216148,
+              "fcff": 69252176431.67819
+            },
+            {
+              "year": 2,
+              "revenue": 469007116272.7133,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 214253510249.90082,
+              "normalized_tax_rate": 0.21,
+              "nopat": 169260273097.42166,
+              "da": 52251953116.89976,
+              "da_ratio": 0.11140972344333651,
+              "capex": 149207904090.84714,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -46793437798.320854,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -6576186424.104706,
+              "fcff": 78880508547.57898
+            },
+            {
+              "year": 3,
+              "revenue": 545697544520.58923,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 249287506290.8507,
+              "normalized_tax_rate": 0.21,
+              "nopat": 196937129969.77206,
+              "da": 60796012518.74666,
+              "da_ratio": 0.11140972344333651,
+              "capex": 173605866649.7807,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -54444939576.08259,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -7651501777.761734,
+              "fcff": 91778777616.49977
+            },
+            {
+              "year": 4,
+              "revenue": 634928127450.09,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 290050140696.53827,
+              "normalized_tax_rate": 0.21,
+              "nopat": 229139611150.26523,
+              "da": 70737167085.61003,
+              "da_ratio": 0.11140972344333651,
+              "capex": 201993300012.24954,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -63347588570.4139,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -8902648994.331314,
+              "fcff": 106786127217.95702
+            },
+            {
+              "year": 5,
+              "revenue": 738749387962.5977,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 337478140681.1695,
+              "normalized_tax_rate": 0.21,
+              "nopat": 266607731138.1239,
+              "da": 82303865006.8471,
+              "da_ratio": 0.11140972344333651,
+              "capex": 235022548703.0809,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -73705968064.8317,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -10358379494.417793,
+              "fcff": 124247426936.30789
+            }
+          ],
+          "base_revenue": 346445000000.0,
+          "base_nwc": -33108000000.0
+        },
+        "bear": {
+          "drivers": {
+            "revenue_growth": 0.13351655569183898,
+            "operating_margin": 0.426823580743536,
+            "normalized_tax_rate": 0.21,
+            "da_ratio": 0.11698020961550334,
+            "capex_ratio": 0.3658560472773304,
+            "nwc_ratio": -0.09977127462414002
+          },
+          "rows": [
+            {
+              "year": 1,
+              "revenue": 392701143136.6591,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 167614108075.6687,
+              "normalized_tax_rate": 0.21,
+              "nopat": 132415145379.77827,
+              "da": 45938262040.37417,
+              "da_ratio": 0.11698020961550334,
+              "capex": 143672087989.26724,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -39180293597.10134,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -6072293597.101341,
+              "fcff": 40753613027.986534
+            },
+            {
+              "year": 2,
+              "revenue": 445133247184.5137,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 189993366471.29163,
+              "normalized_tax_rate": 0.21,
+              "nopat": 150094759512.3204,
+              "da": 52071780562.474075,
+              "da_ratio": 0.11698020961550334,
+              "capex": 162854690326.64902,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -44411511449.18132,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -5231217852.079979,
+              "fcff": 44543067600.22546
+            },
+            {
+              "year": 3,
+              "revenue": 504565905172.5139,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 215360626366.83582,
+              "normalized_tax_rate": 0.21,
+              "nopat": 170134894829.8003,
+              "da": 59024225351.91686,
+              "da_ratio": 0.11698020961550334,
+              "capex": 184598487657.32425,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -50341183490.94468,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -5929672041.763359,
+              "fcff": 50490304566.15627
+            },
+            {
+              "year": 4,
+              "revenue": 571933806950.683,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 244114835430.97278,
+              "normalized_tax_rate": 0.21,
+              "nopat": 192850719990.4685,
+              "da": 66904936623.28372,
+              "da_ratio": 0.11698020961550334,
+              "capex": 209245441915.25262,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -57062564920.106476,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -6721381429.161797,
+              "fcff": 57231596127.6614
+            },
+            {
+              "year": 5,
+              "revenue": 648296438938.4594,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 276708207450.99634,
+              "normalized_tax_rate": 0.21,
+              "nopat": 218599483886.2871,
+              "da": 75837853320.00534,
+              "da_ratio": 0.11698020961550334,
+              "capex": 237183172613.99393,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -64681362047.18105,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -7618797127.074577,
+              "fcff": 64872961719.37313
+            }
+          ],
+          "base_revenue": 346445000000.0,
+          "base_nwc": -33108000000.0
+        },
+        "bull": {
+          "drivers": {
+            "revenue_growth": 0.19351655569183898,
+            "operating_margin": 0.48682358074353593,
+            "normalized_tax_rate": 0.21,
+            "da_ratio": 0.10583923727116967,
+            "capex_ratio": 0.2863221239561716,
+            "nwc_ratio": -0.09977127462414002
+          },
+          "rows": [
+            {
+              "year": 1,
+              "revenue": 413487843136.6592,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 201295632389.70993,
+              "normalized_tax_rate": 0.21,
+              "nopat": 159023549587.87085,
+              "da": 43763237938.485054,
+              "da_ratio": 0.10583923727116967,
+              "capex": 118390717476.94458,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -41254209151.330956,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -8146209151.3309555,
+              "fcff": 92542279200.74228
+            },
+            {
+              "year": 2,
+              "revenue": 493504586360.9129,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 240249669845.57718,
+              "normalized_tax_rate": 0.21,
+              "nopat": 189797239178.00598,
+              "da": 52232149010.26311,
+              "da_ratio": 0.10583923727116967,
+              "capex": 141301281348.9685,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -49237581614.087265,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -7983372462.7563095,
+              "fcff": 108711479302.05692
+            },
+            {
+              "year": 3,
+              "revenue": 589005894131.6025,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 286741958460.19476,
+              "normalized_tax_rate": 0.21,
+              "nopat": 226526147183.55386,
+              "da": 62339934583.11213,
+              "da_ratio": 0.10583923727116967,
+              "capex": 168645418630.46442,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -58765868818.641266,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -9528287204.554,
+              "fcff": 129748950340.7556
+            },
+            {
+              "year": 4,
+              "revenue": 702988286046.1422,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 342231274633.744,
+              "normalized_tax_rate": 0.21,
+              "nopat": 270362706960.65778,
+              "da": 74403744005.69054,
+              "da_ratio": 0.10583923727116967,
+              "capex": 201281099177.04016,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -70138037344.66316,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -11372168526.021896,
+              "fcff": 154857520315.33008
+            },
+            {
+              "year": 5,
+              "revenue": 839028157853.501,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 408458692150.89404,
+              "normalized_tax_rate": 0.21,
+              "nopat": 322682366799.2063,
+              "da": 88802100276.2491,
+              "da_ratio": 0.10583923727116967,
+              "capex": 240232324215.64844,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -83710908754.58795,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -13572871409.92479,
+              "fcff": 184825014269.73175
+            }
+          ],
+          "base_revenue": 346445000000.0,
+          "base_nwc": -33108000000.0
+        }
+      },
+      "bear": {
+        "years": 5,
+        "forecast_fcff_usd": [
+          40753613027.986534,
+          44543067600.22546,
+          50490304566.15627,
+          57231596127.6614,
+          64872961719.37313
+        ],
+        "pv_forecast_fcff_usd": [
+          37113782176.70433,
+          36941822491.61708,
+          38134256374.72468,
+          39365180469.45914,
+          40635837189.68676
+        ],
+        "pv_terminal_value_usd": 496500236537.943,
+        "terminal_weight_of_ev": 0.7209331230660958,
+        "enterprise_value_usd": 688691115240.135,
+        "net_debt_usd": 86173000000.0,
+        "equity_value_usd": 602518115240.135,
+        "shares": 7453000000.0,
+        "intrinsic_per_share_usd": 80.84236082653094,
+        "wacc": 0.09807221570554085,
+        "terminal_growth": 0.015,
+        "upside_vs_price_pct": null
+      },
+      "base": {
+        "years": 5,
+        "forecast_fcff_usd": [
+          69252176431.67819,
+          78880508547.57898,
+          91778777616.49977,
+          106786127217.95702,
+          124247426936.30789
+        ],
+        "pv_forecast_fcff_usd": [
+          63067051001.90684,
+          65419601787.7852,
+          69318564533.52518,
+          73449902745.9025,
+          77827465841.03539
+        ],
+        "pv_terminal_value_usd": 1016802385335.9417,
+        "terminal_weight_of_ev": 0.7444275372678806,
+        "enterprise_value_usd": 1365884971246.0967,
+        "net_debt_usd": 86173000000.0,
+        "equity_value_usd": 1279711971246.0967,
+        "shares": 7453000000.0,
+        "intrinsic_per_share_usd": 171.70427629761124,
+        "wacc": 0.09807221570554085,
+        "terminal_growth": 0.02,
+        "upside_vs_price_pct": null
+      },
+      "bull": {
+        "years": 5,
+        "forecast_fcff_usd": [
+          92542279200.74228,
+          108711479302.05692,
+          129748950340.7556,
+          154857520315.33008,
+          184825014269.73175
+        ],
+        "pv_forecast_fcff_usd": [
+          84277042873.06949,
+          90159937057.35175,
+          97996630821.7195,
+          106514489315.79881,
+          115772719317.72266
+        ],
+        "pv_terminal_value_usd": 1623969331638.4211,
+        "terminal_weight_of_ev": 0.7664968522431014,
+        "enterprise_value_usd": 2118690151024.0835,
+        "net_debt_usd": 86173000000.0,
+        "equity_value_usd": 2032517151024.0835,
+        "shares": 7453000000.0,
+        "intrinsic_per_share_usd": 272.71127747539026,
+        "wacc": 0.09807221570554085,
+        "terminal_growth": 0.025,
+        "upside_vs_price_pct": null
+      },
+      "multistage": {
+        "bear": {
+          "case": "bear",
+          "wacc": 0.09807221570554085,
+          "terminal_growth": 0.015,
+          "mature_incremental_roic": 0.12,
+          "transition_years": 5,
+          "sustainable_margin": 0.426823580743536,
+          "normalized_tax_rate": 0.21,
+          "reinvestment_rate_explicit": 0.7032336922024973,
+          "reinvestment_rate_terminal": 0.125,
+          "explicit_rows": [
+            {
+              "year": 1,
+              "revenue": 392701143136.6591,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 167614108075.6687,
+              "normalized_tax_rate": 0.21,
+              "nopat": 132415145379.77827,
+              "da": 45938262040.37417,
+              "da_ratio": 0.11698020961550334,
+              "capex": 143672087989.26724,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -39180293597.10134,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -6072293597.101341,
+              "fcff": 40753613027.986534
+            },
+            {
+              "year": 2,
+              "revenue": 445133247184.5137,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 189993366471.29163,
+              "normalized_tax_rate": 0.21,
+              "nopat": 150094759512.3204,
+              "da": 52071780562.474075,
+              "da_ratio": 0.11698020961550334,
+              "capex": 162854690326.64902,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -44411511449.18132,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -5231217852.079979,
+              "fcff": 44543067600.22546
+            },
+            {
+              "year": 3,
+              "revenue": 504565905172.5139,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 215360626366.83582,
+              "normalized_tax_rate": 0.21,
+              "nopat": 170134894829.8003,
+              "da": 59024225351.91686,
+              "da_ratio": 0.11698020961550334,
+              "capex": 184598487657.32425,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -50341183490.94468,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -5929672041.763359,
+              "fcff": 50490304566.15627
+            },
+            {
+              "year": 4,
+              "revenue": 571933806950.683,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 244114835430.97278,
+              "normalized_tax_rate": 0.21,
+              "nopat": 192850719990.4685,
+              "da": 66904936623.28372,
+              "da_ratio": 0.11698020961550334,
+              "capex": 209245441915.25262,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -57062564920.106476,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -6721381429.161797,
+              "fcff": 57231596127.6614
+            },
+            {
+              "year": 5,
+              "revenue": 648296438938.4594,
+              "revenue_growth": 0.13351655569183898,
+              "operating_margin": 0.426823580743536,
+              "ebit": 276708207450.99634,
+              "normalized_tax_rate": 0.21,
+              "nopat": 218599483886.2871,
+              "da": 75837853320.00534,
+              "da_ratio": 0.11698020961550334,
+              "capex": 237183172613.99393,
+              "capex_ratio": 0.3658560472773304,
+              "nwc": -64681362047.18105,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -7618797127.074577,
+              "fcff": 64872961719.37313
+            }
+          ],
+          "transition_rows": [
+            {
+              "year": 6,
+              "revenue_growth": 0.10981324455347119,
+              "operating_margin": 0.426823580743536,
+              "reinvestment_rate": 0.5875869537619979,
+              "revenue": 719487974330.7529,
+              "nopat": 242604602469.55457,
+              "fcff": 100053303135.82854
+            },
+            {
+              "year": 7,
+              "revenue_growth": 0.0861099334151034,
+              "operating_margin": 0.426823580743536,
+              "reinvestment_rate": 0.4719402153214984,
+              "revenue": 781443035893.3417,
+              "nopat": 263495268634.40558,
+              "fcff": 139141254818.88812
+            },
+            {
+              "year": 8,
+              "revenue_growth": 0.0624066222767356,
+              "operating_margin": 0.426823580743536,
+              "reinvestment_rate": 0.35629347688099894,
+              "revenue": 830210256265.123,
+              "nopat": 279939118335.7799,
+              "fcff": 180198636548.9235
+            },
+            {
+              "year": 9,
+              "revenue_growth": 0.038703311138367794,
+              "operating_margin": 0.426823580743536,
+              "reinvestment_rate": 0.24064673844049944,
+              "revenue": 862342142123.6162,
+              "nopat": 290773689132.52997,
+              "fcff": 220799949218.47495
+            },
+            {
+              "year": 10,
+              "revenue_growth": 0.015,
+              "operating_margin": 0.426823580743536,
+              "reinvestment_rate": 0.125,
+              "revenue": 875277274255.4703,
+              "nopat": 295135294469.5179,
+              "fcff": 258243382660.82816
+            }
+          ],
+          "terminal": {
+            "year": 11,
+            "revenue_usd": 888406433369.3022,
+            "nopat_usd": 299562323886.56055,
+            "fcff_usd": 262117033400.74048,
+            "reinvestment_rate": 0.125,
+            "terminal_value_usd": 3155291226730.3047,
+            "pv_terminal_value_usd": 1238027870666.1008
+          },
+          "forecast_fcff_usd": [
+            40753613027.986534,
+            44543067600.22546,
+            50490304566.15627,
+            57231596127.6614,
+            64872961719.37313,
+            100053303135.82854,
+            139141254818.88812,
+            180198636548.9235,
+            220799949218.47495,
+            258243382660.82816
+          ],
+          "pv_forecast_fcff_usd": 603257966873.0414,
+          "pv_terminal_value_usd": 1238027870666.1008,
+          "terminal_weight_of_ev": 0.6723713643074077,
+          "enterprise_value_usd": 1841285837539.142,
+          "net_debt_usd": 86173000000.0,
+          "equity_value_usd": 1755112837539.142,
+          "shares": 7453000000.0,
+          "intrinsic_per_share_usd": 235.49078727212427
+        },
+        "base": {
+          "case": "base",
+          "wacc": 0.09807221570554085,
+          "terminal_growth": 0.02,
+          "mature_incremental_roic": 0.12,
+          "transition_years": 5,
+          "sustainable_margin": 0.45682358074353596,
+          "normalized_tax_rate": 0.21,
+          "reinvestment_rate_explicit": 0.5339691523351291,
+          "reinvestment_rate_terminal": 0.16666666666666669,
+          "explicit_rows": [
+            {
+              "year": 1,
+              "revenue": 403094493136.6592,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 184143069732.68933,
+              "normalized_tax_rate": 0.21,
+              "nopat": 145473025088.8246,
+              "da": 44908646001.88711,
+              "da_ratio": 0.11140972344333651,
+              "capex": 128238746033.24966,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -40217251374.21615,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -7109251374.216148,
+              "fcff": 69252176431.67819
+            },
+            {
+              "year": 2,
+              "revenue": 469007116272.7133,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 214253510249.90082,
+              "normalized_tax_rate": 0.21,
+              "nopat": 169260273097.42166,
+              "da": 52251953116.89976,
+              "da_ratio": 0.11140972344333651,
+              "capex": 149207904090.84714,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -46793437798.320854,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -6576186424.104706,
+              "fcff": 78880508547.57898
+            },
+            {
+              "year": 3,
+              "revenue": 545697544520.58923,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 249287506290.8507,
+              "normalized_tax_rate": 0.21,
+              "nopat": 196937129969.77206,
+              "da": 60796012518.74666,
+              "da_ratio": 0.11140972344333651,
+              "capex": 173605866649.7807,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -54444939576.08259,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -7651501777.761734,
+              "fcff": 91778777616.49977
+            },
+            {
+              "year": 4,
+              "revenue": 634928127450.09,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 290050140696.53827,
+              "normalized_tax_rate": 0.21,
+              "nopat": 229139611150.26523,
+              "da": 70737167085.61003,
+              "da_ratio": 0.11140972344333651,
+              "capex": 201993300012.24954,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -63347588570.4139,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -8902648994.331314,
+              "fcff": 106786127217.95702
+            },
+            {
+              "year": 5,
+              "revenue": 738749387962.5977,
+              "revenue_growth": 0.16351655569183898,
+              "operating_margin": 0.45682358074353596,
+              "ebit": 337478140681.1695,
+              "normalized_tax_rate": 0.21,
+              "nopat": 266607731138.1239,
+              "da": 82303865006.8471,
+              "da_ratio": 0.11140972344333651,
+              "capex": 235022548703.0809,
+              "capex_ratio": 0.31813569328463515,
+              "nwc": -73705968064.8317,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -10358379494.417793,
+              "fcff": 124247426936.30789
+            }
+          ],
+          "transition_rows": [
+            {
+              "year": 6,
+              "revenue_growth": 0.13481324455347118,
+              "operating_margin": 0.45682358074353596,
+              "reinvestment_rate": 0.4605086552014366,
+              "revenue": 838342589865.7264,
+              "nopat": 302549984395.8939,
+              "fcff": 163223097950.52518
+            },
+            {
+              "year": 7,
+              "revenue_growth": 0.10610993341510339,
+              "operating_margin": 0.45682358074353596,
+              "reinvestment_rate": 0.3870481580677441,
+              "revenue": 927299066255.4241,
+              "nopat": 334653543094.8828,
+              "fcff": 205126505649.164
+            },
+            {
+              "year": 8,
+              "revenue_growth": 0.07740662227673559,
+              "operating_margin": 0.45682358074353596,
+              "reinvestment_rate": 0.31358766093405166,
+              "revenue": 999078154814.6273,
+              "nopat": 360557943498.7996,
+              "fcff": 247491421365.8191
+            },
+            {
+              "year": 9,
+              "revenue_growth": 0.04870331113836779,
+              "operating_margin": 0.45682358074353596,
+              "reinvestment_rate": 0.24012716380035914,
+              "revenue": 1047736569040.1104,
+              "nopat": 378118309204.4317,
+              "fcff": 287321832034.18427
+            },
+            {
+              "year": 10,
+              "revenue_growth": 0.01999999999999999,
+              "operating_margin": 0.45682358074353596,
+              "reinvestment_rate": 0.16666666666666669,
+              "revenue": 1068691300420.9126,
+              "nopat": 385680675388.5203,
+              "fcff": 321400562823.7669
+            }
+          ],
+          "terminal": {
+            "year": 11,
+            "revenue_usd": 1090065126429.3308,
+            "nopat_usd": 393394288896.2907,
+            "fcff_usd": 327828574080.24225,
+            "reinvestment_rate": 0.16666666666666669,
+            "terminal_value_usd": 4199042785165.581,
+            "pv_terminal_value_usd": 1647560121903.9988
+          },
+          "forecast_fcff_usd": [
+            69252176431.67819,
+            78880508547.57898,
+            91778777616.49977,
+            106786127217.95702,
+            124247426936.30789,
+            163223097950.52518,
+            205126505649.164,
+            247491421365.8191,
+            287321832034.18427,
+            321400562823.7669
+          ],
+          "pv_forecast_fcff_usd": 915741410701.7484,
+          "pv_terminal_value_usd": 1647560121903.9988,
+          "terminal_weight_of_ev": 0.6427492438742299,
+          "enterprise_value_usd": 2563301532605.747,
+          "net_debt_usd": 86173000000.0,
+          "equity_value_usd": 2477128532605.747,
+          "shares": 7453000000.0,
+          "intrinsic_per_share_usd": 332.3666352617399
+        },
+        "bull": {
+          "case": "bull",
+          "wacc": 0.09807221570554085,
+          "terminal_growth": 0.025,
+          "mature_incremental_roic": 0.12,
+          "transition_years": 5,
+          "sustainable_margin": 0.48682358074353593,
+          "normalized_tax_rate": 0.21,
+          "reinvestment_rate_explicit": 0.4272230735658954,
+          "reinvestment_rate_terminal": 0.20833333333333334,
+          "explicit_rows": [
+            {
+              "year": 1,
+              "revenue": 413487843136.6592,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 201295632389.70993,
+              "normalized_tax_rate": 0.21,
+              "nopat": 159023549587.87085,
+              "da": 43763237938.485054,
+              "da_ratio": 0.10583923727116967,
+              "capex": 118390717476.94458,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -41254209151.330956,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -8146209151.3309555,
+              "fcff": 92542279200.74228
+            },
+            {
+              "year": 2,
+              "revenue": 493504586360.9129,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 240249669845.57718,
+              "normalized_tax_rate": 0.21,
+              "nopat": 189797239178.00598,
+              "da": 52232149010.26311,
+              "da_ratio": 0.10583923727116967,
+              "capex": 141301281348.9685,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -49237581614.087265,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -7983372462.7563095,
+              "fcff": 108711479302.05692
+            },
+            {
+              "year": 3,
+              "revenue": 589005894131.6025,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 286741958460.19476,
+              "normalized_tax_rate": 0.21,
+              "nopat": 226526147183.55386,
+              "da": 62339934583.11213,
+              "da_ratio": 0.10583923727116967,
+              "capex": 168645418630.46442,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -58765868818.641266,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -9528287204.554,
+              "fcff": 129748950340.7556
+            },
+            {
+              "year": 4,
+              "revenue": 702988286046.1422,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 342231274633.744,
+              "normalized_tax_rate": 0.21,
+              "nopat": 270362706960.65778,
+              "da": 74403744005.69054,
+              "da_ratio": 0.10583923727116967,
+              "capex": 201281099177.04016,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -70138037344.66316,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -11372168526.021896,
+              "fcff": 154857520315.33008
+            },
+            {
+              "year": 5,
+              "revenue": 839028157853.501,
+              "revenue_growth": 0.19351655569183898,
+              "operating_margin": 0.48682358074353593,
+              "ebit": 408458692150.89404,
+              "normalized_tax_rate": 0.21,
+              "nopat": 322682366799.2063,
+              "da": 88802100276.2491,
+              "da_ratio": 0.10583923727116967,
+              "capex": 240232324215.64844,
+              "capex_ratio": 0.2863221239561716,
+              "nwc": -83710908754.58795,
+              "nwc_ratio": -0.09977127462414002,
+              "change_in_nwc": -13572871409.92479,
+              "fcff": 184825014269.73175
+            }
+          ],
+          "transition_rows": [
+            {
+              "year": 6,
+              "revenue_growth": 0.15981324455347118,
+              "operating_margin": 0.48682358074353593,
+              "reinvestment_rate": 0.383445125519383,
+              "revenue": 973115970031.791,
+              "nopat": 374251282797.58075,
+              "fcff": 230746452689.47232
+            },
+            {
+              "year": 7,
+              "revenue_growth": 0.1261099334151034,
+              "operating_margin": 0.48682358074353593,
+              "reinvestment_rate": 0.33966717747287056,
+              "revenue": 1095835560217.674,
+              "nopat": 421448087151.70074,
+              "fcff": 278296004937.5422
+            },
+            {
+              "year": 8,
+              "revenue_growth": 0.09240662227673559,
+              "operating_margin": 0.48682358074353593,
+              "reinvestment_rate": 0.2958892294263582,
+              "revenue": 1197098022908.1235,
+              "nopat": 460392681350.38074,
+              "fcff": 324167445632.0817
+            },
+            {
+              "year": 9,
+              "revenue_growth": 0.0587033111383678,
+              "operating_margin": 0.48682358074353593,
+              "reinvestment_rate": 0.25211128137984573,
+              "revenue": 1267371640610.0242,
+              "nopat": 487419256169.51953,
+              "fcff": 364535362927.4107
+            },
+            {
+              "year": 10,
+              "revenue_growth": 0.024999999999999994,
+              "operating_margin": 0.48682358074353593,
+              "reinvestment_rate": 0.20833333333333334,
+              "revenue": 1299055931625.2747,
+              "nopat": 499604737573.7575,
+              "fcff": 395520417245.89136
+            }
+          ],
+          "terminal": {
+            "year": 11,
+            "revenue_usd": 1331532329915.9065,
+            "nopat_usd": 512094856013.10144,
+            "fcff_usd": 405408427677.03864,
+            "reinvestment_rate": 0.20833333333333334,
+            "terminal_value_usd": 5548051660438.397,
+            "pv_terminal_value_usd": 2176864856508.2722
+          },
+          "forecast_fcff_usd": [
+            92542279200.74228,
+            108711479302.05692,
+            129748950340.7556,
+            154857520315.33008,
+            184825014269.73175,
+            230746452689.47232,
+            278296004937.5422,
+            324167445632.0817,
+            364535362927.4107,
+            395520417245.89136
+          ],
+          "pv_forecast_fcff_usd": 1236534090241.58,
+          "pv_terminal_value_usd": 2176864856508.2722,
+          "terminal_weight_of_ev": 0.6377411168363502,
+          "enterprise_value_usd": 3413398946749.8525,
+          "net_debt_usd": 86173000000.0,
+          "equity_value_usd": 3327225946749.8525,
+          "shares": 7453000000.0,
+          "intrinsic_per_share_usd": 446.4277400710925
+        },
+        "roic_sensitivity": [
+          {
+            "mature_incremental_roic": 0.08,
+            "valid": true,
+            "reinvestment_rate_terminal": 0.25,
+            "enterprise_value_usd": 2357873626154.137,
+            "intrinsic_per_share_usd": 304.80351887215045
+          },
+          {
+            "mature_incremental_roic": 0.1,
+            "valid": true,
+            "reinvestment_rate_terminal": 0.19999999999999998,
+            "enterprise_value_usd": 2481130370025.1035,
+            "intrinsic_per_share_usd": 321.34138870590414
+          },
+          {
+            "mature_incremental_roic": 0.12,
+            "valid": true,
+            "reinvestment_rate_terminal": 0.16666666666666669,
+            "enterprise_value_usd": 2563301532605.747,
+            "intrinsic_per_share_usd": 332.3666352617399
+          },
+          {
+            "mature_incremental_roic": 0.15,
+            "valid": true,
+            "reinvestment_rate_terminal": 0.13333333333333333,
+            "enterprise_value_usd": 2645472695186.391,
+            "intrinsic_per_share_usd": 343.3918818175756
+          },
+          {
+            "mature_incremental_roic": 0.2,
+            "valid": true,
+            "reinvestment_rate_terminal": 0.09999999999999999,
+            "enterprise_value_usd": 2727643857767.0347,
+            "intrinsic_per_share_usd": 354.41712837341134
+          }
+        ],
+        "assumptions": {
+          "mature_incremental_roic": 0.12,
+          "transition_years": 5,
+          "label": "Mature incremental ROIC is an assumed parameter (not market-calibrated)."
+        }
+      }
+    },
+    "wacc_basis": "company-specific",
+    "shares_outstanding": 7426194552.0,
+    "diluted_shares": 7453000000.0,
+    "limitations": [
+      "Driver-based FCFF forecast; drivers are derived from historical ratios/trends, not forward guidance.",
+      "Normalized operating tax rate is a documented baseline, separate from the WACC marginal tax rate.",
+      "Operating NWC ratio uses the latest fiscal-year-end balance sheet (a single point rather than a multi-year average).",
+      "The model assumes driver ratios are stable over five years; scenario spreads are rule-based.",
+      "Forecast cash flows are discounted using full-year periods from the valuation date (a rolling-forward simplification; a fractional fiscal-stub adjustment is not applied). The intrinsic value and the market price are therefore non-contemporaneous and are compared as approximations.",
+      "No automatic buy/sell instruction or live trading is provided."
+    ]
+  },
+  "technical": {
+    "latest_signal": "Hold",
+    "strategy_total_return_pct": 0.0,
+    "buyhold_total_return_pct": 0.0,
+    "cost_bps_per_trade": 10.0,
+    "warning": "fixture (deterministic synthetic technical series)"
+  },
+  "multiples": {},
+  "wacc": {
+    "available": true,
+    "wacc": 0.09807221570554085,
+    "calculation": {
+      "risk_free_rate": 0.04998000144958496,
+      "beta": 1.1237734802689066,
+      "equity_risk_premium": 0.0446,
+      "cost_of_equity": 0.1001002986695782,
+      "pre_tax_cost_of_debt": 0.028660266406147255,
+      "marginal_tax_rate": 0.21,
+      "after_tax_cost_of_debt": 0.022641610460856332,
+      "equity_value": 3959349687910.3843,
+      "debt_value": 106454000000.0,
+      "equity_weight": 0.973817230694994,
+      "debt_weight": 0.02618276930500595,
+      "wacc": 0.09807221570554085
+    },
+    "inputs": {
+      "risk_free_rate": {
+        "value": 0.04998000144958496,
+        "period": "fixture"
+      },
+      "beta": {
+        "value": 1.1237734802689066,
+        "period": "fixture"
+      },
+      "equity_risk_premium": {
+        "value": 0.0446,
+        "period": "fixture"
+      }
+    }
+  },
+  "forecast_history": {
+    "ticker": "MSFT",
+    "company": "MICROSOFT CORP",
+    "cik": 789019,
+    "fiscal_years": [
+      "2021-06-30",
+      "2022-06-30",
+      "2023-06-30",
+      "2024-06-30",
+      "2025-06-30",
+      "2026-06-30"
+    ],
+    "revenue": [
+      168088000000.0,
+      198270000000.0,
+      211915000000.0,
+      245122000000.0,
+      281724000000.0,
+      331839000000.0
+    ],
+    "operating_income": [
+      69916000000.0,
+      83383000000.0,
+      88523000000.0,
+      109433000000.0,
+      128528000000.0,
+      155237000000.0
+    ],
+    "capex": [
+      23912000000.0,
+      28120000000.0,
+      31235000000.0,
+      56110000000.0,
+      85062000000.0,
+      140556000000.0
+    ],
+    "da": [
+      11821000000.0,
+      15580000000.0,
+      14852000000.0,
+      21800000000.0,
+      31408000000.0,
+      44403000000.0
+    ],
+    "da_detail": [
+      {
+        "tag": "Depreciation",
+        "years_present": [
+          "2021-06-30",
+          "2022-06-30",
+          "2023-06-30",
+          "2024-06-30",
+          "2025-06-30",
+          "2026-06-30"
+        ]
+      },
+      {
+        "tag": "AmortizationOfIntangibleAssets",
+        "years_present": [
+          "2021-06-30",
+          "2022-06-30",
+          "2023-06-30",
+          "2024-06-30",
+          "2025-06-30",
+          "2026-06-30"
+        ]
+      },
+      {
+        "tag": "FinanceLeaseRightOfUseAssetAmortization",
+        "years_present": [
+          "2021-06-30",
+          "2022-06-30",
+          "2023-06-30",
+          "2024-06-30",
+          "2025-06-30",
+          "2026-06-30"
+        ]
+      }
+    ],
+    "finance_lease_amortization_present": true,
+    "finance_lease_additions_available": true,
+    "effective_tax_rate": [
+      0.13826615285083402,
+      0.13113383343685794,
+      0.18978625253328257,
+      0.18231326597827197,
+      0.17629644009803683,
+      0.19396265985271252
+    ],
+    "nwc": [
+      -16009000000.0,
+      -16535000000.0,
+      -17808000000.0,
+      -21408000000.0,
+      -21436000000.0,
+      -33108000000.0
+    ],
+    "nwc_latest": -33108000000.0,
+    "asof": "2026-06-30",
+    "ttm": {
+      "revenue": 346445000000.0,
+      "operating_income": 163191000000.0,
+      "operating_cash_flow": 195878000000.0,
+      "capex": 135921000000.0,
+      "asof": "2026-09-30",
+      "basis": "ttm"
+    },
+    "units": "USD",
+    "limitations": [],
+    "warnings": []
+  },
+  "forecast_basis": "driver",
+  "relative": null,
+  "provenance": {
+    "financials": {
+      "provider": "SEC EDGAR XBRL companyfacts",
+      "cik": 789019,
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+      "units": "USD (except shares)",
+      "annual_records": [
+        {
+          "year_end": "2023-06-30",
+          "cfo": {
+            "value": 87582000000.0,
+            "end": "2023-06-30",
+            "start": "2022-07-01",
+            "filed": "2025-07-30",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 28107000000.0,
+            "end": "2023-06-30",
+            "start": "2022-07-01",
+            "filed": "2025-07-30",
+            "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 1968000000.0,
+            "end": "2023-06-30",
+            "start": "2022-07-01",
+            "filed": "2025-07-30",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": {
+            "value": 1700000000.0,
+            "end": "2023-06-30",
+            "start": "2022-07-01",
+            "filed": "2025-07-30",
+            "tag": "InterestPaid",
+            "form": "10-K"
+          },
+          "interest_addback": 1700000000.0,
+          "interest_addback_note": "cash interest paid",
+          "tax": {
+            "value": 16950000000.0,
+            "end": "2023-06-30",
+            "start": "2022-07-01",
+            "filed": "2025-07-30",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 89311000000.0,
+            "end": "2023-06-30",
+            "start": "2022-07-01",
+            "filed": "2025-07-30",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.18978625253328257,
+          "tax_rate_note": "SEC observed tax expense / pretax income (19.0%)",
+          "derived_fcff_usd": 60852363370.69342
+        },
+        {
+          "year_end": "2024-06-30",
+          "cfo": {
+            "value": 118548000000.0,
+            "end": "2024-06-30",
+            "start": "2023-07-01",
+            "filed": "2026-07-29",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 44477000000.0,
+            "end": "2024-06-30",
+            "start": "2023-07-01",
+            "filed": "2026-07-29",
+            "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 2935000000.0,
+            "end": "2024-06-30",
+            "start": "2023-07-01",
+            "filed": "2026-07-29",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": {
+            "value": 1700000000.0,
+            "end": "2024-06-30",
+            "start": "2023-07-01",
+            "filed": "2026-07-29",
+            "tag": "InterestPaid",
+            "form": "10-K"
+          },
+          "interest_addback": 1700000000.0,
+          "interest_addback_note": "cash interest paid",
+          "tax": {
+            "value": 19651000000.0,
+            "end": "2024-06-30",
+            "start": "2023-07-01",
+            "filed": "2026-07-29",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 107787000000.0,
+            "end": "2024-06-30",
+            "start": "2023-07-01",
+            "filed": "2026-07-29",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.18231326597827197,
+          "tax_rate_note": "SEC observed tax expense / pretax income (18.2%)",
+          "derived_fcff_usd": 75461067447.83694
+        },
+        {
+          "year_end": "2025-06-30",
+          "cfo": {
+            "value": 136162000000.0,
+            "end": "2025-06-30",
+            "start": "2024-07-01",
+            "filed": "2026-07-29",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 64551000000.0,
+            "end": "2025-06-30",
+            "start": "2024-07-01",
+            "filed": "2026-07-29",
+            "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 2385000000.0,
+            "end": "2025-06-30",
+            "start": "2024-07-01",
+            "filed": "2026-07-29",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": {
+            "value": 1600000000.0,
+            "end": "2025-06-30",
+            "start": "2024-07-01",
+            "filed": "2026-07-29",
+            "tag": "InterestPaid",
+            "form": "10-K"
+          },
+          "interest_addback": 1600000000.0,
+          "interest_addback_note": "cash interest paid",
+          "tax": {
+            "value": 21795000000.0,
+            "end": "2025-06-30",
+            "start": "2024-07-01",
+            "filed": "2026-07-29",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 123627000000.0,
+            "end": "2025-06-30",
+            "start": "2024-07-01",
+            "filed": "2026-07-29",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.17629644009803683,
+          "tax_rate_note": "SEC observed tax expense / pretax income (17.6%)",
+          "derived_fcff_usd": 72928925695.84314
+        },
+        {
+          "year_end": "2026-06-30",
+          "cfo": {
+            "value": 182935000000.0,
+            "end": "2026-06-30",
+            "start": "2025-07-01",
+            "filed": "2026-07-29",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "form": "10-K"
+          },
+          "capex": {
+            "value": 115948000000.0,
+            "end": "2026-06-30",
+            "start": "2025-07-01",
+            "filed": "2026-07-29",
+            "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+            "form": "10-K"
+          },
+          "interest": {
+            "value": 3051000000.0,
+            "end": "2026-06-30",
+            "start": "2025-07-01",
+            "filed": "2026-07-29",
+            "tag": "InterestExpenseNonoperating",
+            "form": "10-K"
+          },
+          "cash_interest": {
+            "value": 1500000000.0,
+            "end": "2026-06-30",
+            "start": "2025-07-01",
+            "filed": "2026-07-29",
+            "tag": "InterestPaid",
+            "form": "10-K"
+          },
+          "interest_addback": 1500000000.0,
+          "interest_addback_note": "cash interest paid",
+          "tax": {
+            "value": 32185000000.0,
+            "end": "2026-06-30",
+            "start": "2025-07-01",
+            "filed": "2026-07-29",
+            "tag": "IncomeTaxExpenseBenefit",
+            "form": "10-K"
+          },
+          "pretax": {
+            "value": 165934000000.0,
+            "end": "2026-06-30",
+            "start": "2025-07-01",
+            "filed": "2026-07-29",
+            "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "form": "10-K"
+          },
+          "tax_rate": 0.19396265985271252,
+          "tax_rate_note": "SEC observed tax expense / pretax income (19.4%)",
+          "derived_fcff_usd": 68196056010.22093
+        }
+      ],
+      "shares": {
+        "value": 7426194552.0,
+        "end": "2026-10-22",
+        "filed": "2026-10-28",
+        "form": "10-Q",
+        "tag": "EntityCommonStockSharesOutstanding"
+      },
+      "cash": {
+        "value": 20281000000.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-28",
+        "form": "10-Q",
+        "tag": "CashAndCashEquivalentsAtCarryingValue"
+      },
+      "long_debt": {
+        "value": 31090000000.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-28",
+        "form": "10-Q",
+        "tag": "LongTermDebtNoncurrent"
+      },
+      "short_debt": null,
+      "current_debt": {
+        "value": 4391000000.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-28",
+        "form": "10-Q",
+        "tag": "LongTermDebtCurrent"
+      },
+      "excluded_debt_tags": [
+        {
+          "tag": "ShortTermBorrowings",
+          "status": "stale_zero",
+          "last_end": "2018-06-30",
+          "last_value": 0.0,
+          "value_used": 0.0
+        }
+      ],
+      "finance_lease": {
+        "value": 70973000000.0,
+        "end": "2026-09-30",
+        "filed": "2026-10-28",
+        "form": "10-Q",
+        "tag": "FinanceLeaseLiability"
+      },
+      "lease_excluded": [],
+      "lease_assumptions": [
+        "Finance-lease liability 70,973,000,000 (FinanceLeaseLiability) added to debt (not included in LongTermDebtNoncurrent)"
+      ],
+      "debt_reconciliation": {
+        "reference_date": "2026-09-30",
+        "long_term_debt": 31090000000.0,
+        "current_portion_long_term_debt": 4391000000.0,
+        "short_term_borrowings": 0.0,
+        "finance_lease": 70973000000.0,
+        "total_debt": 106454000000.0,
+        "cash_and_equivalents": 20281000000.0,
+        "net_debt": 86173000000.0
+      },
+      "investment_facts": {
+        "short_term_investments": {
+          "value": 44228000000.0,
+          "end": "2026-09-30",
+          "filed": "2026-10-28",
+          "form": "10-Q",
+          "tag": "ShortTermInvestments"
+        },
+        "restricted_investments": {
+          "value": 12600000000.0,
+          "end": "2026-09-30",
+          "filed": "2026-10-28",
+          "form": "10-Q",
+          "tag": "RestrictedInvestments"
+        },
+        "long_term_investments": {
+          "value": 37808000000.0,
+          "end": "2026-09-30",
+          "filed": "2026-10-28",
+          "form": "10-Q",
+          "tag": "LongTermInvestments"
+        }
+      },
+      "excluded_investment_tags": [],
+      "investment_assumptions": [],
+      "disclosure_warnings": [
+        "Short-term borrowings (ShortTermBorrowings) stale: last reported 2018-06-30 = 0; excluded from current period 2026-09-30 and counted as zero (not verified current; possible understatement)",
+        "Finance-lease liability 70,973,000,000 (FinanceLeaseLiability) added to debt (not included in LongTermDebtNoncurrent)"
+      ],
+      "method_note": "US-GAAP approximate FCFF = operating cash flow - capex + after-tax interest expense; needs filing-level review"
+    },
+    "market": {
+      "mode": "illustrative",
+      "provider": "fixture (explicit illustrative assumptions)",
+      "classification": "illustrative assumptions"
+    }
+  },
+  "market_mode": "illustrative",
+  "illustrative_market_price": 533.1599731445312,
+  "wacc_basis": "illustrative",
+  "limitations": [
+    "Driver-based FCFF forecast; drivers are derived from historical ratios/trends, not forward guidance.",
+    "Normalized operating tax rate is a documented baseline, separate from the WACC marginal tax rate.",
+    "Operating NWC ratio uses the latest fiscal-year-end balance sheet (a single point rather than a multi-year average).",
+    "The model assumes driver ratios are stable over five years; scenario spreads are rule-based.",
+    "Forecast cash flows are discounted using full-year periods from the valuation date (a rolling-forward simplification; a fractional fiscal-stub adjustment is not applied). The intrinsic value and the market price are therefore non-contemporaneous and are compared as approximations.",
+    "No automatic buy/sell instruction or live trading is provided."
+  ],
+  "valuation_basis": "ttm",
+  "valuation_basis_asof": "2026-09-30",
+  "valuation_date": "2026-09-30",
+  "quality": {
+    "state": "available",
+    "reasons": [
+      "reinvestment assumption is internally inconsistent: CapEx is 21% of revenue above D&A yet terminal growth is only 2% (heavy reinvestment should not be paired with minimal growth)"
+    ],
+    "data_quality": [],
+    "model_suitability": [
+      "reinvestment assumption is internally inconsistent: CapEx is 21% of revenue above D&A yet terminal growth is only 2% (heavy reinvestment should not be paired with minimal growth)"
+    ],
+    "unsuitability": []
+  },
+  "freshness": {
+    "status": "up-to-date"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "company": "INTEL CORP",
+  "ticker": "INTC",
+  "detected_problem": "ShortTermBorrowings is only available from a stale 2017-09-30 filing with a nonzero value; the current 2026-09-26 filing does not tag it, so the short-term-borrowings component was unresolved in the production extraction.",
+  "original_production_value": 4142000000.0,
+  "proposed_financial_value": 50134000000.0,
+  "financial_definition": "Total debt as of 2026-09-26, excluding finance leases, with short-term borrowings inferred to be zero based on disclosure.",
+  "xbrl_tags": [
+    {
+      "tag": "LongTermDebtNoncurrent",
+      "value": 46317000000,
+      "period_end": "2026-09-26",
+      "filed": "2026-10-30",
+      "form": "10-Q"
+    },
+    {
+      "tag": "DebtCurrent",
+      "value": 3817000000,
+      "period_end": "2026-09-26",
+      "filed": "2026-10-30",
+      "form": "10-Q"
+    },
+    {
+      "tag": "ShortTermBorrowings",
+      "value": 4142000000,
+      "period_end": "2017-09-30",
+      "filed": "2017-10-26",
+      "form": "10-Q"
+    },
+    {
+      "tag": "CommercialPaper",
+      "value": 0,
+      "period_end": "2025-12-27",
+      "filed": "2026-01-23",
+      "form": "10-K"
+    }
+  ],
+  "reporting_period": "2026-09-26",
+  "filing_date": "2026-10-30",
+  "sec_accession": "0000050863-26-000191",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/intc-20260926.htm",
+  "statement_or_note_reference": "10-Q balance sheet and debt/liquidity disclosure: \"As of September 26, 2026, we had no commercial paper obligations outstanding and no outstanding borrowings on the revolving credit facilities.\"",
+  "derivation_formula": "LongTermDebtNoncurrent + DebtCurrent",
+  "accounting_explanation": "The current 10-Q balance sheet tags LongTermDebtNoncurrent of 46,317,000,000 and DebtCurrent of 3,817,000,000. The stale 2017 ShortTermBorrowings value is not used. Because the filing states there were no commercial paper obligations outstanding and no outstanding borrowings on the revolving credit facilities as of 2026-09-26, short-term borrowings are inferred to be zero. Therefore total debt equals LongTermDebtNoncurrent + DebtCurrent = 50,134,000,000, matching the original extraction. No correction to the total-debt value is warranted.",
+  "deterministic_validation": {
+    "status": "validated",
+    "checks": [
+      {
+        "rule": "company_identity",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal ticker/company must match the extraction"
+      },
+      {
+        "rule": "reporting_period",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal period '2026-09-26' must equal balance-sheet date '2026-09-26'"
+      },
+      {
+        "rule": "filing_lookahead",
+        "level": "hard",
+        "ok": true,
+        "reason": "filing date '2026-10-30' must not precede the reporting period '2026-09-26'"
+      },
+      {
+        "rule": "value_finite",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposed value must be a finite number"
+      },
+      {
+        "rule": "units_scaling",
+        "level": "soft",
+        "ok": true,
+        "reason": "proposed value is within a 1e3/1e6/1e9 multiple of the original — verify units and scaling"
+      },
+      {
+        "rule": "xbrl_tag_exists",
+        "level": "hard",
+        "ok": true,
+        "reason": "all cited tags exist in Companyfacts or the original filing"
+      },
+      {
+        "rule": "source_fact_value",
+        "level": "hard",
+        "ok": true,
+        "reason": "cited values match source facts"
+      },
+      {
+        "rule": "component_arithmetic",
+        "level": "hard",
+        "ok": true,
+        "reason": "formula recomputes to 50,134,000,000.00 vs proposed 50,134,000,000.00"
+      },
+      {
+        "rule": "debt_lease_double_count",
+        "level": "hard",
+        "ok": true,
+        "reason": "no debt/lease double-count detected"
+      },
+      {
+        "rule": "restricted_cash",
+        "level": "soft",
+        "ok": true,
+        "reason": "restricted/unrestricted cash scope is consistent"
+      },
+      {
+        "rule": "source_evidence",
+        "level": "hard",
+        "ok": true,
+        "reason": "source evidence present"
+      }
+    ],
+    "hard_failures": [],
+    "soft_warnings": []
+  },
+  "remaining_uncertainty": "No current-period XBRL fact exists for ShortTermBorrowings or CommercialPaper at 2026-09-26; zero is inferred from narrative disclosure. Finance-lease liabilities are also not separately tagged at the cash reporting date; if such liabilities exist and are not included in the reported debt tags, total debt could be understated, but this cannot be determined from the provided evidence.",
+  "approval_status": "pending",
+  "category": "debt_component_stale_nonzero",
+  "filing": {
+    "accession": "0000050863-26-000191",
+    "form": "10-Q",
+    "filing_date": "2026-10-30",
+    "report_date": "2026-09-26",
+    "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/intc-20260926.htm"
+  },
+  "filing_evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/intc-20260926.htm",
+    "facts": {
+      "LongTermDebtNoncurrent": {
+        "tag": "LongTermDebtNoncurrent",
+        "name": "us-gaap:LongTermDebtNoncurrent",
+        "value": 46317000000.0,
+        "raw_value": "46,317",
+        "unit": "USD",
+        "period_end": "2026-09-26",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "DebtCurrent": {
+        "tag": "DebtCurrent",
+        "name": "us-gaap:DebtCurrent",
+        "value": 3817000000.0,
+        "raw_value": "3,817",
+        "unit": "USD",
+        "period_end": "2026-09-26",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "CashAndCashEquivalentsAtCarryingValue": {
+        "tag": "CashAndCashEquivalentsAtCarryingValue",
+        "name": "us-gaap:CashAndCashEquivalentsAtCarryingValue",
+        "value": 21846000000.0,
+        "raw_value": "21,846",
+        "unit": "USD",
+        "period_end": "2026-09-26",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      }
+    },
+    "missing_tags": [
+      "LongTermDebt",
+      "LongTermNotesAndLoans",
+      "NotesPayableCurrent",
+      "NotesPayable",
+      "LoansPayable",
+      "LongTermNotesPayable",
+      "ConvertibleLongTermNotesPayable",
+      "LongTermDebtAndCapitalLeaseObligations",
+      "LongTermDebtCurrent",
+      "LongTermDebtAndCapitalLeaseObligationsCurrent",
+      "ShortTermBorrowings",
+      "CommercialPaper",
+      "DebtLongtermAndShorttermCombinedAmount",
+      "FinanceLeaseLiability",
+      "FinanceLeaseLiabilityNoncurrent",
+      "FinanceLeaseLiabilityCurrent",
+      "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+      "RestrictedCashAndCashEquivalentsAtCarryingValue"
+    ],
+    "statement_rows": [],
+    "note_excerpts": [
+      "8212; #160; 6,186 #160; Other investing ( 590 ) 494 #160; Net cash provided by (used for) investing activities ( 20,259 ) ( 8,255 ) Cash flows provided by (used for) financing activities: Issuance of commercial paper, net of issuance costs #8212; #160; 3,493 #160; Repayment of commercial paper #8212; #160; ( 3,493 ) Payments on finance leases ( 951 ) ( 103 ) Partner contributions 5,032 #160; 3,652 #160; Partner d",
+      "(used for) investing activities ( 20,259 ) ( 8,255 ) Cash flows provided by (used for) financing activities: Issuance of commercial paper, net of issuance costs #8212; #160; 3,493 #160; Repayment of commercial paper #8212; #160; ( 3,493 ) Payments on finance leases ( 951 ) ( 103 ) Partner contributions 5,032 #160; 3,652 #160; Partner distributions ( 14,442 ) ( 159 ) Net proceeds from sales of subsidiary shares #",
+      "78 million , which was measured and recorded using Level 2 inputs, as of September #160;26, 2026 ($ 463 million as of December #160;27, 2025). We classify the fair value of issued debt (excluding any commercial paper) as Level 2. The fair value of these instruments was $ 43.4 billion as of September #160;26, 2026 ($ 41.8 billion as of December #160;27, 2025). Note 13 : Derivative Financial Instruments Volume of D",
+      ", $2.2 billion in 5.30% senior notes due 2036, $1.8 billion in 6.13% senior notes due 2056, and $500 million in 6.20% senior notes due 2066. We have other potential sources of liquidity including our commercial paper program and our automatic shelf registration statement on file with the SEC, pursuant to which we may offer an unspecified amount of debt, equity and other securities. Under our commercial paper prog",
+      "our commercial paper program and our automatic shelf registration statement on file with the SEC, pursuant to which we may offer an unspecified amount of debt, equity and other securities. Under our commercial paper program, we have an ongoing authorization from our Board of Directors to borrow up to $10.0 billion. As of September #160;26, 2026, we had no commercial paper obligations outstanding and no outstandi",
+      ", equity and other securities. Under our commercial paper program, we have an ongoing authorization from our Board of Directors to borrow up to $10.0 billion. As of September #160;26, 2026, we had no commercial paper obligations outstanding and no outstanding borrowings on the revolving credit facilities. As part of our ongoing capital management strategy to optimize our debt portfolio, we may utilize make-whole",
+      "expenditures during the first nine months of 2026 compared to the first nine months of 2025. Financing Activities Financing cash flows consist primarily of borrowings and repayments of term debt and commercial paper, financing payments for capital expenditures with extended payment terms, proceeds related to strategic initiatives including SCIP partner contributions and equity-related issuances as well as paymen",
+      "ted Condensed Balance Sheets 5 Table of Contents Consolidated Condensed Statements of Cash Flows #160; Nine Months Ended (In Millions; Unaudited) Sep 26, 2026 Sep 27, 2025 Cash, cash equivalents, and restricted cash, beginning of period $ 14,712 #160; $ 8,249 #160; Cash flows provided by (used for) operating activities: Net income (loss) ( 11,609 ) 359 #160; Adjustments to reconcile net income (loss) to net cash",
+      "unit withholdings ( 907 ) ( 286 ) Other financing ( 146 ) ( 504 ) Net cash provided by (used for) financing activities 14,761 #160; 5,738 #160; Net increase (decrease) in cash, cash equivalents, and restricted cash 7,686 #160; 2,892 #160; Cash, cash equivalents, and restricted cash, end of period $ 22,398 #160; $ 11,141 #160; Financial Statements #160; #160;Consolidated Condensed Statements of Cash Flows 6 Tabl",
+      "et cash provided by (used for) financing activities 14,761 #160; 5,738 #160; Net increase (decrease) in cash, cash equivalents, and restricted cash 7,686 #160; 2,892 #160; Cash, cash equivalents, and restricted cash, end of period $ 22,398 #160; $ 11,141 #160; Financial Statements #160; #160;Consolidated Condensed Statements of Cash Flows 6 Table of Contents #160; Nine Months Ended (In Millions; Unaudited) Sep 2",
+      "nting an aggregate cash purchase price of $ 5.0 billion. The issuance and sale of the shares were completed the following quarter on December #160;26, 2025. Note 5 : Other Financial Statement Details Restricted Cash We have $ 552 million of restricted cash included in other long-term assets within the Consolidated Condensed Balance Sheets as of September #160;26, 2026 ($ 447 million as of December #160;27, 2025)",
+      "$ 5.0 billion. The issuance and sale of the shares were completed the following quarter on December #160;26, 2025. Note 5 : Other Financial Statement Details Restricted Cash We have $ 552 million of restricted cash included in other long-term assets within the Consolidated Condensed Balance Sheets as of September #160;26, 2026 ($ 447 million as of December #160;27, 2025). The restricted cash serves as collatera",
+      "ve $ 552 million of restricted cash included in other long-term assets within the Consolidated Condensed Balance Sheets as of September #160;26, 2026 ($ 447 million as of December #160;27, 2025). The restricted cash serves as collateral for third-party arrangements we entered into and is considered legally restricted due to limitations on usage and withdrawal. Accounts Receivable We may sell certain of our accou",
+      "cash provided by (used for) investing activities (20,259) (8,255) Net cash provided by (used for) financing activities 14,761 #160; 5,738 #160; Net increase (decrease) in cash, cash equivalents, and restricted cash $ 7,686 #160; $ 2,892 #160; Operating Activities Operating cash flows consist of net income (loss) adjusted for certain non-cash items and changes in certain assets and liabilities. Cash provided by",
+      ") Cash flows provided by (used for) financing activities: Issuance of commercial paper, net of issuance costs #8212; #160; 3,493 #160; Repayment of commercial paper #8212; #160; ( 3,493 ) Payments on finance leases ( 951 ) ( 103 ) Partner contributions 5,032 #160; 3,652 #160; Partner distributions ( 14,442 ) ( 159 ) Net proceeds from sales of subsidiary shares #8212; #160; 922 #160; Additions to property, plan",
+      "se of the 49% minority ownership interest in Ireland SCIP, repayments of term debt, lower net proceeds from common stock and warrant issuances, lower proceeds from Escrowed Shares, higher payments on finance leases, higher restricted stock unit withholdings and the absence of proceeds from sales of subsidiary shares received in the first nine months of 2025. MD amp;A 44 Table of Contents Risk Factors and Other",
+      "alue Hedging Adjustment Included in the Carrying Amount Assets/(Liabilities) (In Millions) Sep 26, 2026 Dec 27, 2025 Sep 26, 2026 Dec 27, 2025 Short-term debt $ ( 985 ) $ ( 993 ) $ 15 #160; $ 7 #160; Long-term debt ( 13,072 ) ( 8,488 ) 675 #160; 259 #160; Total $ ( 14,057 ) $ ( 9,481 ) $ 690 #160; $ 266 #160; Derivatives Not Designated as Hedging Instruments The effects of derivative instruments not designated"
+    ],
+    "html_len": 1837618
+  },
+  "record_utc": "2026-11-25T10:46:57.695696+00:00"
+}

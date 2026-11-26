@@ -1,0 +1,125 @@
+{
+  "company": "UNITED PARCEL SERVICE INC",
+  "ticker": "UPS",
+  "detected_problem": "Control case: verify existing debt + finance-lease reconciliation is correct.",
+  "original_production_value": 19241000000.0,
+  "proposed_financial_value": 26078000000.0,
+  "financial_definition": "Total debt including capital/finance lease obligations, before subtracting cash.",
+  "xbrl_tags": [
+    {
+      "tag": "LongTermDebtAndCapitalLeaseObligations",
+      "value": 25121000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-11-04",
+      "form": "10-Q"
+    },
+    {
+      "tag": "DebtCurrent",
+      "value": 957000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-11-04",
+      "form": "10-Q"
+    },
+    {
+      "tag": "FinanceLeaseLiability",
+      "value": 1467000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-11-04",
+      "form": "10-Q"
+    },
+    {
+      "tag": "CashAndCashEquivalentsAtCarryingValue",
+      "value": 6837000000,
+      "period_end": "2026-09-30",
+      "filed": "2026-11-04",
+      "form": "10-Q"
+    }
+  ],
+  "reporting_period": "2026-09-30",
+  "filing_date": "2026-11-04",
+  "sec_accession": "0001628280-26-070246",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/1090727/000162828026070246/ups-20260930.htm",
+  "statement_or_note_reference": "Condensed Consolidated Balance Sheet and debt footnote in the 10-Q for the period ended 2026-09-30",
+  "derivation_formula": "LongTermDebtAndCapitalLeaseObligations + DebtCurrent",
+  "accounting_explanation": "The existing reconciliation is correct and no correction is warranted. LongTermDebtAndCapitalLeaseObligations of 25,121,000,000 already includes finance-lease obligations, so the separate FinanceLeaseLiability of 1,467,000,000 is not added again. DebtCurrent of 957,000,000 supplies the current portion. Short-term borrowings are zero per the cited disclosure. Total debt is therefore 25,121,000,000 + 957,000,000 = 26,078,000,000, and net debt after cash of 6,837,000,000 is 19,241,000,000.",
+  "deterministic_validation": {
+    "status": "validated",
+    "checks": [
+      {
+        "rule": "company_identity",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal ticker/company must match the extraction"
+      },
+      {
+        "rule": "reporting_period",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal period '2026-09-30' must equal balance-sheet date '2026-09-30'"
+      },
+      {
+        "rule": "filing_lookahead",
+        "level": "hard",
+        "ok": true,
+        "reason": "filing date '2026-11-04' must not precede the reporting period '2026-09-30'"
+      },
+      {
+        "rule": "value_finite",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposed value must be a finite number"
+      },
+      {
+        "rule": "units_scaling",
+        "level": "soft",
+        "ok": true,
+        "reason": "proposed value is within a 1e3/1e6/1e9 multiple of the original — verify units and scaling"
+      },
+      {
+        "rule": "xbrl_tag_exists",
+        "level": "hard",
+        "ok": true,
+        "reason": "all cited tags exist"
+      },
+      {
+        "rule": "component_arithmetic",
+        "level": "hard",
+        "ok": true,
+        "reason": "formula recomputes to 26,078,000,000.00 vs proposed 26,078,000,000.00"
+      },
+      {
+        "rule": "debt_lease_double_count",
+        "level": "hard",
+        "ok": true,
+        "reason": "no debt/lease double-count detected"
+      },
+      {
+        "rule": "restricted_cash",
+        "level": "soft",
+        "ok": true,
+        "reason": "restricted/unrestricted cash scope is consistent"
+      },
+      {
+        "rule": "source_evidence",
+        "level": "hard",
+        "ok": true,
+        "reason": "source evidence present"
+      }
+    ],
+    "hard_failures": [],
+    "soft_warnings": []
+  },
+  "remaining_uncertainty": "No material uncertainty based on provided current XBRL tags and definitions; the full note split of current/noncurrent finance leases was not separately inspected.",
+  "approval_status": "pending",
+  "category": "debt_finance_lease_control",
+  "before_after_impact": {
+    "metric": "total_debt",
+    "original_net_debt": 19241000000.0,
+    "corrected_net_debt": 19241000000.0,
+    "original_total_debt": 26078000000.0,
+    "corrected_total_debt": 26078000000.0,
+    "net_debt_delta": 0.0,
+    "per_share_impact_usd": 0.0
+  },
+  "record_utc": "2026-11-25T06:29:47.105882+00:00"
+}

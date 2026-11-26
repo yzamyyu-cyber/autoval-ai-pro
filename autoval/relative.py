@@ -45,9 +45,9 @@ def trailing_pe(price: float, ttm_diluted_eps: float) -> float | None:
 def pe_summary(peer_multiples: list[float], target_ttm_eps: float) -> dict:
     """Median/P25/P75 of peer trailing P/E -> implied price range for the target."""
     cleaned = _clean_positive(peer_multiples)
-    m = median(cleaned)
-    q25 = p25(cleaned)
-    q75 = p75(cleaned)
+    m = median(cleaned) if len(cleaned) >= 3 else None
+    q25 = p25(cleaned) if len(cleaned) >= 3 else None
+    q75 = p75(cleaned) if len(cleaned) >= 3 else None
     eps = float(target_ttm_eps) if target_ttm_eps else None
     def implied(mult):
         return mult * eps if mult is not None and eps and eps > 0 else None
@@ -82,9 +82,9 @@ def ev_ebitda_summary(peer_multiples: list[float], target_ebitda: float,
                       target_net_debt: float, target_shares: float) -> dict:
     """Median/P25/P75 EV/EBITDA -> implied EV -> equity -> price per diluted share."""
     cleaned = _clean_positive(peer_multiples)
-    m = median(cleaned)
-    q25 = p25(cleaned)
-    q75 = p75(cleaned)
+    m = median(cleaned) if len(cleaned) >= 3 else None
+    q25 = p25(cleaned) if len(cleaned) >= 3 else None
+    q75 = p75(cleaned) if len(cleaned) >= 3 else None
     ebitda = float(target_ebitda) if target_ebitda and target_ebitda > 0 else None
     def implied_price(mult):
         if mult is None or not ebitda or not target_shares:
@@ -118,13 +118,16 @@ def summarize_relative_valuation(target: dict, peers: dict, peer_map: dict) -> d
     groups = {}
     for group_key, tickers in peer_map.items():
         group_peers = [peers[t] for t in tickers if t in peers]
-        valued = [p for p in group_peers if p.get("valued")]
-        pe_list = [p["pe"] for p in valued if p.get("pe") is not None and p["pe"] > 0]
-        ev_list = [p["ev_ebitda"] for p in valued if p.get("ev_ebitda") is not None
+        # Per-metric eligibility: a peer contributes to P/E when it has a valid positive
+        # P/E, and to EV/EBITDA when it has a valid positive EV/EBITDA (with debt tagged).
+        # The two are independent — a valid P/E observation must not be dropped just
+        # because EBITDA/debt data is unavailable.
+        pe_list = [p["pe"] for p in group_peers if p.get("pe") is not None and p["pe"] > 0]
+        ev_list = [p["ev_ebitda"] for p in group_peers if p.get("ev_ebitda") is not None
                    and p["ev_ebitda"] > 0 and p.get("ev_verifiable", True)]
         groups[group_key] = {
             "label": group_key,
-            "sample_size": len(valued),
+            "sample_size": len(group_peers),
             "pe": pe_summary(pe_list, target_eps),
             "ev_ebitda": ev_ebitda_summary(ev_list, target_ebitda, target_net_debt, target_shares),
             "peers": [{

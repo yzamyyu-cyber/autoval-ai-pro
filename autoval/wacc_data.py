@@ -215,9 +215,9 @@ def build_company_wacc(ticker: str, stock: dict, user_agent: str = "") -> dict:
 
     debt = stock.get("total_debt")
     if debt is not None and debt > 0:
-        inputs["debt_value"] = _env(debt, "USD", "SEC gross interest-bearing debt (book value proxy for market value)",
+        inputs["debt_value"] = _env(debt, "USD", "SEC gross interest-bearing debt incl. finance leases (book value proxy for market value)",
                                     period=stock.get("balance_sheet_asof"), kind="observed",
-                                    confidence="medium", limitation="Book debt used as market-value proxy.")
+                                    confidence="medium", limitation="Book debt used as market-value proxy; includes finance-lease liabilities.")
     else:
         inputs["debt_value"] = _fail("Gross debt unavailable")
 
@@ -229,8 +229,10 @@ def build_company_wacc(ticker: str, stock: dict, user_agent: str = "") -> dict:
                                               period=stock.get("financial_asof"), kind="calculated",
                                               confidence="low",
                                               limitation=("Historical proxy, NOT the current marginal borrowing rate; "
-                                                          "does not average beginning/ending debt and may be distorted "
-                                                          "by finance-lease interest or non-debt interest expense."))
+                                                          "does not average beginning/ending debt. Debt includes "
+                                                          "finance-lease liabilities; interest expense is the reported "
+                                                          "nonoperating interest expense (assumed inclusive of "
+                                                          "finance-lease interest)."))
     else:
         inputs["pre_tax_cost_of_debt"] = _fail("Interest expense or debt unavailable for cost-of-debt proxy")
 

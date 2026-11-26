@@ -1,0 +1,69 @@
+{
+  "quality": "available",
+  "validation": "rejected",
+  "proposals": [
+    {
+      "driver": "revenue_growth",
+      "original": 0.16351655569183898,
+      "proposed": 0.16351655569183898,
+      "source": "10-Q excerpts (2026-10-28): no revenue guidance provided; MD&A discusses liquidity/capital resources only.",
+      "filing_date": "2026-10-28",
+      "justification": "No explicit top-line guidance or updated revenue drivers in the provided excerpts, so no evidence-backed basis to change the current assumption.",
+      "horizon": "medium-term",
+      "uncertainty": "high",
+      "kind": "interpretation"
+    },
+    {
+      "driver": "operating_margin",
+      "original": 0.45682358074353596,
+      "proposed": 0.45682358074353596,
+      "source": "10-Q excerpts (2026-10-28): tax/OECD global minimum tax discussion; no operating margin guidance.",
+      "filing_date": "2026-10-28",
+      "justification": "Excerpts discuss tax positions and potential tax burden increases, but do not provide operating margin guidance; tax items mostly affect taxes below operating income, so no basis to adjust.",
+      "horizon": "medium-term",
+      "uncertainty": "high",
+      "kind": "interpretation"
+    },
+    {
+      "driver": "capex_intensity",
+      "original": 0.31813569328463515,
+      "proposed": 0.31813569328463515,
+      "source": "10-Q MD&A (2026-10-28): liquidity sufficient for 'material capital expenditures'; debt proceeds may fund capital expenditures.",
+      "filing_date": "2026-10-28",
+      "justification": "MD&A indicates capital expenditures remain material and funding is available, but gives no precise capex intensity guidance; retaining current assumption is most consistent with the disclosed investment posture.",
+      "horizon": "near-term",
+      "uncertainty": "medium",
+      "kind": "interpretation"
+    },
+    {
+      "driver": "transition_years",
+      "original": 5,
+      "proposed": 5,
+      "source": "10-Q excerpts (2026-10-28): no transition-period guidance or change in investment horizon disclosed.",
+      "filing_date": "2026-10-28",
+      "justification": "No evidence in provided excerpts to alter the assumed transition horizon.",
+      "horizon": "multi-year",
+      "uncertainty": "high",
+      "kind": "interpretation"
+    },
+    {
+      "driver": "mature_incremental_roic",
+      "original": 0.12,
+      "proposed": 0.12,
+      "source": "10-Q excerpts (2026-10-28): investment impairment/credit-loss policies disclosed; no forward ROIC guidance.",
+      "filing_date": "2026-10-28",
+      "justification": "No direct evidence in provided excerpts to revise mature incremental ROIC; impairment and credit-loss disclosures do not provide a forward ROIC estimate.",
+      "horizon": "long-term",
+      "uncertainty": "high",
+      "kind": "interpretation"
+    }
+  ],
+  "current": {
+    "revenue_growth": 0.16351655569183898,
+    "operating_margin": 0.45682358074353596,
+    "capex_intensity": 0.31813569328463515,
+    "transition_years": 5,
+    "mature_incremental_roic": 0.12
+  },
+  "filing_accession": "0001193125-26-436133"
+}

@@ -53,6 +53,15 @@ class SecTests(unittest.TestCase):
         self.assertEqual(out["shares"],10)
 
     @patch("autoval.sec.fetch_json")
+    def test_ticker_maps_to_successor_registrant(self, fetch):
+        from autoval.sec import sec_lookup
+        # XOM now maps to the successor registrant; predecessor-successor history
+        # resolution is a separate concern (not a permanent CIK override).
+        fetch.return_value = {"0": {"ticker": "XOM", "cik_str": "2115436", "title": "ExxonMobil Holdings Corp"}}
+        cik, name = sec_lookup("XOM", "Example example@example.com")
+        self.assertEqual(cik, 2115436)
+
+    @patch("autoval.sec.fetch_json")
     def test_refuses_missing_critical_interest_expense(self, fetch):
         x=fixture()
         x["facts"]["us-gaap"].pop("InterestExpenseNonoperating")
@@ -127,11 +136,65 @@ class DebtReconciliationTests(unittest.TestCase):
         self.assertEqual(ex["ShortTermBorrowings"]["last_value"], 0)
         self.assertTrue(any("stale" in w for w in out["source"]["disclosure_warnings"]))
 
-    def test_stale_nonzero_borrowings_raise(self):
+    def test_stale_nonzero_borrowings_mark_debt_unavailable(self):
         facts = self._facts(current_entries=[instant(4, "2025-12-31")],
-                            short_entries=[instant(5000, "2018-06-30", filed="2018-08-03")])
-        with self.assertRaisesRegex(ValueError, "cannot reconcile"):
-            self._get(facts)
+                            short_entries=[instant(5000, "2024-06-30", filed="2024-08-03")])
+        out = self._get(facts)
+        # recent-but-off-date nonzero debt is never silently zeroed: debt is unavailable
+        self.assertIsNone(out["net_debt"])
+        self.assertIsNone(out["total_debt"])
+        self.assertFalse(out["debt_available"])
+        self.assertTrue(any(e.get("status") == "stale_nonzero" for e in out["source"]["excluded_debt_tags"]))
+
+    def test_stale_nonzero_debt_never_excluded_by_age(self):
+        # A very old stale nonzero component must ALSO remain unavailable (a stale tag
+        # does not establish repayment).
+        facts = self._facts(current_entries=[instant(4, "2025-12-31")],
+                            short_entries=[instant(5000, "2013-09-01", filed="2013-10-01")])
+        out = self._get(facts)
+        self.assertIsNone(out["net_debt"])
+        self.assertFalse(out["debt_available"])
+        self.assertTrue(any(e.get("status") == "stale_nonzero" for e in out["source"]["excluded_debt_tags"]))
+
+    def test_source_backed_zero_debt_confirmation(self):
+        # COST/UPS short-term borrowings are explicitly zero per the filing note; the
+        # DEBT_ZERO_EVIDENCE map must resolve the absent tag to zero (source-backed).
+        from autoval.sec import DEBT_ZERO_EVIDENCE
+        self.assertIn("COST", DEBT_ZERO_EVIDENCE)
+        self.assertIn("Short-term borrowings", DEBT_ZERO_EVIDENCE["COST"])
+
+    def test_source_backed_included_in_short_term_borrowings(self):
+        # JNJ's current portion of long-term debt is included in "loans and notes payable"
+        # (ShortTermBorrowings); the source-backed map must resolve it (not block debt).
+        from autoval.sec import DEBT_INCLUDED_IN_SHORT_TERM_EVIDENCE
+        self.assertIn("JNJ", DEBT_INCLUDED_IN_SHORT_TERM_EVIDENCE)
+        self.assertIn("Current portion of long-term debt",
+                      DEBT_INCLUDED_IN_SHORT_TERM_EVIDENCE["JNJ"])
+
+    @patch("autoval.sec.fetch_json")
+    def test_diluted_shares_in_millions_rescaled(self, fetch):
+        # MCD-like: weighted-average diluted shares tagged in millions (711.0) while the
+        # point-in-time common shares are actual units (705,784,744). Must be rescaled.
+        x = fixture()
+        x["facts"]["dei"]["EntityCommonStockSharesOutstanding"] = {
+            "units": {"shares": [instant(705784744, "2025-12-31")]}}
+        x["facts"]["us-gaap"]["WeightedAverageNumberOfDilutedSharesOutstanding"] = {
+            "units": {"shares": [annual(711.0, "2025-12-31")]}}
+        fetch.side_effect = [{"0": {"ticker": "MOCK", "cik_str": 123, "title": "Mock Company"}}, x]
+        out = get_sec_financials("MOCK", "Example example@example.com")
+        self.assertEqual(out["diluted_shares"], 711_000_000.0)
+
+    @patch("autoval.sec.fetch_json")
+    def test_already_normalized_diluted_shares_not_rescaled_twice(self, fetch):
+        # diluted shares already in actual units (ratio ~1.0) must NOT be rescaled.
+        x = fixture()
+        x["facts"]["dei"]["EntityCommonStockSharesOutstanding"] = {
+            "units": {"shares": [instant(705784744, "2025-12-31")]}}
+        x["facts"]["us-gaap"]["WeightedAverageNumberOfDilutedSharesOutstanding"] = {
+            "units": {"shares": [annual(711000000.0, "2025-12-31")]}}
+        fetch.side_effect = [{"0": {"ticker": "MOCK", "cik_str": 123, "title": "Mock Company"}}, x]
+        out = get_sec_financials("MOCK", "Example example@example.com")
+        self.assertEqual(out["diluted_shares"], 711_000_000.0)
 
     def test_missing_long_term_debt_raises(self):
         facts = self._facts()
@@ -233,6 +296,16 @@ class InterestTagTests(unittest.TestCase):
         v = annual_values(x, ("InterestExpenseNonoperating", "InterestExpense"), today="2026-11-11")
         self.assertEqual(v, {})
 
+    def test_net_interest_expense_tag_resolves(self):
+        # WMT/NKE report net interest expense under InterestIncomeExpenseNonoperatingNet
+        x = {"facts": {"us-gaap": {"InterestIncomeExpenseNonoperatingNet": {"units": {"USD": [
+            self._fy(3051, "2026-06-30", "2026-07-29"),
+        ]}}}}}
+        v = annual_values(x, ("InterestExpenseNonoperating", "InterestExpense",
+                              "InterestIncomeExpenseNonoperatingNet"), today="2026-11-11")
+        self.assertEqual(v["2026-06-30"]["tag"], "InterestIncomeExpenseNonoperatingNet")
+        self.assertEqual(v["2026-06-30"]["value"], 3051)
+
     def test_short_period_excluded(self):
         x = {"facts": {"us-gaap": {"InterestExpenseNonoperating": {"units": {"USD": [
             {"start": "2026-01-01", "end": "2026-06-30", "form": "10-K", "filed": "2026-07-29", "val": 999},
@@ -318,6 +391,97 @@ class InvestmentFactsTests(unittest.TestCase):
         rec = out["source"]["annual_records"][-1]
         self.assertEqual(rec["interest_addback"], 10)
         self.assertEqual(rec["interest_addback_note"], "cash interest paid")
+
+
+class SecExtractionReliabilityTests(unittest.TestCase):
+    def _run(self, facts):
+        with patch("autoval.sec.fetch_json") as fetch:
+            fetch.side_effect = [{"0": {"ticker": "MOCK", "cik_str": 123, "title": "Mock Company"}}, facts]
+            return get_sec_financials("MOCK", "Example example@example.com")
+
+    def test_shares_us_gaap_fallback(self):
+        x = fixture()
+        x["facts"]["dei"].pop("EntityCommonStockSharesOutstanding")
+        x["facts"]["us-gaap"]["CommonStockSharesOutstanding"] = {"units": {"shares": [instant(10)]}}
+        out = self._run(x)
+        self.assertEqual(out["shares"], 10)
+
+    def test_shares_both_missing_raises(self):
+        x = fixture()
+        x["facts"]["dei"].pop("EntityCommonStockSharesOutstanding")
+        with self.assertRaisesRegex(ValueError, "shares unavailable"):
+            self._run(x)
+
+    def test_debt_total_fallback_stale_current(self):
+        x = fixture()
+        us = x["facts"]["us-gaap"]
+        us.pop("LongTermDebtNoncurrent")
+        us["LongTermDebt"] = {"units": {"USD": [instant(60, "2025-12-31")]}}
+        us["LongTermDebtCurrent"] = {"units": {"USD": [instant(51, "2013-03-31", filed="2013-05-01")]}}
+        out = self._run(x)
+        # current portion assumed already included in the LongTermDebt total
+        self.assertAlmostEqual(out["total_debt"], 60)
+        self.assertAlmostEqual(out["net_debt"], 60 - 50)
+        self.assertTrue(any("included_in_total" in (w or "") for w in out["source"]["disclosure_warnings"])
+                        or any(e.get("status") == "included_in_total" for e in out["source"].get("excluded_debt_tags", [])))
+
+    def test_debt_no_double_count_when_split_present(self):
+        # when noncurrent + current split IS present, it is summed normally
+        x = fixture()  # LongTermDebtNoncurrent=60, LongTermDebtCurrent=4
+        out = self._run(x)
+        self.assertAlmostEqual(out["total_debt"], 64)  # 60 + 4
+
+
+class FinanceLeaseTests(unittest.TestCase):
+    def _run(self, facts):
+        with patch("autoval.sec.fetch_json") as fetch:
+            fetch.side_effect = [{"0": {"ticker": "MOCK", "cik_str": 123, "title": "Mock Company"}}, facts]
+            return get_sec_financials("MOCK", "Example example@example.com")
+
+    def test_finance_lease_added_once_to_debt(self):
+        # Notes/bonds-only LongTermDebtNoncurrent excludes finance leases -> add them once.
+        x = fixture()
+        us = x["facts"]["us-gaap"]
+        us["FinanceLeaseLiabilityNoncurrent"] = {"units": {"USD": [instant(10, "2025-12-31")]}}
+        us["FinanceLeaseLiabilityCurrent"] = {"units": {"USD": [instant(5, "2025-12-31")]}}
+        out = self._run(x)
+        # 60 long + 4 current + 0 short + 15 finance lease - 50 cash = 29
+        self.assertAlmostEqual(out["total_debt"], 79)
+        self.assertAlmostEqual(out["net_debt"], 29)
+        self.assertAlmostEqual(out["source"]["debt_reconciliation"]["finance_lease"], 15)
+        self.assertAlmostEqual(out["source"]["finance_lease"]["value"], 15)
+
+    def test_finance_lease_not_double_counted_when_tag_lease_inclusive(self):
+        # LongTermDebtAndCapitalLeaseObligations already includes finance leases.
+        x = fixture()
+        us = x["facts"]["us-gaap"]
+        us.pop("LongTermDebtNoncurrent", None)
+        us["LongTermDebtAndCapitalLeaseObligations"] = {"units": {"USD": [instant(60, "2025-12-31")]}}
+        us["FinanceLeaseLiabilityNoncurrent"] = {"units": {"USD": [instant(10, "2025-12-31")]}}
+        us["FinanceLeaseLiabilityCurrent"] = {"units": {"USD": [instant(5, "2025-12-31")]}}
+        out = self._run(x)
+        self.assertAlmostEqual(out["total_debt"], 64)  # 60 + 4, no +15
+        self.assertAlmostEqual(out["net_debt"], 14)
+        self.assertAlmostEqual(out["source"]["debt_reconciliation"]["finance_lease"], 0)
+        statuses = {e["tag"]: e["status"] for e in out["source"]["lease_excluded"]}
+        self.assertEqual(statuses.get("FinanceLeaseLiabilityNoncurrent+Current"), "included_in_total")
+
+    def test_missing_finance_lease_facts_treated_as_zero(self):
+        out = self._run(fixture())  # no finance-lease tags
+        self.assertAlmostEqual(out["net_debt"], 14)
+        self.assertIsNone(out["source"]["finance_lease"])
+        statuses = {e["tag"]: e["status"] for e in out["source"]["lease_excluded"]}
+        self.assertEqual(statuses.get("FinanceLeaseLiability"), "absent")
+
+    def test_stale_finance_lease_flagged_unresolved(self):
+        # Finance lease reported only at a stale date -> excluded + flagged as stale.
+        x = fixture()
+        x["facts"]["us-gaap"]["FinanceLeaseLiabilityNoncurrent"] = {
+            "units": {"USD": [instant(8000, "2018-06-30", filed="2018-08-03")]}}
+        out = self._run(x)
+        self.assertAlmostEqual(out["net_debt"], 14)  # stale excluded -> zero
+        ex = {e["tag"]: e["status"] for e in out["source"]["excluded_debt_tags"]}
+        self.assertEqual(ex.get("FinanceLeaseLiabilityNoncurrent"), "stale")
 
 
 if __name__=="__main__": unittest.main()

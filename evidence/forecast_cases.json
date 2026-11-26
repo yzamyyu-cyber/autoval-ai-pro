@@ -1,0 +1,149 @@
+{
+  "AMZN": {
+    "quality": "unsuitable",
+    "validation": "rejected",
+    "proposals": [
+      {
+        "driver": "revenue_growth",
+        "original": 0.11682170739003106,
+        "proposed": [
+          0.12,
+          0.16
+        ],
+        "source": "Q4 2026 guidance in 10-Q filed 2026-10-30; net sales expected between $240.0B and $247.0B, or growth of 12% to 16% vs Q4 2025.",
+        "filing_date": "2026-10-30",
+        "justification": "Explicit management net sales growth guidance for Q4 2026. Current point estimate of 11.7% is below the guided range. FX headwind of approximately 60 bps is already included.",
+        "horizon": "Q4 2026",
+        "uncertainty": "Guidance range; subject to macro, FX, holiday demand, and online/cloud growth risks.",
+        "kind": "guidance"
+      },
+      {
+        "driver": "operating_margin",
+        "original": 0.09439560823186303,
+        "proposed": [
+          0.115,
+          0.14
+        ],
+        "source": "Q4 2026 guidance in 10-Q filed 2026-10-30: operating income $28.5B to $33.5B; net sales $240B to $247B.",
+        "filing_date": "2026-10-30",
+        "justification": "Implied Q4 2026 operating margin range is $28.5B/$247B to $33.5B/$240B, or about 11.5% to 14.0%. This is above the current 9.4% assumption.",
+        "horizon": "Q4 2026",
+        "uncertainty": "Derived from guidance; excludes energy derivative remeasurements, acquisitions, restructurings, and legal settlements.",
+        "kind": "interpretation"
+      },
+      {
+        "driver": "capex_intensity",
+        "original": 0.1374070668472238,
+        "proposed": [
+          0.22,
+          0.3
+        ],
+        "source": "10-Q filed 2026-10-30: 'We continue to expect 2026 cash capital expenditures to be approximately $220 billion.'",
+        "filing_date": "2026-10-30",
+        "justification": "Explicit 2026 cash capex guidance of about $220B. The current 13.7% capex intensity would imply roughly $1.6T of 2026 revenue, which is inconsistent with Q4 2026 net sales guidance of $240B to $247B. Using the Q4 sales run-rate or plausible 2026 revenue implies a capex intensity closer to roughly 22% to 30%.",
+        "horizon": "2026",
+        "uncertainty": "High; full-year 2026 revenue is not disclosed in the selected excerpts, so the revenue denominator is an interpretation. Capex classification and cash timing also matter.",
+        "kind": "interpretation"
+      },
+      {
+        "driver": "transition_years",
+        "original": 5,
+        "proposed": 5,
+        "source": "10-Q filed 2026-10-30: long-dated contractual obligations greater than $100B over 10 years, including AWS chip obligations.",
+        "filing_date": "2026-10-30",
+        "justification": "No explicit management guidance on the model transition period. Retained at 5 years; long-dated AWS chip and energy commitments could support a longer transition, but contract duration is not a direct margin-fade input.",
+        "horizon": "medium term",
+        "uncertainty": "High; no company guidance on transition period.",
+        "kind": "interpretation"
+      },
+      {
+        "driver": "mature_incremental_roic",
+        "original": 0.12,
+        "proposed": 0.12,
+        "source": "Q4 2026 implied operating margin range of about 11.5% to 14.0%; no explicit ROIC guidance provided.",
+        "filing_date": "2026-10-30",
+        "justification": "No direct company disclosure on mature incremental ROIC. Retained at 12%; the Q4 2026 operating margin guidance brackets the current assumption, but ROIC also depends on invested capital and capex productivity.",
+        "horizon": "long term",
+        "uncertainty": "High; dependent on future capex productivity, AWS margin mix, and could be lower if large AI-related capex requires time to generate returns.",
+        "kind": "interpretation"
+      }
+    ],
+    "current": {
+      "revenue_growth": 0.11682170739003106,
+      "operating_margin": 0.09439560823186303,
+      "capex_intensity": 0.1374070668472238,
+      "transition_years": 5,
+      "mature_incremental_roic": 0.12
+    },
+    "filing_accession": "0001018724-26-000040"
+  },
+  "MSFT": {
+    "quality": "available",
+    "validation": "rejected",
+    "proposals": [
+      {
+        "driver": "revenue_growth",
+        "original": 0.16351655569183898,
+        "proposed": 0.16351655569183898,
+        "source": "10-Q excerpts (2026-10-28): no revenue guidance provided; MD&A discusses liquidity/capital resources only.",
+        "filing_date": "2026-10-28",
+        "justification": "No explicit top-line guidance or updated revenue drivers in the provided excerpts, so no evidence-backed basis to change the current assumption.",
+        "horizon": "medium-term",
+        "uncertainty": "high",
+        "kind": "interpretation"
+      },
+      {
+        "driver": "operating_margin",
+        "original": 0.45682358074353596,
+        "proposed": 0.45682358074353596,
+        "source": "10-Q excerpts (2026-10-28): tax/OECD global minimum tax discussion; no operating margin guidance.",
+        "filing_date": "2026-10-28",
+        "justification": "Excerpts discuss tax positions and potential tax burden increases, but do not provide operating margin guidance; tax items mostly affect taxes below operating income, so no basis to adjust.",
+        "horizon": "medium-term",
+        "uncertainty": "high",
+        "kind": "interpretation"
+      },
+      {
+        "driver": "capex_intensity",
+        "original": 0.31813569328463515,
+        "proposed": 0.31813569328463515,
+        "source": "10-Q MD&A (2026-10-28): liquidity sufficient for 'material capital expenditures'; debt proceeds may fund capital expenditures.",
+        "filing_date": "2026-10-28",
+        "justification": "MD&A indicates capital expenditures remain material and funding is available, but gives no precise capex intensity guidance; retaining current assumption is most consistent with the disclosed investment posture.",
+        "horizon": "near-term",
+        "uncertainty": "medium",
+        "kind": "interpretation"
+      },
+      {
+        "driver": "transition_years",
+        "original": 5,
+        "proposed": 5,
+        "source": "10-Q excerpts (2026-10-28): no transition-period guidance or change in investment horizon disclosed.",
+        "filing_date": "2026-10-28",
+        "justification": "No evidence in provided excerpts to alter the assumed transition horizon.",
+        "horizon": "multi-year",
+        "uncertainty": "high",
+        "kind": "interpretation"
+      },
+      {
+        "driver": "mature_incremental_roic",
+        "original": 0.12,
+        "proposed": 0.12,
+        "source": "10-Q excerpts (2026-10-28): investment impairment/credit-loss policies disclosed; no forward ROIC guidance.",
+        "filing_date": "2026-10-28",
+        "justification": "No direct evidence in provided excerpts to revise mature incremental ROIC; impairment and credit-loss disclosures do not provide a forward ROIC estimate.",
+        "horizon": "long-term",
+        "uncertainty": "high",
+        "kind": "interpretation"
+      }
+    ],
+    "current": {
+      "revenue_growth": 0.16351655569183898,
+      "operating_margin": 0.45682358074353596,
+      "capex_intensity": 0.31813569328463515,
+      "transition_years": 5,
+      "mature_incremental_roic": 0.12
+    },
+    "filing_accession": "0001193125-26-436133"
+  }
+}

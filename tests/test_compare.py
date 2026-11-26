@@ -23,6 +23,13 @@ class CompareTests(unittest.TestCase):
         self.assertEqual(c["mode"], "demo")
         self.assertEqual(c["forecast_growth_basis"], "FCFF (constant-growth)")
 
+    def test_older_export_without_quality_is_not_assessed(self):
+        r = self._demo()
+        r.pop("quality", None)
+        c = extract_comparison(r)
+        self.assertEqual(c["quality_state"], "not_assessed")
+        self.assertIsNone(c["quality_reasons"])
+
     def test_valuation_gap_recomputed(self):
         r = self._demo()
         c = extract_comparison(r)

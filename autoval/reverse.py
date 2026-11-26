@@ -19,7 +19,16 @@ def reverse_dcf(report: dict, price: float | None = None) -> dict:
     """
     analysis = report["analysis"]
     base = analysis["scenarios"]["base"]
-    target = float(analysis["market_price"] if price is None else price)
+    market_mode = report.get("market_mode", "current")
+    demo = report.get("mode") == "demo"
+    if not demo and market_mode not in ("current", "saved"):
+        raise ValueError(
+            "Reverse DCF requires a genuine market observation (current or dated-saved); "
+            f"the market-data mode is {market_mode!r}, so no genuine price is available.")
+    raw_target = analysis.get("market_price") if price is None else price
+    if raw_target is None:
+        raise ValueError("Reverse DCF requires a genuine market price, but none is available.")
+    target = float(raw_target)
     forecast = base["forecast_fcff_usd"]
     if len(forecast) < 2:
         raise ValueError("Reverse DCF needs at least two forecast years.")

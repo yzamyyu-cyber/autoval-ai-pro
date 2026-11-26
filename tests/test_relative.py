@@ -34,6 +34,19 @@ class PeValuationTests(unittest.TestCase):
         s = pe_summary([20, -5, 30, None], 10)
         self.assertEqual(s["sample_size"], 2)  # -5 and None excluded
 
+    def test_pe_summary_min_three_peer_median(self):
+        # fewer than 3 eligible peers -> median/implied suppressed (never a 2-observation median)
+        s = pe_summary([83.4, 12.9], 4.0)
+        self.assertIsNone(s["median_pe"])
+        self.assertIsNone(s["implied_price_median"])
+        s3 = pe_summary([20, 25, 30], 4.0)
+        self.assertIsNotNone(s3["median_pe"])
+
+    def test_ev_ebitda_min_three_peer_median(self):
+        s = ev_ebitda_summary([8, 9], 100, 200, 50)
+        self.assertIsNone(s["median_ev_ebitda"])
+        self.assertIsNone(s["implied_price_median"])
+
 
 class EvEbitdaTests(unittest.TestCase):
     def test_ev_construction(self):
@@ -123,28 +136,45 @@ class ExtractionTests(unittest.TestCase):
     def _facts(self, us_gaap):
         return {"facts": {"us-gaap": us_gaap, "dei": {}}}
 
+    def _ttm(self, val, start, end, form="10-K", filed="2026-02-01"):
+        return {"start": start, "end": end, "form": form, "filed": filed, "val": val}
+
     def test_ttm_da_prefers_total_tag(self):
         from autoval.relative_data import _ttm_da
-        ends = ["2025-09-30", "2025-12-31", "2026-03-31", "2026-06-30"]
         u = {
-            "DepreciationAndAmortization": {"units": {"USD": [self._qf(100, e) for e in ends]}},
-            "Depreciation": {"units": {"USD": [self._qf(50, e) for e in ends]}},
-            "AmortizationOfIntangibleAssets": {"units": {"USD": [self._qf(30, e) for e in ends]}},
+            "DepreciationAndAmortization": {"units": {"USD": [
+                self._ttm(400, "2025-01-01", "2025-12-31", "10-K", "2026-02-01"),
+                self._ttm(250, "2025-01-01", "2025-09-30", "10-Q", "2025-10-30"),
+                self._ttm(300, "2026-01-01", "2026-09-30", "10-Q", "2026-10-30"),
+            ]}},
+            "Depreciation": {"units": {"USD": [
+                self._ttm(250, "2025-01-01", "2025-12-31", "10-K", "2026-02-01"),
+            ]}},
         }
         total, tag = _ttm_da(self._facts(u))
-        # total tag used, NOT total + components (no double-count)
+        # total tag used, NOT total + components (no double-count); TTM = 400 + 300 - 250
         self.assertEqual(tag, "DepreciationAndAmortization")
-        self.assertAlmostEqual(total, 400)
+        self.assertAlmostEqual(total, 450)
 
     def test_ttm_da_component_fallback(self):
         from autoval.relative_data import _ttm_da
-        ends = ["2025-09-30", "2025-12-31", "2026-03-31", "2026-06-30"]
         u = {
-            "Depreciation": {"units": {"USD": [self._qf(50, e) for e in ends]}},
-            "AmortizationOfIntangibleAssets": {"units": {"USD": [self._qf(30, e) for e in ends]}},
+            "Depreciation": {"units": {"USD": [
+                self._ttm(250, "2025-01-01", "2025-12-31", "10-K", "2026-02-01"),
+                self._ttm(150, "2025-01-01", "2025-09-30", "10-Q", "2025-10-30"),
+                self._ttm(180, "2026-01-01", "2026-09-30", "10-Q", "2026-10-30"),
+            ]}},
+            "AmortizationOfIntangibleAssets": {"units": {"USD": [
+                self._ttm(100, "2025-01-01", "2025-12-31", "10-K", "2026-02-01"),
+                self._ttm(60, "2025-01-01", "2025-09-30", "10-Q", "2025-10-30"),
+                self._ttm(70, "2026-01-01", "2026-09-30", "10-Q", "2026-10-30"),
+            ]}},
         }
         total, tag = _ttm_da(self._facts(u))
-        self.assertAlmostEqual(total, 320)  # 50*4 + 30*4
+        # Depreciation TTM = 250 + 180 - 150 = 280; Amortization TTM = 100 + 70 - 60 = 110
+        self.assertAlmostEqual(total, 280 + 110)
+        self.assertIn("Depreciation", tag)
+        self.assertIn("AmortizationOfIntangibleAssets", tag)
 
     def test_gross_debt_notes_payable(self):
         from autoval.relative_data import _gross_debt

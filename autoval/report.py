@@ -1,5 +1,6 @@
 """Markdown research-report generation from a validated analysis result (no Streamlit)."""
 from __future__ import annotations
+from .quality import assess_valuation_quality
 
 
 def _usd(v):
@@ -16,6 +17,14 @@ def _growth(s):
 
 def _num(v):
     return f"{v:,}" if isinstance(v, (int, float)) else "n/a"
+
+
+def _peer_reason(result: dict) -> str:
+    from .peers import peer_groups
+    groups = peer_groups(result.get("ticker", ""))
+    if not groups:
+        return "no peer group configured for this industry"
+    return "insufficient valid comparable companies (or data-provider failure)"
 
 
 def build_report_markdown(result: dict) -> str:
@@ -47,9 +56,36 @@ def build_report_markdown(result: dict) -> str:
 
     L.append("## Company & data dates")
     L.append(f"- {price_label}: **{_usd(a['market_price'])}** as of **{a['price_date']}**")
+    L.append(f"- Market-data mode: **{result.get('market_mode', 'current')}**"
+             f" · WACC basis: **{result.get('wacc_basis', a.get('wacc_basis', 'n/a'))}**")
     L.append(f"- Financial FY: **{a['financial_asof']}**")
     L.append(f"- Run (UTC): {result['run_utc']}")
     L.append(f"- Shares: common {_num(a.get('shares_outstanding'))} · diluted {_num(a.get('diluted_shares'))}")
+    freshness = result.get("freshness") or {}
+    if freshness.get("status") == "newer-results-available":
+        L.append(f"- ⚠️ Newer results available: earnings release covering "
+                 f"{freshness.get('newer_earnings_report_date') or freshness.get('newer_earnings_release')} "
+                 f"is later than the latest periodic filing; this valuation uses the periodic filing.")
+    L.append("")
+
+    L.append("## Availability")
+    L.append(f"- DCF: **{'available' if result.get('analysis') is not None else 'unavailable'}**")
+    L.append(f"- Company-specific WACC: **{'available' if (wacc_block or {}).get('available') is True else 'unavailable (illustrative fallback)'}**")
+    if relative is not None:
+        L.append("- Peer valuation: **available**")
+    else:
+        L.append(f"- Peer valuation: **unavailable** — {_peer_reason(result)}")
+    L.append("")
+
+    quality = assess_valuation_quality(result)
+    L.append("## Valuation quality")
+    L.append(f"- **State: {quality['state'].replace('_', ' ').upper()}**")
+    for r in quality["data_quality"]:
+        L.append(f"  - Data quality: {r}")
+    for r in quality["unsuitability"]:
+        L.append(f"  - Model unsuitable: {r}")
+    for r in quality["model_suitability"]:
+        L.append(f"  - Model risk: {r}")
     L.append("")
 
     L.append("## Valuation summary")
@@ -58,8 +94,17 @@ def build_report_markdown(result: dict) -> str:
     L.append("|---|---:|---:|---:|---:|---:|")
     for case in ("bear", "base", "bull"):
         v = cases[case]
+        gap = f"{v['upside_vs_price_pct']:+.1f}%" if v.get("upside_vs_price_pct") is not None else "n/a"
         L.append(f"| {case.title()} | {_usd(v['intrinsic_per_share_usd'])} | "
-                 f"{v['upside_vs_price_pct']:+.1f}% | {_pct(v['wacc'])} | {_growth(v)} | {_pct(v['terminal_growth'])} |")
+                 f"{gap} | {_pct(v['wacc'])} | {_growth(v)} | {_pct(v['terminal_growth'])} |")
+    negative_cases = [c for c in ("bear", "base", "bull")
+                      if (cases[c].get("intrinsic_per_share_usd") or 0) < 0]
+    if negative_cases:
+        L.append("")
+        L.append("> ⚠️ A negative intrinsic-per-share figure is a mechanical artifact: that scenario's "
+                 "discounted cash flows fall below net debt. Equity is a limited-liability claim and "
+                 "cannot have a negative price; the figure is preserved here for audit only and is not "
+                 "a valid stock price.")
     L.append("")
 
     L.append("## Assumptions")
@@ -134,6 +179,43 @@ def build_report_markdown(result: dict) -> str:
                      f"{r['change_in_nwc']/1e9:.2f} | {r['fcff']/1e9:.2f} |")
         L.append("")
 
+    multistage = a.get("multistage")
+    if multistage:
+        L.append("## Multi-stage DCF")
+        L.append("Years 1–5 explicit · years 6–10 transition · year 11+ ROIC-consistent terminal. "
+                 "The original five-year DCF is unchanged.")
+        L.append("")
+        L.append("| Scenario | Original (5-yr) | Multi-stage |")
+        L.append("|---|---:|---:|")
+        for case in ("bear", "base", "bull"):
+            orig = cases[case]["intrinsic_per_share_usd"]
+            ms = multistage[case]["intrinsic_per_share_usd"]
+            L.append(f"| {case.title()} | {_usd(orig)} | {_usd(ms)} |")
+        L.append("")
+        b = multistage["base"]
+        L.append(f"- Sustainable reinvestment rate = terminal growth ÷ mature incremental ROIC "
+                 f"= {b['terminal_growth']:.1%} ÷ {b['mature_incremental_roic']:.0%} "
+                 f"= {b['reinvestment_rate_terminal']:.1%}")
+        L.append(f"- Terminal FCFF = year-{b['terminal']['year']} NOPAT × (1 − reinvestment rate) "
+                 f"= {_usd(b['terminal']['nopat_usd'])} × (1 − {b['reinvestment_rate_terminal']:.1%}) "
+                 f"= {_usd(b['terminal']['fcff_usd'])}")
+        L.append(f"- Terminal value = FCFF ÷ (WACC − g) = {_usd(b['terminal']['terminal_value_usd'])}")
+        L.append(f"- Explicit reinvestment rate fades from {b['reinvestment_rate_explicit']:.0%} "
+                 f"to {b['reinvestment_rate_terminal']:.1%}")
+        L.append("- Mature incremental ROIC is an **assumed parameter** (12% default, "
+                 "not market-calibrated); transition period is 5 years.")
+        L.append("")
+        roic_rows = multistage.get("roic_sensitivity") or []
+        if roic_rows:
+            L.append("| Mature ROIC | Terminal reinvestment | Intrinsic/share |")
+            L.append("|---:|---:|---:|")
+            for r in roic_rows:
+                if r.get("valid"):
+                    L.append(f"| {r['mature_incremental_roic']:.0%} | "
+                             f"{r['reinvestment_rate_terminal']:.1%} | "
+                             f"{_usd(r['intrinsic_per_share_usd'])} |")
+            L.append("")
+
     if relative:
         L.append("## Relative valuation (P/E & EV/EBITDA)")
         t = relative["target"]
@@ -141,15 +223,12 @@ def build_report_markdown(result: dict) -> str:
         for gkey, g in relative["groups"].items():
             pe, ev = g["pe"], g["ev_ebitda"]
             label = g['label'].replace('_', ' ').title()
-            if g['sample_size'] < 3:
-                L.append(f"- **{label}** (n={g['sample_size']}): single/limited observation — "
-                         f"not a statistically meaningful median")
-            else:
-                pe_med = f"{pe['median_pe']:.1f}x" if pe['median_pe'] else "n/a"
-                ev_med = f"{ev['median_ev_ebitda']:.1f}x" if ev['median_ev_ebitda'] else "n/a"
-                L.append(f"- **{label}** (n={g['sample_size']}): median P/E {pe_med} → implied "
-                         f"{_usd(pe['implied_price_median'])}; median EV/EBITDA {ev_med} → implied "
-                         f"{_usd(ev['implied_price_median'])}")
+            pe_n = pe.get("sample_size", 0)
+            ev_n = ev.get("sample_size", 0)
+            pe_med = f"{pe['median_pe']:.1f}x" if pe['median_pe'] else "n/a"
+            ev_med = f"{ev['median_ev_ebitda']:.1f}x" if ev['median_ev_ebitda'] else "n/a"
+            L.append(f"- **{label}** — P/E (n={pe_n}): {'median ' + pe_med + ' → implied ' + _usd(pe['implied_price_median']) if pe_n >= 3 else 'insufficient valid peers'}"
+                     f" · EV/EBITDA (n={ev_n}): {'median ' + ev_med + ' → implied ' + _usd(ev['implied_price_median']) if ev_n >= 3 else 'insufficient valid peers'}")
     else:
         L.append("## Relative valuation")
         L.append("- Peer estimates are unavailable for this run.")

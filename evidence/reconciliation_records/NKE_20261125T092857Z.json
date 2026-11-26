@@ -1,0 +1,66 @@
+{
+  "ticker": "NKE",
+  "company": "NIKE, Inc.",
+  "category": "da_recovery",
+  "detected_problem": "D&A was unavailable; recover from the original cash-flow statement.",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/320187/000032018726000088/nke-20260531.htm",
+  "filing_accession": "0000320187-26-000088",
+  "inline_facts": {
+    "DepreciationDepletionAndAmortization": 747000000.0
+  },
+  "deterministic_da": {
+    "status": "consolidated",
+    "values": {
+      "2021-05-31": 744000000.0,
+      "2022-05-31": 717000000.0,
+      "2023-05-31": 703000000.0,
+      "2024-05-31": 796000000.0,
+      "2025-05-31": 775000000.0,
+      "2026-05-31": 747000000.0
+    },
+    "detail": [
+      {
+        "tag": "Depreciation",
+        "year": "2021-05-31",
+        "basis": "consolidated (pre-migration tag)"
+      },
+      {
+        "tag": "Depreciation",
+        "year": "2022-05-31",
+        "basis": "consolidated (pre-migration tag)"
+      },
+      {
+        "tag": "DepreciationDepletionAndAmortization",
+        "year": "2023-05-31",
+        "basis": "consolidated"
+      },
+      {
+        "tag": "DepreciationDepletionAndAmortization",
+        "year": "2024-05-31",
+        "basis": "consolidated"
+      },
+      {
+        "tag": "DepreciationDepletionAndAmortization",
+        "year": "2025-05-31",
+        "basis": "consolidated"
+      },
+      {
+        "tag": "DepreciationDepletionAndAmortization",
+        "year": "2026-05-31",
+        "basis": "consolidated"
+      }
+    ]
+  },
+  "llm_da_tag": "DepreciationDepletionAndAmortization",
+  "llm_reconstruction": [
+    "DepreciationDepletionAndAmortization"
+  ],
+  "llm_explanation": "NKE's consolidated cash-flow D&A line is the single tag DepreciationDepletionAndAmortization. The older Depreciation tag is the pre-migration same line, not a separate PP&E-only component. NKE's reported depreciation includes finance-lease ROU amortization, so finance-lease ROU should not be added separately.",
+  "remaining_uncertainty": "None; legacy Depreciation facts should be mapped to DepreciationDepletionAndAmortization rather than summed with it.",
+  "deterministic_validation": {
+    "status": "validated",
+    "checks": []
+  },
+  "approval_status": "pending",
+  "record_utc": "2026-11-25T09:28:57.958081+00:00"
+}

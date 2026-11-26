@@ -1,0 +1,88 @@
+[
+  {
+    "ticker": "ORCL",
+    "benchmark": {
+      "current_borrowings": 7625,
+      "noncurrent_borrowings": 117712,
+      "cash": 36369,
+      "marketable_securities": 708,
+      "finance_leases": 9185,
+      "restricted_cash": 2600
+    },
+    "original_extraction": "failed: ValueError",
+    "proposed_value": 134522000000,
+    "components": {
+      "LongTermNotesAndLoans": 117712000000,
+      "NotesPayableCurrent": 7625000000,
+      "FinanceLeaseLiability": 9185000000,
+      "CashAndCashEquivalentsAtCarryingValue": 36369000000
+    },
+    "formula": "LongTermNotesAndLoans + NotesPayableCurrent + FinanceLeaseLiability",
+    "validation": "validated",
+    "approval": "pending",
+    "filing_accession": "0001193125-26-389274",
+    "filing_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+    "uncertainty": "Interpreted as gross total debt including finance leases. If the requested metric was net debt, cash and cash equivalents ($36,369M) would be subtracted, resulting in $98,153M; the provided evidence does not state 'net debt' explicitly."
+  },
+  {
+    "ticker": "JNJ",
+    "benchmark": {
+      "current_borrowings": 8852,
+      "long_term_debt": 35799,
+      "cash": 16910,
+      "current_marketable_securities": 318,
+      "debt_less_cash_and_securities": 27423
+    },
+    "original_extraction": "debt_blocked",
+    "proposed_value": null,
+    "components": {},
+    "formula": null,
+    "validation": "unresolved",
+    "approval": "unresolved",
+    "filing_accession": null,
+    "filing_url": null,
+    "uncertainty": null
+  },
+  {
+    "ticker": "MCD",
+    "benchmark": {
+      "long_term_debt": 39820,
+      "cash": 1193,
+      "debt_less_cash": 38627
+    },
+    "original_extraction": "debt_blocked",
+    "proposed_value": 38627000000.0,
+    "components": {
+      "LongTermDebtNoncurrent": 39820000000,
+      "CashAndCashEquivalentsAtCarryingValue": 1193000000
+    },
+    "formula": "LongTermDebtNoncurrent - CashAndCashEquivalentsAtCarryingValue",
+    "validation": "validated",
+    "approval": "pending",
+    "filing_accession": "0000063908-26-000083",
+    "filing_url": "https://www.sec.gov/Archives/edgar/data/63908/000006390826000083/mcd-20260930.htm",
+    "uncertainty": "Comprehensive total debt less cash cannot be calculated from the provided current-period facts because current portion of long-term debt, short-term borrowings/commercial paper, and finance-lease liabilities are not reported at 2026-09-30. If those balances were nonzero at that date, total debt less cash would be higher than the proposed value."
+  },
+  {
+    "ticker": "PG",
+    "benchmark": {
+      "current_debt": 17028,
+      "long_term_debt": 21897,
+      "cash": 15365,
+      "debt_less_cash": 23560
+    },
+    "original_extraction": "debt_blocked",
+    "proposed_value": 23560000000.0,
+    "components": {
+      "LongTermDebtNoncurrent": 21897000000,
+      "DebtCurrent": 17028000000,
+      "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents": 15365000000
+    },
+    "formula": "LongTermDebtNoncurrent + DebtCurrent - CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+    "validation": "validated",
+    "approval": "pending",
+    "filing_accession": "0000080424-26-000256",
+    "filing_url": "https://www.sec.gov/Archives/edgar/data/80424/000008042426000256/pg-20260930.htm",
+    "uncertainty": "The exact split of DebtCurrent between current portion of long-term debt and short-term borrowings/commercial paper at 2026-09-30 cannot be fully resolved because LongTermDebtCurrent and CommercialPaper XBRL facts are available only as of 2026-06-30; the note provides only a rounded $6.6B current-portion amount. Finance-lease zero is inferred from the absence of reported finance-lease tags. Net debt would differ if restricted cash were excluded or if finance leases existed."
+  }
+]

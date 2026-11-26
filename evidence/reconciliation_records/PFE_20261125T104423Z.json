@@ -1,0 +1,23 @@
+{
+  "company": "PFIZER INC",
+  "ticker": "PFE",
+  "detected_problem": null,
+  "original_production_value": null,
+  "proposed_financial_value": null,
+  "financial_definition": null,
+  "xbrl_tags": [],
+  "reporting_period": null,
+  "filing_date": null,
+  "sec_accession": null,
+  "filing_url": null,
+  "statement_or_note_reference": null,
+  "derivation_formula": null,
+  "accounting_explanation": null,
+  "deterministic_validation": {
+    "status": "unresolved",
+    "checks": []
+  },
+  "remaining_uncertainty": null,
+  "approval_status": "pending",
+  "record_utc": "2026-11-25T10:44:23.156806+00:00"
+}

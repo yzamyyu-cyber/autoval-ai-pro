@@ -149,6 +149,27 @@ def build_forecast(history: dict, years: int = 5) -> dict:
     return out
 
 
+def build_forecast_ttm(history: dict, years: int = 5) -> dict | None:
+    """Like `build_forecast`, but the forecast starts from the latest TTM revenue.
+
+    Driver ratios (growth/margin/capex) are still derived from annual history for
+    normalization; only the revenue starting point (and opening NWC) use the latest
+    TTM / balance-sheet period. Returns None when TTM revenue is unavailable.
+    """
+    ttm_rev = (history.get("ttm") or {}).get("revenue")
+    if ttm_rev is None:
+        return None
+    drivers = derive_scenario_drivers(history)
+    base_revenue = ttm_rev
+    nwc_series = history.get("nwc")
+    base_nwc = next((v for v in reversed(nwc_series) if v is not None), 0.0) if nwc_series else 0.0
+    out = {}
+    for case, d in drivers.items():
+        rows = project_fcff(base_revenue, base_nwc, years, **d)
+        out[case] = {"drivers": d, "rows": rows, "base_revenue": base_revenue, "base_nwc": base_nwc}
+    return out
+
+
 def capex_stats(history: dict) -> dict:
     """Capex/revenue ratios: 3-year mean (base), latest FY, 6-year mean and median."""
     rev = history["revenue"]

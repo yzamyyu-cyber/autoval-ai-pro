@@ -1,0 +1,135 @@
+[
+  {
+    "ticker": "MSFT",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": 86173000000.0
+  },
+  {
+    "ticker": "AMZN",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": 139044000000.0
+  },
+  {
+    "ticker": "AAPL",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": 45262000000.0
+  },
+  {
+    "ticker": "HD",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": 50515000000.0
+  },
+  {
+    "ticker": "GOOGL",
+    "extraction": "ok",
+    "ai_status": "validated",
+    "net_debt": 73489000000.0
+  },
+  {
+    "ticker": "TSLA",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": -8330000000.0
+  },
+  {
+    "ticker": "NVDA",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": 10923000000.0
+  },
+  {
+    "ticker": "WMT",
+    "extraction": "ok",
+    "ai_status": "applied",
+    "original_net_debt": 35235000000.0,
+    "corrected_net_debt": 45714000000.0,
+    "base_dcf_per_share": 17.50935333444572,
+    "quality": "unsuitable"
+  },
+  {
+    "ticker": "COST",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": -12632000000.0
+  },
+  {
+    "ticker": "KO",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": 28165000000.0
+  },
+  {
+    "ticker": "PG",
+    "extraction": "ok",
+    "ai_status": "applied",
+    "original_net_debt": null,
+    "corrected_net_debt": 23560000000.0,
+    "base_dcf_per_share": 69.29957572270784,
+    "quality": "low_confidence"
+  },
+  {
+    "ticker": "MCD",
+    "extraction": "ok",
+    "ai_status": "applied",
+    "original_net_debt": null,
+    "corrected_net_debt": 38627000000.0,
+    "base_dcf_per_share": 72.3975955195987,
+    "quality": "low_confidence"
+  },
+  {
+    "ticker": "NKE",
+    "extraction": "ok",
+    "ai_status": "validated",
+    "net_debt": 990000000.0
+  },
+  {
+    "ticker": "XOM",
+    "extraction": "blocked (ValueError)",
+    "ai_status": null
+  },
+  {
+    "ticker": "CAT",
+    "extraction": "blocked (KeyError)",
+    "ai_status": null
+  },
+  {
+    "ticker": "UPS",
+    "extraction": "ok",
+    "ai_status": "applied",
+    "original_net_debt": 19241000000.0,
+    "corrected_net_debt": 19241000000.0,
+    "base_dcf_per_share": 42.789059149315925,
+    "quality": "low_confidence"
+  },
+  {
+    "ticker": "JNJ",
+    "extraction": "ok",
+    "ai_status": "unresolved",
+    "net_debt": 27741000000.0
+  },
+  {
+    "ticker": "DIS",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": 37981000000.0
+  },
+  {
+    "ticker": "ORCL",
+    "extraction": "ok",
+    "ai_status": "applied",
+    "original_net_debt": 98153000000.0,
+    "corrected_net_debt": 98153000000.0,
+    "base_dcf_per_share": -81.8849595290617,
+    "quality": "unavailable"
+  },
+  {
+    "ticker": "AMD",
+    "extraction": "ok",
+    "ai_status": "not_reconciled",
+    "net_debt": -325000000.0
+  }
+]

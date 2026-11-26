@@ -34,6 +34,12 @@ def extract_comparison(result: dict) -> dict:
             # Older exports and some valid valuations lack a usable reverse DCF.
             pass
 
+    # Valuation quality is optional on older exports: absence must be labeled
+    # "Not assessed" (never implied to have passed the quality policy).
+    quality = result.get("quality") or {}
+    quality_state = quality.get("state") or "not_assessed"
+    quality_reasons = "; ".join(quality.get("reasons") or []) or None
+
     return {
         "ticker": result["ticker"],
         "company": result["company"],
@@ -54,6 +60,8 @@ def extract_comparison(result: dict) -> dict:
         "peer_sample_size": group.get("sample_size"),
         "median_pe": group["pe"].get("median_pe") if enough_peers else None,
         "median_ev_ebitda": group["ev_ebitda"].get("median_ev_ebitda") if enough_peers else None,
+        "quality_state": quality_state,
+        "quality_reasons": quality_reasons,
     }
 
 

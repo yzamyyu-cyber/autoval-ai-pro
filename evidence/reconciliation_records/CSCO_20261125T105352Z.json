@@ -1,0 +1,251 @@
+{
+  "company": "CISCO SYSTEMS, INC.",
+  "ticker": "CSCO",
+  "detected_problem": "ShortTermBorrowings has only a stale 2013-04-27 value of 13,000,000 and no current 2026-10-24 tag; the production extraction therefore used 0.0 for short-term borrowings, understating total debt.",
+  "original_production_value": 13000000.0,
+  "proposed_financial_value": 8424000000,
+  "financial_definition": "Current-period short-term borrowings / commercial paper outstanding, inferred as DebtCurrent less the current portion of long-term debt.",
+  "xbrl_tags": [
+    {
+      "tag": "LongTermDebtNoncurrent",
+      "value": 19374000000,
+      "period_end": "2026-10-24",
+      "filed": "2026-11-17",
+      "form": "10-Q"
+    },
+    {
+      "tag": "LongTermDebtCurrent",
+      "value": 2001000000,
+      "period_end": "2026-10-24",
+      "filed": "2026-11-17",
+      "form": "10-Q"
+    },
+    {
+      "tag": "DebtCurrent",
+      "value": 10425000000,
+      "period_end": "2026-10-24",
+      "filed": "2026-11-17",
+      "form": "10-Q"
+    }
+  ],
+  "reporting_period": "2026-10-24",
+  "filing_date": "2026-11-17",
+  "sec_accession": "0000858877-26-000185",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/858877/000085887726000185/csco-20261024.htm",
+  "statement_or_note_reference": "Debt note table at October 24, 2026: Current portion of senior fixed-rate notes $1,999M; Commercial paper $8,424M; Current portion of other debt $2M; Total current debt $10,425M.",
+  "derivation_formula": "DebtCurrent - LongTermDebtCurrent",
+  "accounting_explanation": "The current-period ShortTermBorrowings tag is unavailable/stale. DebtCurrent at 2026-10-24 is 10,425,000,000 and includes the current portion of long-term debt of 2,001,000,000 plus short-term borrowings. Subtracting LongTermDebtCurrent from DebtCurrent gives 8,424,000,000, which the debt note identifies as commercial paper. Therefore the production short-term-borrowings value of 0 is not supported; the current short-term borrowings component should be 8,424,000,000.",
+  "deterministic_validation": {
+    "status": "validated",
+    "checks": [
+      {
+        "rule": "company_identity",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal ticker/company must match the extraction"
+      },
+      {
+        "rule": "reporting_period",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposal period '2026-10-24' must equal balance-sheet date '2026-10-24'"
+      },
+      {
+        "rule": "filing_lookahead",
+        "level": "hard",
+        "ok": true,
+        "reason": "filing date '2026-11-17' must not precede the reporting period '2026-10-24'"
+      },
+      {
+        "rule": "value_finite",
+        "level": "hard",
+        "ok": true,
+        "reason": "proposed value must be a finite number"
+      },
+      {
+        "rule": "units_scaling",
+        "level": "soft",
+        "ok": true,
+        "reason": "proposed value is within a 1e3/1e6/1e9 multiple of the original — verify units and scaling"
+      },
+      {
+        "rule": "xbrl_tag_exists",
+        "level": "hard",
+        "ok": true,
+        "reason": "all cited tags exist in Companyfacts or the original filing"
+      },
+      {
+        "rule": "source_fact_value",
+        "level": "hard",
+        "ok": true,
+        "reason": "cited values match source facts"
+      },
+      {
+        "rule": "component_arithmetic",
+        "level": "hard",
+        "ok": true,
+        "reason": "formula recomputes to 8,424,000,000.00 vs proposed 8,424,000,000.00"
+      },
+      {
+        "rule": "debt_lease_double_count",
+        "level": "hard",
+        "ok": true,
+        "reason": "no debt/lease double-count detected"
+      },
+      {
+        "rule": "restricted_cash",
+        "level": "soft",
+        "ok": true,
+        "reason": "restricted/unrestricted cash scope is consistent"
+      },
+      {
+        "rule": "source_evidence",
+        "level": "hard",
+        "ok": true,
+        "reason": "source evidence present"
+      }
+    ],
+    "hard_failures": [],
+    "soft_warnings": []
+  },
+  "remaining_uncertainty": "No direct current-period ShortTermBorrowings or CommercialPaper XBRL tag is available; the value is inferred from DebtCurrent and LongTermDebtCurrent and corroborated by the note disclosure. Finance lease liability remains assumed zero because no finance-lease tag is reported.",
+  "approval_status": "pending",
+  "category": "debt_component_stale_nonzero",
+  "filing": {
+    "accession": "0000858877-26-000185",
+    "form": "10-Q",
+    "filing_date": "2026-11-17",
+    "report_date": "2026-10-24",
+    "url": "https://www.sec.gov/Archives/edgar/data/858877/000085887726000185/csco-20261024.htm"
+  },
+  "filing_evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/858877/000085887726000185/csco-20261024.htm",
+    "facts": {
+      "LongTermDebtNoncurrent": {
+        "tag": "LongTermDebtNoncurrent",
+        "name": "us-gaap:LongTermDebtNoncurrent",
+        "value": 19374000000.0,
+        "raw_value": "19,374",
+        "unit": "USD",
+        "period_end": "2026-10-24",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "LongTermDebt": {
+        "tag": "LongTermDebt",
+        "name": "us-gaap:LongTermDebt",
+        "value": 21375000000.0,
+        "raw_value": "21,375",
+        "unit": "USD",
+        "period_end": "2026-10-24",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "LongTermDebtCurrent": {
+        "tag": "LongTermDebtCurrent",
+        "name": "us-gaap:LongTermDebtCurrent",
+        "value": 2001000000.0,
+        "raw_value": "2,001",
+        "unit": "USD",
+        "period_end": "2026-10-24",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "DebtCurrent": {
+        "tag": "DebtCurrent",
+        "name": "us-gaap:DebtCurrent",
+        "value": 10425000000.0,
+        "raw_value": "10,425",
+        "unit": "USD",
+        "period_end": "2026-10-24",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "CashAndCashEquivalentsAtCarryingValue": {
+        "tag": "CashAndCashEquivalentsAtCarryingValue",
+        "name": "us-gaap:CashAndCashEquivalentsAtCarryingValue",
+        "value": 7778000000.0,
+        "raw_value": "7,778",
+        "unit": "USD",
+        "period_end": "2026-10-24",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents": {
+        "tag": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+        "name": "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+        "value": 7787000000.0,
+        "raw_value": "7,787",
+        "unit": "USD",
+        "period_end": "2026-10-24",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      },
+      "RestrictedCashAndCashEquivalentsAtCarryingValue": {
+        "tag": "RestrictedCashAndCashEquivalentsAtCarryingValue",
+        "name": "us-gaap:RestrictedCashAndCashEquivalentsAtCarryingValue",
+        "value": 9000000.0,
+        "raw_value": "9",
+        "unit": "USD",
+        "period_end": "2026-10-24",
+        "period_start": null,
+        "scale": 6,
+        "sign": 1,
+        "decimals": "-6"
+      }
+    },
+    "missing_tags": [
+      "LongTermNotesAndLoans",
+      "NotesPayableCurrent",
+      "NotesPayable",
+      "LoansPayable",
+      "LongTermNotesPayable",
+      "ConvertibleLongTermNotesPayable",
+      "LongTermDebtAndCapitalLeaseObligations",
+      "LongTermDebtAndCapitalLeaseObligationsCurrent",
+      "ShortTermBorrowings",
+      "CommercialPaper",
+      "DebtLongtermAndShorttermCombinedAmount",
+      "FinanceLeaseLiability",
+      "FinanceLeaseLiabilityNoncurrent",
+      "FinanceLeaseLiabilityCurrent"
+    ],
+    "statement_rows": [],
+    "note_excerpts": [
+      "flows from financing activities: Repurchases of common stock #8212; repurchase program ( 1,997 ) ( 1,992 ) Shares repurchased for tax withholdings on vesting of restricted stock units ( 414 ) ( 284 ) Short-term borrowings, original maturities of 90 days or less, net 1,107 #160; 1,260 #160; Issuances of debt 5,186 #160; 1,559 #160; Repayments of debt ( 6,013 ) ( 2,788 ) Dividends paid ( 1,654 ) ( 1,617 ) Other ( 1 ) (",
+      ") 2,120 #160; #8212; #160; 2,120 #160; #8212; #160; #8212; #160; Mortgage- and asset-backed securities Level 2 124 #160; #8212; #160; ( 2 ) 122 #160; #8212; #160; 122 #160; #8212; #160; #8212; #160; Commercial paper Level 2 4,873 #160; #8212; #160; #8212; #160; 4,873 #160; 1,828 #160; 3,045 #160; #8212; #160; #8212; #160; Certificates of deposit Level 2 749 #160; #8212; #160; #8212; #160; 749 #160; 45 #160; 671",
+      "rporate debt securities Level 2 2,493 #160; 1 #160; ( 48 ) 2,446 #160; 45 #160; 2,401 #160; Mortgage- and asset-backed securities Level 2 156 #160; #8212; #160; ( 4 ) 152 #160; #8212; #160; 152 #160; Commercial paper Level 2 3,285 #160; #8212; #160; #8212; #160; 3,285 #160; 533 #160; 2,752 #160; Certificates of deposit Level 2 1,080 #160; #8212; #160; #8212; #160; 1,080 #160; 25 #160; 1,055 #160; Money market fun",
+      "; #160; 244 #160; ( 2 ) Corporate debt securities 1,730 #160; ( 38 ) 190 #160; ( 2 ) 1,920 #160; ( 40 ) Mortgage- and asset-backed securities 122 #160; ( 2 ) #8212; #160; #8212; #160; 122 #160; ( 2 ) Commercial paper 115 #160; #8212; #160; #8212; #160; #8212; #160; 115 #160; #8212; #160; Total $ 3,695 #160; $ ( 64 ) $ 190 #160; $ ( 2 ) $ 3,885 #160; $ ( 66 ) UNREALIZED #160;LOSSES LESS #160;THAN #160;12 #160;MONT",
+      "#160; #8212; #160; 227 #160; ( 1 ) Corporate debt securities 1,549 #160; ( 20 ) 547 #160; ( 2 ) 2,096 #160; ( 22 ) Mortgage- and asset-backed securities 129 #160; ( 1 ) 20 #160; ( 3 ) 149 #160; ( 4 ) Commercial paper 99 #160; #8212; #160; #8212; #160; #8212; #160; 99 #160; #8212; #160; Total $ 3,491 #160; $ ( 37 ) $ 619 #160; $ ( 5 ) $ 4,110 #160; $ ( 42 ) The following table summarizes the maturities of our avai",
+      "lions, except percentages): October 24, 2026 July 25, 2026 Amount Effective Rate Amount Effective Rate Current portion of senior fixed-rate notes $ 1,999 #160; 4.90 #160; % $ 3,498 #160; 3.89 #160; % Commercial paper 8,424 #160; 4.13 #160; % 6,661 #160; 3.84 #160; % Current portion of other debt 2 #160; 1.13 #160; % 2 #160; 1.13 #160; % Total $ 10,425 #160; $ 10,161 #160; We have a short-term debt financing progr",
+      "nt portion of other debt 2 #160; 1.13 #160; % 2 #160; 1.13 #160; % Total $ 10,425 #160; $ 10,161 #160; We have a short-term debt financing program of up to $ 15.0 #160;billion through the issuance of commercial paper notes. We use the proceeds from the issuance of commercial paper notes for general corporate purposes. The effective rates for the short- and long-term debt include the interest on the notes, the acc",
+      "% Total $ 10,425 #160; $ 10,161 #160; We have a short-term debt financing program of up to $ 15.0 #160;billion through the issuance of commercial paper notes. We use the proceeds from the issuance of commercial paper notes for general corporate purposes. The effective rates for the short- and long-term debt include the interest on the notes, the accretion of the discount, the issuance costs, and, if applicable, a",
+      "ly on each class of the senior fixed-rate notes. Each of the senior fixed-rate notes is redeemable by us at any time, subject to a make-whole premium. The senior fixed-rate notes rank at par with the commercial paper notes that have been issued pursuant to our short-term debt financing program, as discussed above under #8220;(a) Short-Term Debt. #8221; As of October #160;24, 2026, we were in compliance with all d",
+      "ock units of $0.4 billion and net cash paid for acquisitions of $0.1 billion. These uses of cash were partially offset by net cash provided by operating activities of $4.4 billion and net issuance of commercial paper of $1.8 billion. We maintain an investment portfolio of various holdings, types, and maturities. We classify our investments as short-term investments based on their nature and their availability for",
+      "n each class of the senior fixed-rate notes, each of which is redeemable by us at any time, subject to a make-whole premium. We were in compliance with all debt covenants as of October #160;24, 2026. Commercial Paper We have a short-term debt financing program in which up to $15.0 #160;billion is available through the issuance of commercial paper notes. We use the proceeds from the issuance of commercial paper no",
+      "in compliance with all debt covenants as of October #160;24, 2026. Commercial Paper We have a short-term debt financing program in which up to $15.0 #160;billion is available through the issuance of commercial paper notes. We use the proceeds from the issuance of commercial paper notes for general corporate purposes. We had $8.4 billion and $6.7 #160;billion in commercial paper notes outstanding as of October #1",
+      "6. Commercial Paper We have a short-term debt financing program in which up to $15.0 #160;billion is available through the issuance of commercial paper notes. We use the proceeds from the issuance of commercial paper notes for general corporate purposes. We had $8.4 billion and $6.7 #160;billion in commercial paper notes outstanding as of October #160;24, 2026 and July #160;25, 2026, respectively. Credit Facility",
+      "available through the issuance of commercial paper notes. We use the proceeds from the issuance of commercial paper notes for general corporate purposes. We had $8.4 billion and $6.7 #160;billion in commercial paper notes outstanding as of October #160;24, 2026 and July #160;25, 2026, respectively. Credit Facility On February 2, 2024, we entered into an amended and restated 5-year $5.0 #160;billion unsecured rev",
+      "ately $0.6 billion, respectively. However, this hypothetical change in interest rates would not impact the interest expense on the fixed-rate debt. As of October #160;24, 2026, we had $8.4 billion in commercial paper outstanding, compared with $6.7 billion as of July #160;25, 2026. Because these borrowings are short-term and are refinanced on a recurring basis, our interest expense on commercial paper reprices wi",
+      "billion in commercial paper outstanding, compared with $6.7 billion as of July #160;25, 2026. Because these borrowings are short-term and are refinanced on a recurring basis, our interest expense on commercial paper reprices with market interest rates. A sharp rise in market interest rates could cause us to incur additional interest expense to the extent we issue additional commercial paper or other debt. Equity",
+      "r interest expense on commercial paper reprices with market interest rates. A sharp rise in market interest rates could cause us to incur additional interest expense to the extent we issue additional commercial paper or other debt. Equity Price Risk Marketable Equity Investments The fair value of our marketable equity investments is subject to market price volatility. We hold equity securities for strategic purpo",
+      "iscal 2027, we have senior unsecured notes outstanding in an aggregate principal amount of $21.5 billion that mature at specific dates from calendar year 2027 through 2064. We have also established a commercial paper program under which we may issue short-term, unsecured commercial paper notes on a private placement basis up to a maximum aggregate amount outstanding at any time of $15.0 #160;billion, and we had $",
+      "rincipal amount of $21.5 billion that mature at specific dates from calendar year 2027 through 2064. We have also established a commercial paper program under which we may issue short-term, unsecured commercial paper notes on a private placement basis up to a maximum aggregate amount outstanding at any time of $15.0 #160;billion, and we had $8.4 billion in commercial paper notes outstanding under this program as",
+      "which we may issue short-term, unsecured commercial paper notes on a private placement basis up to a maximum aggregate amount outstanding at any time of $15.0 #160;billion, and we had $8.4 billion in commercial paper notes outstanding under this program as of October #160;24, 2026. There can be no assurance that our incurrence of this debt or any future debt, including any additional debt to refinance maturing de"
+    ],
+    "html_len": 2266471
+  },
+  "record_utc": "2026-11-25T10:53:52.663678+00:00"
+}

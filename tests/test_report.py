@@ -80,7 +80,7 @@ class ReportTests(unittest.TestCase):
     def test_n1_groups_labeled_single_observation(self):
         # supplemental/cloud groups are n=1 -> must be labeled, not shown as a median
         md = build_report_markdown(self._full_report())
-        self.assertIn("single/limited observation", md)
+        self.assertIn("insufficient valid peers", md)
 
     def test_report_pe_uses_multiple_convention(self):
         # P/E must be a multiple (19.7x), not a percentage (1974%)

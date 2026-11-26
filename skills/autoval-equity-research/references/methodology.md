@@ -49,3 +49,81 @@ SMA20 > SMA50 traded next bar (10 bps/trade) vs buy-and-hold, in-sample only.
 `verify_output.py` recomputes the DCF (constant-growth and driver-based) with `Decimal`
 arithmetic to within $0.01/share. Automated tests cover finance, SEC, forecast, WACC and
 relative-valuation logic.
+
+## Valuation quality classification
+
+`autoval/quality.py` labels each result with three states:
+
+- **available** — required inputs present and reconciliation checks pass.
+- **low_confidence** — data-quality concerns (company WACC unavailable in live mode, debt
+  split assumed/stale, consolidated share-count approximation, small history) mean the
+  value should not be presented as a reliable headline estimate. The mechanical estimate
+  is preserved for audit.
+- **unavailable** — required inputs invalid (all-forecast FCFF non-positive, missing shares,
+  no analysis). Never substituted with zero.
+
+Data-quality concerns and **model-risk warnings** are kept separate. Model-risk heuristics
+(negative first-year FCFF, non-positive forecast revenue growth, terminal value above
+`TERMINAL_WEIGHT_LIMIT`) are surfaced as warnings on every view but never suppress a
+valuation on their own. The thresholds are configurable module constants (override
+per-call), treated as review heuristics rather than financial formulas. The market-price
+gap is never a signal. Exports that predate this feature (no `quality` field) are labeled
+**"Not assessed"** and are not assumed to have passed the policy.
+
+## Multi-stage DCF
+
+The single-stage driver forecast holds capital intensity (hence the implicit reinvestment
+rate) constant into perpetuity. `autoval/multistage.py` is a separate, additive model:
+
+- **Years 1–5** — the existing driver-based FCFF forecast (unchanged).
+- **Years 6–10** — revenue growth, operating margin and the reinvestment rate fade
+  linearly from the explicit-forecast values to sustainable mature values.
+- **Year 11+** — ROIC-consistent terminal:
+  `reinvestment rate = terminal growth / mature incremental ROIC`;
+  `terminal FCFF = year-11 NOPAT × (1 − reinvestment rate)`;
+  `terminal value = terminal FCFF / (WACC − terminal growth)`.
+
+The **mature incremental ROIC (12% default) is an assumed parameter**, not a
+market-calibrated value; ROIC sensitivity is reported at 8/10/12/15/20% (values ≤ terminal
+growth are rejected). The model validates `0 < ROIC < 1`, `ROIC > terminal growth` and
+`WACC > terminal growth`. It does not change the original five-year DCF and is never
+required to produce a higher valuation.
+
+## Finance-lease accounting
+
+Finance-lease liabilities are a debt-like claim and are included exactly once across the
+DCF bridge, WACC debt and relative valuation. Economic CapEx = cash CapEx + finance-lease
+additions (`RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability`), consistent with
+D&A which already includes finance-lease ROU amortization. Operating leases are not
+treated as finance leases. The cost-of-debt numerator (nonoperating interest expense) and
+denominator (finance-lease-inclusive debt) use the same definition. Unresolved material
+lease definitions are flagged as low confidence.
+
+## Model-suitability interpretation
+
+An implied terminal incremental ROIC below WACC is reported as **value-destructive
+reinvestment** and a model-risk concern — it is *not* automatically labeled economically
+impossible, because a short-term reinvestment phase (e.g. an AI/data-center build-out)
+can legitimately earn below-hurdle returns before maturing. The single-stage model's
+constant capital intensity becomes *genuinely inconsistent* only when that elevated
+reinvestment rate is held into perpetuity alongside low terminal growth (implied
+incremental ROIC ≪ WACC). The multi-stage model resolves this by fading the reinvestment
+rate to `g / ROIC`.
+
+Negative modeled equity is a mechanical artifact (discounted cash flows below net debt).
+It is shown as "N/A — Negative modeled equity" in tables and charts and omitted from
+charts (never as a zero or negative stock price); the signed value is preserved in the raw
+export and audit details.
+
+## TTM financial basis
+
+The latest trailing-twelve-month period is the default forecast basis. TTM is computed
+additively as `latest completed FY + current YTD − prior-year-comparable YTD`, robust to
+cumulative 10-Q facts, rolling 12-month disclosures (excluded), single-quarter Q4 omission
+and 52/53-week fiscal calendars. An Annual / Latest-TTM selector drives every view; the
+annual-based DCF is retained as a comparison benchmark. Forecast cash flows are discounted
+using full-year periods from the valuation date (a rolling-forward simplification — no
+fractional fiscal-stub adjustment); intrinsic value and the delayed market price are
+therefore non-contemporaneous approximations. TTM diluted EPS uses a duration-weighted
+average of quarterly diluted shares and is labeled "reconstructed"; P/E is suppressed when
+TTM earnings or diluted shares cannot be reconciled.

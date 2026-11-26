@@ -1,0 +1,6 @@
+ticker,method_a,issues,llm_proposed_value,llm_formula,validation,approval,elapsed_s
+PFE,ok,[],,,unresolved,pending,0.0
+INTC,debt_blocked,"['debt_component_stale_nonzero', 'debt_unavailable']",50134000000.0,LongTermDebtNoncurrent + DebtCurrent,validated,pending,153.8
+DE,failed: ValueError,[],,,,,
+PEP,debt_blocked,"['debt_component_stale_nonzero', 'debt_unavailable']",,,unresolved,unresolved,302.1
+CSCO,debt_blocked,"['debt_component_stale_nonzero', 'debt_unavailable']",8424000000,DebtCurrent - LongTermDebtCurrent,validated,pending,111.0

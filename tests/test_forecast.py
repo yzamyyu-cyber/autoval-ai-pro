@@ -80,6 +80,19 @@ class ScenarioDriverTests(unittest.TestCase):
             self.assertEqual(len(obj["rows"]), 5)
             self.assertIn("fcff", obj["rows"][0])
 
+    def test_build_forecast_ttm_uses_ttm_base(self):
+        from autoval.forecast import build_forecast_ttm
+        h = self._history()
+        h["ttm"] = {"revenue": 400.0, "asof": "2026-09-30", "basis": "ttm"}
+        f = build_forecast_ttm(h)
+        self.assertIsNotNone(f)
+        # TTM forecast starts from the TTM revenue (400), not the annual (332)
+        self.assertEqual(f["base"]["base_revenue"], 400.0)
+
+    def test_build_forecast_ttm_none_without_ttm(self):
+        from autoval.forecast import build_forecast_ttm
+        self.assertIsNone(build_forecast_ttm(self._history()))
+
     def test_driver_valuation_uses_labeled_fallback_when_company_wacc_is_missing(self):
         stock = {"ticker": "FICT", "market_price": 20, "shares": 10, "net_debt": 10}
         valuation = analyze_driver_valuation(stock, self._history())
@@ -147,6 +160,38 @@ class RetrieveHistoryTests(unittest.TestCase):
         fetch.side_effect = [x]
         with self.assertRaisesRegex(ValueError, "at least 2 years"):
             retrieve_history("MOCK", "Example example@example.com")
+
+    @patch("autoval.forecast_data.fetch_json")
+    @patch("autoval.forecast_data.sec_lookup", return_value=(123, "Mock Co"))
+    def test_finance_lease_additions_added_to_capex(self, _lookup, fetch):
+        from autoval.forecast_data import retrieve_history
+        from tests.test_sec import annual
+        x = self._facts()
+        u = x["facts"]["us-gaap"]
+        ends = ["2024-12-31", "2025-12-31", "2026-12-31"]
+        u["RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability"] = {
+            "units": {"USD": [annual(v, e) for v, e in zip([2, 3, 4], ends)]}}
+        fetch.side_effect = [x]
+        h = retrieve_history("MOCK", "Example example@example.com")
+        # economic capex = cash capex [10,12,15] + finance-lease additions [2,3,4]
+        self.assertEqual(h["capex"], [12, 15, 19])
+        self.assertTrue(h["finance_lease_additions_available"])
+
+    @patch("autoval.forecast_data.fetch_json")
+    @patch("autoval.forecast_data.sec_lookup", return_value=(123, "Mock Co"))
+    def test_finance_lease_amortization_without_additions_flagged(self, _lookup, fetch):
+        from autoval.forecast_data import retrieve_history
+        from tests.test_sec import annual
+        x = self._facts()
+        u = x["facts"]["us-gaap"]
+        ends = ["2024-12-31", "2025-12-31", "2026-12-31"]
+        u["FinanceLeaseRightOfUseAssetAmortization"] = {
+            "units": {"USD": [annual(v, e) for v, e in zip([2, 2, 2], ends)]}}
+        fetch.side_effect = [x]
+        h = retrieve_history("MOCK", "Example example@example.com")
+        self.assertTrue(h["finance_lease_amortization_present"])
+        self.assertFalse(h["finance_lease_additions_available"])
+        self.assertTrue(any("unresolved material lease" in w for w in h["warnings"]))
 
 
 class CapexSensitivityTests(unittest.TestCase):

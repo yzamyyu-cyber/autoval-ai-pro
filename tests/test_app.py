@@ -62,6 +62,16 @@ class WorkspaceTests(unittest.TestCase):
             self.assertIn("fixture provider unavailable", app.error[0].value)
             self.assertEqual(app.session_state.report[0]["run_utc"], last_run)
 
+    def test_failed_live_run_flags_stale_report_is_not_requested_ticker(self):
+        with patch.dict(os.environ, {"SEC_USER_AGENT": "Test contact@example.com"}):
+            app = AppTest.from_file(APP, default_timeout=20).run()
+            with patch("autoval.pipeline.build_analysis", side_effect=ValueError("fixture provider unavailable")):
+                app.text_input[0].set_value("HD")
+                self._button(app, "Run live analysis").click().run()
+        self.assertFalse(app.exception)
+        self.assertTrue(any("did not complete" in w.value for w in app.warning))
+        self.assertEqual(app.session_state.report[0]["ticker"], "DEMO")
+
     def test_live_report_renders_mapped_to_its_own_data_mode(self):
         result, prices = build_analysis("DEMO", "demo")
         result.update(mode="live", company="Fixture issuer", ticker="FICT")

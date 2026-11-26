@@ -43,6 +43,14 @@ open. If the browser cannot connect, check the terminal for the URL or startup e
 - **Compare Companies** opens two bundled synthetic valuations and exports a CSV. Select
   **Saved analysis files** to compare any two AutoVal Analysis JSON exports.
   See [the comparison walkthrough](submission/COMPARE_COMPANIES.md).
+- Every view carries a **valuation-quality** banner. Low-confidence results keep their raw
+  mechanical DCF visible (under **Underlying model calculation**) for audit, and
+  model-risk notes are shown where they apply.
+- **Multi-stage DCF** is a separate optional model (years 1–5 explicit, 6–10 transition,
+  11+ ROIC-consistent terminal). It does not change the original five-year DCF. A
+  **Multi-stage DCF** tab exposes user-defined assumptions (growth, margin, CapEx
+  intensity, transition years, mature incremental ROIC, WACC, terminal growth) with a
+  reset button, ROIC sensitivity (8–20%), and independent Decimal verification.
 
 For live analysis, select **Microsoft (MSFT)** or **Home Depot (HD)** to fill the ticker,
 or type a ticker into the field. Enter your contact email in the browser and select
@@ -75,13 +83,21 @@ app.py                   Streamlit research workspace
 autoval/
   sec.py                 SEC XBRL extraction (annual + quarterly, alternative tags)
   forecast_data.py       driver inputs (revenue, margin, D&A, capex, NWC)
+  da.py                  accounting-aware D&A resolver (consolidated total, migration, components)
   forecast.py            five-year driver-based FCFF forecast
   finance.py             DCF + enterprise-to-equity bridge
+  multistage.py          optional multi-stage DCF (explicit → transition → ROIC terminal)
   reverse.py             reverse DCF with a forward-price check
   wacc.py / wacc_data.py company-specific WACC
-  peers.py / relative.py / relative_data.py   P/E + EV/EBITDA relative valuation
-  market.py / technical.py   prices + SMA/backtest
+  peers.py               automatic + curated peer discovery (SEC SIC, screening)
+  relative.py / relative_data.py   P/E + EV/EBITDA relative valuation
+  market.py / market_data.py / technical.py   prices + market-data provenance + SMA/backtest
+  research.py            read-only AI Research Analyst (evidence-grounded report)
+  forecast_assumptions.py  evidence-backed forecast assumptions (guidance/MD&A)
+  exports.py             professional Excel workbook + PDF report
+  reconciliation/        AI financial-reconciliation agent (detect→retrieve→LLM→validate→approve)
   pipeline.py            orchestration
+  quality.py             valuation reliability classification
 tests/                   automated test suite
 skills/autoval-equity-research/   reusable WorkSwarm Skill
 ```
@@ -143,8 +159,32 @@ python -m unittest discover -s tests -v
 ```
 
 `verify_output.py` recomputes each DCF with `Decimal` arithmetic and compares the result
-against the $0.01/share tolerance. The suite uses synthetic or mocked inputs and runs
-from a clean clone without historical output files, live data, or an SEC contact.
+against the $0.01/share tolerance (both the five-year DCF and the multi-stage DCF). The
+suite uses synthetic or mocked inputs and runs from a clean clone without historical
+output files, live data, or an SEC contact. At the time of writing the full suite is
+**345 tests + 32 subtests** (`python -m pytest -q`).
+
+## AI agent features (optional; offline demo works without them)
+
+Three read-only AI agents reuse the same deterministic valuation engine. All require an
+OpenAI-compatible endpoint configured via environment variables (loaded server-side, never
+committed):
+
+- `AUTOVAL_LLM_API_KEY`, `AUTOVAL_LLM_BASE_URL`, `AUTOVAL_LLM_MODEL`
+
+- **AI Financial Reconciliation** — detects missing/stale/conflicting financial inputs,
+  retrieves original SEC filings + inline XBRL, proposes corrections, validates them
+  deterministically, and (after approval) regenerates the valuation.
+- **AI Research Analyst** — produces an evidence-grounded research report (facts vs
+  derivation vs assumption vs interpretation) with deterministic tables and claim
+  validation.
+- **Evidence-backed Forecasting** — investigates management guidance/MD&A to propose
+  horizon-aware forecast assumptions (temporary CapEx fades, never persists into
+  perpetuity).
+
+A frozen **five-company holdout experiment** (PFE, INTC, DE, PEP, CSCO) measures the
+reconciliation agent on previously unseen companies; its failures and partial recoveries
+are documented in `evidence/HOLDOUT_EVALUATION.md`.
 
 ## Examples
 
@@ -153,6 +193,35 @@ from a clean clone without historical output files, live data, or an SEC contact
 - [WorkSwarm evidence](submission/WORKSWARM_EVIDENCE.md) documents the Home Depot
   fresh-case run, including the SEC data issues and the verification result.
   Historical files under `outputs/` were local to the original runs.
+
+## Valuation quality
+
+Every analysis is classified, and the classification travels with the result across every
+workspace view and export:
+
+- **Available** — inputs present and reconciliation checks pass; the DCF headline is shown.
+- **Low confidence** — data-quality concerns (e.g. company WACC unavailable, debt split
+  assumed or stale, consolidated share count) prevent presenting the value as a reliable
+  headline estimate. The raw mechanical DCF is preserved and shown under
+  **Underlying model calculation** for auditability.
+- **Model review required** — material, unresolved model limitations (a negative base case,
+  or a negative downside scenario combined with persistently thin base free cash flow) show
+  **"N/A — Model Review Required"** as the headline. The mechanical estimate stays in the
+  audit details.
+- **Unavailable** — required inputs are missing/invalid; the headline is never replaced
+  with zero.
+
+Negative modeled equity is shown as **"N/A — Negative modeled equity"** in tables and
+charts (not as a negative price or a >100% downside); the signed value is preserved in the
+raw export and audit details.
+
+Separate **model-risk warnings** (negative first-year FCFF, non-positive forecast growth,
+terminal value above 80% of EV, an implied terminal incremental ROIC below WACC — i.e.
+value-destructive reinvestment) are surfaced on every view but do **not** suppress a
+valuation on their own. These thresholds are configurable review heuristics in
+`autoval/quality.py` — not financial formulas. The market-price gap is never used as a
+signal. Older exported analyses that predate this feature are labeled **"Not assessed"** in
+Compare Companies; they are not assumed to have passed the policy.
 
 ## Known limitations & data-source restrictions
 

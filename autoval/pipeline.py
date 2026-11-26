@@ -9,6 +9,7 @@ from .finance import analyze_valuation, observed_multiples
 from .technical import analyze_technical
 from .sec import get_sec_financials
 from .market import fetch_market
+from .market_data import classify_market_data
 
 ROOT = Path(__file__).resolve().parent.parent
 DEMO_FILES = {"DEMO": "demo_company.json", "DEMO2": "demo_company_2.json"}
@@ -23,7 +24,9 @@ def demo_market_closes(price: float = 145.0, price_date: str = "2026-10-30") -> 
     return pd.Series(close, index=ix, name="close")
 
 
-def build_analysis(ticker: str = "DEMO", mode: str = "demo", user_agent: str = "") -> tuple[dict,pd.DataFrame]:
+def build_analysis(ticker: str = "DEMO", mode: str = "demo", user_agent: str = "",
+                   *, market_mode: str | None = None, saved_price=None, saved_price_date=None,
+                   illustrative_price=None) -> tuple[dict,pd.DataFrame]:
     ticker = ticker.upper().strip()
     if not ticker.isalnum() or len(ticker) > 10:
         raise ValueError("Ticker must be 1-10 letters/numbers; avoid arbitrary URLs or command input")
@@ -38,12 +41,17 @@ def build_analysis(ticker: str = "DEMO", mode: str = "demo", user_agent: str = "
                          "backtest_basis": "Synthetic generated prices"}
     elif mode == "live":
         from .sec import get_sec_financials
-        market = fetch_market(ticker)
         stock = get_sec_financials(ticker, user_agent)
-        stock["market_price"] = market["market_price"]
-        stock["price_date"] = market["price_date"]
-        closes = market["close_prices"]
-        market_source = market["market_source"]
+        from .market_data import resolve_market
+        explicit = market_mode if market_mode is not None else os.environ.get("AUTOVAL_MARKET_MODE", "")
+        market_source, resolved_mode, closes, price, price_date = resolve_market(
+            ticker, explicit, fetch_market,
+            saved_price=saved_price, saved_price_date=saved_price_date)
+        stock["market_price"] = price
+        stock["price_date"] = price_date
+        if illustrative_price is not None:
+            # Hypothetical reference stored SEPARATELY; never written into market_price.
+            stock["illustrative_market_price"] = float(illustrative_price)
     else:
         raise ValueError("Mode must be demo or live")
     # Optional operator-verified note adjustment (NOT required for ticker-only use):
@@ -81,24 +89,41 @@ def build_analysis(ticker: str = "DEMO", mode: str = "demo", user_agent: str = "
     else:
         valuation = analyze_valuation(stock, company_wacc)
     observed = observed_multiples(stock)
-    df, indicators = analyze_technical(closes)
+    try:
+        df, indicators = analyze_technical(closes)
+    except (ValueError, TypeError):
+        # No genuine price history (missing / illustrative / dated-saved) -> technical
+        # backtest is unavailable but the valuation must not crash.
+        df = pd.DataFrame(columns=["close", "sma20", "sma50", "sma200", "signal",
+                                   "position", "daily_return", "trade", "strategy_daily_return"])
+        indicators = {
+            "last_session": None, "sma20": None, "sma50": None, "sma200": None,
+            "trend": "unavailable", "latest_signal": "unavailable",
+            "comparison_start": None,
+            "strategy_total_return_pct": 0.0, "buyhold_total_return_pct": 0.0,
+            "cost_bps_per_trade": 10.0, "method": "unavailable",
+            "warning": "Technical backtest unavailable: no genuine market price history (201+ closes required).",
+        }
 
     # Relative valuation (live mode, best-effort; peers retrieved automatically).
     relative = None
     if mode == "live":
         try:
-            from .peers import peer_groups
+            from .peers import discover_peers
             from .relative_data import build_relative_valuation
             from .relative import summarize_relative_valuation
-            pgroups = peer_groups(ticker)
+            discovery = discover_peers(ticker, user_agent)
+            pgroups = {k: v["tickers"] for k, v in discovery.get("groups", {}).items()}
             if pgroups:
                 rel = build_relative_valuation(ticker, user_agent, pgroups,
                                                target_price=stock.get("market_price"),
-                                               target_price_date=stock.get("price_date"))
+                                               target_price_date=stock.get("price_date"),
+                                               target_market_mode=resolved_mode)
                 relative = {
                     "groups": summarize_relative_valuation(rel["target"], rel["peers"], pgroups),
                     "target": rel["target"],
                     "peer_map": pgroups,
+                    "discovery": discovery,
                 }
         except Exception:
             relative = None
@@ -124,8 +149,36 @@ def build_analysis(ticker: str = "DEMO", mode: str = "demo", user_agent: str = "
         "forecast_basis": "driver" if forecast_history is not None else "constant_growth",
         "relative": relative,
         "provenance": {"financials":stock["source"], "market":market_source},
+        "market_mode": classify_market_data(market_source, stock.get("market_price")),
+        "illustrative_market_price": stock.get("illustrative_market_price"),
         "limitations": valuation["limitations"] + extra_limitations,
+        "valuation_basis": "ttm" if valuation.get("ttm") is not None else "annual",
+        "valuation_basis_asof": (valuation.get("ttm") or {}).get("asof")
+                                or valuation.get("financial_asof"),
+        "valuation_date": (valuation.get("ttm") or {}).get("asof")
+                          or valuation.get("financial_asof"),
     }
+    from .quality import assess_valuation_quality
+    result["quality"] = assess_valuation_quality(result)
+    from .provenance import build_provenance
+    result["evidence"] = build_provenance(result)
+    # WACC provenance classification: company-specific only when beta and equity value
+    # are genuine market observations (not assumed/placeholder).
+    from .market_data import classify_wacc
+    wi = (wacc_block or {}).get("inputs") or {}
+    beta_avail = bool(wi.get("beta", {}).get("available"))
+    equity_avail = bool(wi.get("equity_value", {}).get("available"))
+    result["wacc_basis"] = classify_wacc(wacc_block, beta_avail, equity_avail)
+    # Data freshness (never crashes an otherwise valid analysis).
+    cik = (stock.get("source") or {}).get("cik")
+    if mode == "live" and cik:
+        try:
+            from .freshness import check_freshness
+            result["freshness"] = check_freshness(cik, user_agent)
+        except Exception:
+            result["freshness"] = {"status": "unknown"}
+    else:
+        result["freshness"] = {"status": "offline"}
     return result, df
 
 
@@ -158,13 +211,16 @@ def save_analysis(result: dict, prices: pd.DataFrame, output: str | Path) -> dic
         pd.DataFrame(prow).to_csv(file_peer, index=False)
         file_rel.write_text(json.dumps(result["relative"], indent=2, default=str), encoding="utf-8")
     scenario = result["analysis"]["scenarios"]
+    price = result["analysis"]["market_price"]
+    price_disp = f"${price:,.2f}" if price is not None else "unavailable (no genuine market price)"
+    price_date_disp = result["analysis"]["price_date"] or "unavailable"
     summary = f'''# AutoVal AI — {result["ticker"]} ({result["mode"]})
 
 > {result["company"]}
 
-Data mode: **{result["mode"]}** · Price as of: {result["analysis"]["price_date"]} · Financial FY: {result["analysis"]["financial_asof"]}
+Data mode: **{result["mode"]}** · Market-data mode: **{result.get("market_mode", "current")}** · Price as of: {price_date_disp} · Financial FY: {result["analysis"]["financial_asof"]}
 
-Latest available market close: **${result["analysis"]["market_price"]:,.2f}** per share (not necessarily real-time).
+Latest available market close: **{price_disp}** per share (not necessarily real-time).
 
 | DCF case | Intrinsic per share (USD) | Upside vs close | WACC | FCFF growth | Terminal g |
 |---|---:|---:|---:|---:|---:|
@@ -172,8 +228,9 @@ Latest available market close: **${result["analysis"]["market_price"]:,.2f}** pe
     for case in ("bear","base","bull"):
         r = scenario[case]
         growth_disp = f'{r["growth"]:.1%}' if r.get("growth") is not None else "driver"
+        gap_disp = f'{r["upside_vs_price_pct"]:+.1f}%' if r.get("upside_vs_price_pct") is not None else "n/a"
         summary += (f'| {case.title()} | ${r["intrinsic_per_share_usd"]:,.2f} | '
-                    f'{r["upside_vs_price_pct"]:+.1f}% | {r["wacc"]:.1%} | '
+                    f'{gap_disp} | {r["wacc"]:.1%} | '
                     f'{growth_disp} | {r["terminal_growth"]:.1%} |\n')
     bridge = result["analysis"].get("bridge")
     if bridge:

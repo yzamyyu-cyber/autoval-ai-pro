@@ -1,0 +1,8 @@
+ticker,metric,filing_url,accession,statement,period,units,source_value,autoval_value,difference,status
+MSFT,revenue_fy,https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm,0001193125-26-323660,Income statement,2026-06-30,USD_millions,331839,331839,0,VERIFIED
+MSFT,operating_income_fy,https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm,0001193125-26-323660,Income statement,2026-06-30,USD_millions,155237,155237,0,VERIFIED
+MSFT,net_income_fy,https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm,0001193125-26-323660,Income statement,2026-06-30,USD_millions,133749,133749,0,VERIFIED
+MSFT,diluted_shares,https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm,0001193125-26-323660,Share count note,2026-06-30,millions,7453,7453,0,VERIFIED
+MSFT,cash,https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm,0001193125-26-323660,Balance sheet,2026-06-30,USD_millions,20935,20281,-654,DATE_DIFF
+MSFT,short_term_investments,https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm,0001193125-26-323660,Balance sheet,2026-06-30,USD_millions,55908,44228,-11680,DATE_DIFF
+MSFT,long_term_debt_noncurrent,https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm,0001193125-26-323660,Balance sheet,2026-06-30,USD_millions,31067,31090,23,DATE_DIFF

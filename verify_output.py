@@ -45,6 +45,36 @@ def check_report(report: dict) -> dict:
             "scenario_order_pass":monotone,"checks":checks}
 
 
+def check_multistage(report: dict) -> dict:
+    """Independent Decimal recomputation of the multi-stage DCF (10 explicit+transition
+    FCFF values, ROIC-consistent terminal, and the equity bridge)."""
+    ms = (report.get("analysis") or {}).get("multistage")
+    if not ms:
+        return {"available": False, "passed": False, "checks": []}
+    checks = []
+    for case, data in ms.items():
+        if not isinstance(data, dict) or "forecast_fcff_usd" not in data:
+            continue  # skip roic_sensitivity (list) and assumptions (dict)
+        d = lambda v: Decimal(str(v))
+        wacc = d(data["wacc"])
+        shares = d(data["shares"])
+        net_debt = d(data["net_debt_usd"])
+        stream = [Decimal(str(v)) for v in data["forecast_fcff_usd"]]
+        n = len(stream)
+        total = Decimal("0")
+        for t, cf in enumerate(stream, start=1):
+            total += cf / (1 + wacc) ** t
+        # terminal value (already computed by the engine) discounted n years
+        terminal = d(data["terminal"]["terminal_value_usd"]) / (1 + wacc) ** n
+        independent = float((total + terminal - net_debt) / shares)
+        actual = float(data["intrinsic_per_share_usd"])
+        diff = abs(independent - actual)
+        checks.append({"case": case, "independent_intrinsic_usd": round(independent, 6),
+                       "engine_intrinsic_usd": round(actual, 6), "abs_difference_usd": diff,
+                       "tolerance_usd": 0.01, "pass": diff < 0.01})
+    return {"available": True, "passed": all(c["pass"] for c in checks), "checks": checks}
+
+
 def main():
     parser=argparse.ArgumentParser(description="Independent Decimal DCF check")
     parser.add_argument("--analysis",default="outputs/demo_run/analysis.json")

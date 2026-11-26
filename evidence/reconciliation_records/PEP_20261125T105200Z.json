@@ -1,0 +1,27 @@
+{
+  "company": "PEPSICO INC",
+  "ticker": "PEP",
+  "detected_problem": "Debt component 'LongTermDebtCurrent' is only reported at a stale date 2026-06-13 with nonzero value 1600000000.0; the current-period (2026-09-05) value is unresolved.",
+  "original_production_value": 1600000000.0,
+  "proposed_financial_value": null,
+  "financial_definition": null,
+  "xbrl_tags": [],
+  "reporting_period": null,
+  "filing_date": null,
+  "sec_accession": null,
+  "filing_url": null,
+  "statement_or_note_reference": null,
+  "derivation_formula": null,
+  "accounting_explanation": null,
+  "deterministic_validation": {
+    "status": "unresolved",
+    "checks": [],
+    "hard_failures": [],
+    "soft_warnings": [],
+    "error": "LLM investigation failed: HTTPSConnectionPool(host='tokendance.space', port=443): Read timed out. (read timeout=300)"
+  },
+  "remaining_uncertainty": null,
+  "approval_status": "unresolved",
+  "category": "debt_component_stale_nonzero",
+  "record_utc": "2026-11-25T10:52:00.968098+00:00"
+}

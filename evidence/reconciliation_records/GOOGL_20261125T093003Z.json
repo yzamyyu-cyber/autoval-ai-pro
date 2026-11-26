@@ -1,0 +1,67 @@
+{
+  "ticker": "GOOGL",
+  "company": "Alphabet Inc.",
+  "category": "da_recovery",
+  "detected_problem": "D&A was unavailable; recover from the original cash-flow statement.",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+  "filing_accession": "0001652044-26-000018",
+  "inline_facts": {
+    "Depreciation": 21136000000.0,
+    "FinanceLeaseRightOfUseAssetAmortization": 553000000.0
+  },
+  "deterministic_da": {
+    "status": "derived",
+    "values": {
+      "2020-12-31": 0.0,
+      "2021-12-31": 10273000000.0,
+      "2022-12-31": 13949000000.0,
+      "2023-12-31": 12415000000.0,
+      "2024-12-31": 15724000000.0,
+      "2025-12-31": 22064000000.0
+    },
+    "detail": [
+      {
+        "tag": "Depreciation",
+        "years_present": [
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31",
+          "2024-12-31",
+          "2025-12-31"
+        ],
+        "basis": "component"
+      },
+      {
+        "tag": "AmortizationOfIntangibleAssets",
+        "years_present": [
+          "2025-12-31"
+        ],
+        "basis": "component"
+      },
+      {
+        "tag": "FinanceLeaseRightOfUseAssetAmortization",
+        "years_present": [
+          "2022-12-31",
+          "2023-12-31",
+          "2024-12-31",
+          "2025-12-31"
+        ],
+        "basis": "component"
+      }
+    ]
+  },
+  "llm_da_tag": "component_sum",
+  "llm_reconstruction": [
+    "Depreciation",
+    "AmortizationOfIntangibleAssets",
+    "FinanceLeaseRightOfUseAssetAmortization"
+  ],
+  "llm_explanation": "Depreciation is not the complete D&A figure; it is only the PP&E depreciation component. Finance-lease ROU amortization is separately tagged and must be added, along with intangible amortization when present.",
+  "remaining_uncertainty": "No single consolidated D&A tag is present in the supplied XBRL facts; the total must be reconstructed from non-overlapping component tags.",
+  "deterministic_validation": {
+    "status": "validated",
+    "checks": []
+  },
+  "approval_status": "pending",
+  "record_utc": "2026-11-25T09:30:03.294256+00:00"
+}

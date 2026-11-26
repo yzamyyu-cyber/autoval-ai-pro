@@ -1,0 +1,202 @@
+[
+  {
+    "ticker": "MSFT",
+    "status": "derived",
+    "tag": "FinanceLeaseRightOfUseAssetAmortization",
+    "definition": "reconstructed components",
+    "amount": 44403000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "derived"
+  },
+  {
+    "ticker": "AMZN",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 65756000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "AAPL",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 13423000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "HD",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 3514000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "GOOGL",
+    "status": "derived",
+    "tag": "FinanceLeaseRightOfUseAssetAmortization",
+    "definition": "reconstructed components",
+    "amount": 22064000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "derived"
+  },
+  {
+    "ticker": "TSLA",
+    "status": "derived",
+    "tag": "FinanceLeaseRightOfUseAssetAmortization",
+    "definition": "reconstructed components",
+    "amount": 5148000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "derived"
+  },
+  {
+    "ticker": "NVDA",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 2843000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "WMT",
+    "status": "consolidated",
+    "tag": "DepreciationAmortizationAndAccretionNet",
+    "definition": "consolidated D&A",
+    "amount": 14203000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "COST",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 2674000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "KO",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 1050000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "PG",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 3160000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "MCD",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 457000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "NKE",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 747000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "XOM",
+    "status": "blocked",
+    "tag": null,
+    "definition": null,
+    "amount": null,
+    "source_amount": null,
+    "difference": null,
+    "verification": "unavailable (ValueError)"
+  },
+  {
+    "ticker": "CAT",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 2262000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "UPS",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 3000000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "JNJ",
+    "status": "blocked",
+    "tag": null,
+    "definition": null,
+    "amount": null,
+    "source_amount": null,
+    "difference": null,
+    "verification": "unavailable (ValueError)"
+  },
+  {
+    "ticker": "DIS",
+    "status": "consolidated",
+    "tag": "DepreciationDepletionAndAmortization",
+    "definition": "consolidated D&A",
+    "amount": 5605000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "source-verified"
+  },
+  {
+    "ticker": "ORCL",
+    "status": "derived",
+    "tag": "FinanceLeaseRightOfUseAssetAmortization",
+    "definition": "reconstructed components",
+    "amount": 9645000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "derived"
+  },
+  {
+    "ticker": "AMD",
+    "status": "derived",
+    "tag": "AmortizationOfIntangibleAssets",
+    "definition": "reconstructed components",
+    "amount": 2821000000.0,
+    "source_amount": null,
+    "difference": null,
+    "verification": "derived"
+  }
+]
